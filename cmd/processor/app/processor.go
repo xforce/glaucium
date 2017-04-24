@@ -207,7 +207,7 @@ func internalGenerateSignature(signatureList []string, crashedThread *int) (stri
 
 		newSignatureList = append(newSignatureList, aSignature)
 		// TODO(alexander): This is horrible
-		prefixSignatureRe, _ := regexp.Compile(strings.Join(getFileContents("/mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/data/etc/glaucium/prefix_signature_re.txt"), "|"))
+		prefixSignatureRe, _ := regexp.Compile(strings.Join(getFileContents("data/etc/glaucium/prefix_signature_re.txt"), "|"))
 		if !prefixSignatureRe.MatchString(aSignature) {
 			break
 		}
@@ -268,7 +268,7 @@ func processCrash(rawCrash map[string]interface{}, dumps *cs_interface.FileDumps
 		if !strings.HasPrefix(k, "upload_file_minidump") {
 			continue
 		}
-		cmd := exec.Command("/mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/vendor/breakpad/stackwalker", "--raw-json glaucium.json", v.(string))
+		cmd := exec.Command("vendor/breakpad/stackwalker", "--raw-json glaucium.json", v.(string))
 		var out bytes.Buffer
 		cmd.Stdout = &out
 		cmd.Run()
@@ -309,7 +309,7 @@ func Run() error {
 		new_crash_source = ["rabbitmq"]
 		destination_storage = ["fs"]
 		source_storage = ["fs"]
-		symbol_path = /mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/test/symbols
+		symbol_path = glaucium/test/symbols
 	*/
 	processorConfig.SourceStorage = config.GetDefault("processor.source_storage", []string{"fs"}).([]string)
 	processorConfig.DestinationStorage = config.GetDefault("processor.destination_storage", []string{"fs"}).([]string)

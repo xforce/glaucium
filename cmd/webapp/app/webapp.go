@@ -36,7 +36,7 @@ func Run() error {
 		new_crash_source = ["rabbitmq"]
 		destination_storage = ["fs"]
 		source_storage = ["fs"]
-		symbol_path = /mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/test/symbols
+		symbol_path = test/symbols
 	*/
 	webappConfig.crashStorageClass = config.GetDefault("webapp.crash_storage", []string{"fs"}).([]string)
 
@@ -49,10 +49,10 @@ func Run() error {
 	//val := crashStorage.GetProcessedCrashes(time.Date(2017, time.Month(4), 20, 0, 0, 0, 0, time.UTC))
 	//fmt.Println(val)
 
-	// /mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/data/webapp
+	// data/webapp
 	app := iris.New()
 
-	handlerBarsInstance := view.Handlebars("/mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/data/webapp/views", ".html")
+	handlerBarsInstance := view.Handlebars("data/webapp/views", ".html")
 	handlerBarsInstance.Layout("layout.html")
 	handlerBarsInstance.Reload(true)
 
@@ -69,8 +69,8 @@ func Run() error {
 	app.Get("/", func(ctx *iris.Context) {
 		ctx.Render("home.html", map[string]interface{}{"Name": "Iris", "Type": "Web", "Path": "/"}, iris.RenderOptions{"gzip": true})
 	})
-	app.StaticWeb("/css", "/mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/data/webapp/css")
-	app.StaticWeb("/js", "/mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/data/webapp/js")
+	app.StaticWeb("/css", "data/webapp/css")
+	app.StaticWeb("/js", "data/webapp/js")
 
 	// Group routes, optionally: share middleware, template layout and custom http errors.
 	userAPI := app.Party("/crashes", crashAPIMiddleware).
