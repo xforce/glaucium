@@ -1,0 +1,14 @@
+{
+	"GoPrefix": "github.com/xforce/glaucium",
+	"SrcDirs": [
+		"./pkg",
+		"./cmd"
+	],
+	"SkippedPaths": [
+		"^_.*",
+		"^staging.*",
+		"_vendor"
+	],
+	"AddSourcesRules": true,
+	"VendorMultipleBuildFiles": true
+}

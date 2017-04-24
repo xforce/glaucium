@@ -1,0 +1,1997 @@
+Operating system: Linux
+                  0.0.0 Linux 2.6.32-042stab112.15 #1 SMP Tue Oct 20 17:22:56 MSK 2015 x86_64
+CPU: amd64
+     family 6 model 60 stepping 3
+     1 CPU
+
+GPU: UNKNOWN
+
+Crash reason:  SIGSEGV
+Crash address: 0x0
+Process uptime: not available
+
+Thread 27 (crashed)
+ 0  libJsLanguageNode.so!ReportException [string : 894 + 0x9]
+    rax = 0x0000000000000001   rdx = 0x00000000000000a8
+    rcx = 0x0000000000000001   rbx = 0x00007fe8c0027af0
+    rsi = 0x0000000000000000   rdi = 0x00007fe8c0000020
+    rbp = 0x0000000000000167   rsp = 0x00007fe8d57f6f90
+     r8 = 0x0000000000000001    r9 = 0x0000000000000000
+    r10 = 0x0000000000000018   r11 = 0x00007fe925bbbf10
+    r12 = 0x00007fe8c00035c8   r13 = 0x00007fe8c0027980
+    r14 = 0x00007fe8c00034e0   r15 = 0x0000000000000000
+    rip = 0x00007fe92581a96f
+    Found by: given as instruction pointer in context
+ 1  libJsLanguageNode.so!FatalException [JsLanguage.cpp : 268 + 0x5]
+    rbx = 0x0000000001dc13f0   rbp = 0x00007fe8c00034f8
+    rsp = 0x00007fe8d57f7130   r12 = 0x0000000000000008
+    r13 = 0x0000000000000001   r14 = 0x00007fe8c00034e0
+    r15 = 0x00007fe8c00034f8   rip = 0x00007fe92581b766
+    Found by: call frame info
+ 2  libv8.so + 0x666169
+    rbx = 0x00007fe8d57f71f8   rbp = 0x00007fe8c00034f8
+    rsp = 0x00007fe8d57f7180   r12 = 0x0000000000000008
+    r13 = 0x0000000000000001   r14 = 0x00007fe8c0005490
+    r15 = 0x0000000001dc13f0   rip = 0x00007fe9244ac169
+    Found by: call frame info
+ 3  libJsLanguageNode.so + 0x97a0
+    rsp = 0x00007fe8d57f71a0   rip = 0x00007fe92581b7a0
+    Found by: stack scanning
+ 4  libv8.so + 0x63dd53
+    rsp = 0x00007fe8d57f7260   rip = 0x00007fe924483d53
+    Found by: stack scanning
+ 5  libv8.so + 0x512a6b
+    rsp = 0x00007fe8d57f72b0   rip = 0x00007fe924358a6b
+    Found by: stack scanning
+ 6  libv8.so + 0x512755
+    rsp = 0x00007fe8d57f7360   rip = 0x00007fe924358755
+    Found by: stack scanning
+ 7  libv8.so + 0x16eab7
+    rsp = 0x00007fe8d57f73b0   rip = 0x00007fe923fb4ab7
+    Found by: stack scanning
+ 8  libv8.so + 0x7e917a
+    rsp = 0x00007fe8d57f7440   rip = 0x00007fe92462f17a
+    Found by: stack scanning
+ 9  libnode.so + 0x82d8c
+    rsp = 0x00007fe8d57f7480   rip = 0x00007fe924e7fd8c
+    Found by: stack scanning
+10  libv8.so + 0x1663a5
+    rsp = 0x00007fe8d57f74c0   rip = 0x00007fe923fac3a5
+    Found by: stack scanning
+11  libnode.so + 0xbed71
+    rsp = 0x00007fe8d57f7550   rip = 0x00007fe924ebbd71
+    Found by: stack scanning
+12  libnode.so + 0x26f220
+    rsp = 0x00007fe8d57f7600   rip = 0x00007fe92506c220
+    Found by: stack scanning
+13  libnode.so + 0x26f208
+    rsp = 0x00007fe8d57f7630   rip = 0x00007fe92506c208
+    Found by: stack scanning
+14  libnode.so + 0x270a3a
+    rsp = 0x00007fe8d57f7670   rip = 0x00007fe92506da3a
+    Found by: stack scanning
+15  libnode.so + 0x270c50
+    rsp = 0x00007fe8d57f76b0   rip = 0x00007fe92506dc50
+    Found by: stack scanning
+16  libv8.so + 0x1c515e
+    rsp = 0x00007fe8d57f76c0   rip = 0x00007fe92400b15e
+    Found by: stack scanning
+17  libv8.so + 0x6fbb8b
+    rsp = 0x00007fe8d57f7700   rip = 0x00007fe924541b8b
+    Found by: stack scanning
+18  libv8.so + 0x706e43
+    rsp = 0x00007fe8d57f7750   rip = 0x00007fe92454ce43
+    Found by: stack scanning
+19  libv8.so + 0x703709
+    rsp = 0x00007fe8d57f7790   rip = 0x00007fe924549709
+    Found by: stack scanning
+20  libv8.so + 0x1b6511
+    rsp = 0x00007fe8d57f77b0   rip = 0x00007fe923ffc511
+    Found by: stack scanning
+21  libv8.so + 0x1b667e
+    rsp = 0x00007fe8d57f77c0   rip = 0x00007fe923ffc67e
+    Found by: stack scanning
+22  libv8.so + 0x1b5973
+    rsp = 0x00007fe8d57f7810   rip = 0x00007fe923ffb973
+    Found by: stack scanning
+23  libv8.so + 0x714344
+    rsp = 0x00007fe8d57f7870   rip = 0x00007fe92455a344
+    Found by: stack scanning
+24  libv8.so + 0x70654f
+    rsp = 0x00007fe8d57f78b0   rip = 0x00007fe92454c54f
+    Found by: stack scanning
+25  libv8.so + 0x712de7
+    rsp = 0x00007fe8d57f78f0   rip = 0x00007fe924558de7
+    Found by: stack scanning
+26  libv8.so + 0x706e43
+    rsp = 0x00007fe8d57f7970   rip = 0x00007fe92454ce43
+    Found by: stack scanning
+27  libv8.so + 0x712481
+    rsp = 0x00007fe8d57f79b0   rip = 0x00007fe924558481
+    Found by: stack scanning
+28  libv8.so + 0x730f2a
+    rsp = 0x00007fe8d57f7a00   rip = 0x00007fe924576f2a
+    Found by: stack scanning
+29  libv8.so + 0x6e73da
+    rsp = 0x00007fe8d57f7a50   rip = 0x00007fe92452d3da
+    Found by: stack scanning
+30  libv8.so + 0x712de7
+    rsp = 0x00007fe8d57f7ab0   rip = 0x00007fe924558de7
+    Found by: stack scanning
+31  libnode.so + 0x27d27d
+    rsp = 0x00007fe8d57f7ae0   rip = 0x00007fe92507a27d
+    Found by: stack scanning
+32  libv8.so + 0x1b5935
+    rsp = 0x00007fe8d57f7b50   rip = 0x00007fe923ffb935
+    Found by: stack scanning
+33  libv8.so + 0x1b6511
+    rsp = 0x00007fe8d57f7b60   rip = 0x00007fe923ffc511
+    Found by: stack scanning
+34  libv8.so + 0x1c515e
+    rsp = 0x00007fe8d57f7be0   rip = 0x00007fe92400b15e
+    Found by: stack scanning
+35  libv8.so + 0x6fbb8b
+    rsp = 0x00007fe8d57f7c20   rip = 0x00007fe924541b8b
+    Found by: stack scanning
+36  libv8.so + 0x6e73da
+    rsp = 0x00007fe8d57f7c70   rip = 0x00007fe92452d3da
+    Found by: stack scanning
+37  libv8.so + 0x1b6511
+    rsp = 0x00007fe8d57f7cd0   rip = 0x00007fe923ffc511
+    Found by: stack scanning
+38  libv8.so + 0x1b667e
+    rsp = 0x00007fe8d57f7ce0   rip = 0x00007fe923ffc67e
+    Found by: stack scanning
+39  libv8.so + 0xbf7ef0
+    rsp = 0x00007fe8d57f7d70   rip = 0x00007fe924a3def0
+    Found by: stack scanning
+40  libv8.so + 0x72feba
+    rsp = 0x00007fe8d57f7dc0   rip = 0x00007fe924575eba
+    Found by: stack scanning
+41  libv8.so + 0x705ae7
+    rsp = 0x00007fe8d57f7dd0   rip = 0x00007fe92454bae7
+    Found by: stack scanning
+42  libv8.so + 0x6fbb8b
+    rsp = 0x00007fe8d57f7e20   rip = 0x00007fe924541b8b
+    Found by: stack scanning
+43  libv8.so + 0x706e43
+    rsp = 0x00007fe8d57f7e70   rip = 0x00007fe92454ce43
+    Found by: stack scanning
+44  libv8.so + 0x703925
+    rsp = 0x00007fe8d57f7eb0   rip = 0x00007fe924549925
+    Found by: stack scanning
+45  libv8.so + 0x706e43
+    rsp = 0x00007fe8d57f7f30   rip = 0x00007fe92454ce43
+    Found by: stack scanning
+46  libv8.so + 0x714344
+    rsp = 0x00007fe8d57f7f90   rip = 0x00007fe92455a344
+    Found by: stack scanning
+47  libv8.so + 0x1b6511
+    rsp = 0x00007fe8d57f7fb0   rip = 0x00007fe923ffc511
+    Found by: stack scanning
+48  libv8.so + 0x1b667e
+    rsp = 0x00007fe8d57f7fc0   rip = 0x00007fe923ffc67e
+    Found by: stack scanning
+49  libv8.so + 0x1b5935
+    rsp = 0x00007fe8d57f7ff0   rip = 0x00007fe923ffb935
+    Found by: stack scanning
+50  libv8.so + 0x1c515e
+    rsp = 0x00007fe8d57f8080   rip = 0x00007fe92400b15e
+    Found by: stack scanning
+51  libv8.so + 0x6fbb8b
+    rsp = 0x00007fe8d57f80c0   rip = 0x00007fe924541b8b
+    Found by: stack scanning
+52  libv8.so + 0x6e73da
+    rsp = 0x00007fe8d57f8110   rip = 0x00007fe92452d3da
+    Found by: stack scanning
+53  libv8.so + 0x730ee8
+    rsp = 0x00007fe8d57f8120   rip = 0x00007fe924576ee8
+    Found by: stack scanning
+54  libv8.so + 0x1b6511
+    rsp = 0x00007fe8d57f8170   rip = 0x00007fe923ffc511
+    Found by: stack scanning
+55  libv8.so + 0x1b667e
+    rsp = 0x00007fe8d57f8180   rip = 0x00007fe923ffc67e
+    Found by: stack scanning
+56  libv8.so + 0xbf7ef0
+    rsp = 0x00007fe8d57f8210   rip = 0x00007fe924a3def0
+    Found by: stack scanning
+57  libv8.so + 0x72feba
+    rsp = 0x00007fe8d57f8260   rip = 0x00007fe924575eba
+    Found by: stack scanning
+58  libv8.so + 0x705ae7
+    rsp = 0x00007fe8d57f8270   rip = 0x00007fe92454bae7
+    Found by: stack scanning
+59  libv8.so + 0x6fbb8b
+    rsp = 0x00007fe8d57f82c0   rip = 0x00007fe924541b8b
+    Found by: stack scanning
+60  libv8.so + 0x706e43
+    rsp = 0x00007fe8d57f8310   rip = 0x00007fe92454ce43
+    Found by: stack scanning
+61  libv8.so + 0x703925
+    rsp = 0x00007fe8d57f8350   rip = 0x00007fe924549925
+    Found by: stack scanning
+62  libv8.so + 0x70dcd4
+    rsp = 0x00007fe8d57f8380   rip = 0x00007fe924553cd4
+    Found by: stack scanning
+63  libv8.so + 0x714344
+    rsp = 0x00007fe8d57f8430   rip = 0x00007fe92455a344
+    Found by: stack scanning
+64  libv8.so + 0x1c55e2
+    rsp = 0x00007fe8d57f8450   rip = 0x00007fe92400b5e2
+    Found by: stack scanning
+65  libv8.so + 0x1c562e
+    rsp = 0x00007fe8d57f8470   rip = 0x00007fe92400b62e
+    Found by: stack scanning
+66  libv8.so + 0x712de7
+    rsp = 0x00007fe8d57f84b0   rip = 0x00007fe924558de7
+    Found by: stack scanning
+67  libv8.so + 0x6dabd5
+    rsp = 0x00007fe8d57f84f0   rip = 0x00007fe924520bd5
+    Found by: stack scanning
+68  libv8.so + 0x1b6511
+    rsp = 0x00007fe8d57f8510   rip = 0x00007fe923ffc511
+    Found by: stack scanning
+69  libv8.so + 0x1b667e
+    rsp = 0x00007fe8d57f8520   rip = 0x00007fe923ffc67e
+    Found by: stack scanning
+70  libv8.so + 0x712481
+    rsp = 0x00007fe8d57f8570   rip = 0x00007fe924558481
+    Found by: stack scanning
+71  libv8.so + 0x73032e
+    rsp = 0x00007fe8d57f8580   rip = 0x00007fe92457632e
+    Found by: stack scanning
+72  libv8.so + 0x730ee8
+    rsp = 0x00007fe8d57f85c0   rip = 0x00007fe924576ee8
+    Found by: stack scanning
+73  libv8.so + 0x6e73da
+    rsp = 0x00007fe8d57f8610   rip = 0x00007fe92452d3da
+    Found by: stack scanning
+74  libv8.so + 0x6fbb8b
+    rsp = 0x00007fe8d57f8620   rip = 0x00007fe924541b8b
+    Found by: stack scanning
+75  libv8.so + 0x6e73da
+    rsp = 0x00007fe8d57f8670   rip = 0x00007fe92452d3da
+    Found by: stack scanning
+76  libv8.so + 0x6fe26a
+    rsp = 0x00007fe8d57f8770   rip = 0x00007fe92454426a
+    Found by: stack scanning
+77  libv8.so + 0x730b3e
+    rsp = 0x00007fe8d57f87b0   rip = 0x00007fe924576b3e
+    Found by: stack scanning
+78  libv8.so + 0x72fe78
+    rsp = 0x00007fe8d57f87f0   rip = 0x00007fe924575e78
+    Found by: stack scanning
+79  libv8.so + 0x6e58f7
+    rsp = 0x00007fe8d57f8800   rip = 0x00007fe92452b8f7
+    Found by: stack scanning
+80  libv8.so + 0x70dcd4
+    rsp = 0x00007fe8d57f8820   rip = 0x00007fe924553cd4
+    Found by: stack scanning
+81  libv8.so + 0x72fe78
+    rsp = 0x00007fe8d57f8870   rip = 0x00007fe924575e78
+    Found by: stack scanning
+82  libv8.so + 0x6fb9ea
+    rsp = 0x00007fe8d57f88f0   rip = 0x00007fe9245419ea
+    Found by: stack scanning
+83  libv8.so + 0x72feba
+    rsp = 0x00007fe8d57f8940   rip = 0x00007fe924575eba
+    Found by: stack scanning
+84  libv8.so + 0x1afcb8
+    rsp = 0x00007fe8d57f8960   rip = 0x00007fe923ff5cb8
+    Found by: stack scanning
+85  libv8.so + 0x6dabd5
+    rsp = 0x00007fe8d57f8990   rip = 0x00007fe924520bd5
+    Found by: stack scanning
+86  libv8.so + 0x6e069e
+    rsp = 0x00007fe8d57f89e0   rip = 0x00007fe92452669e
+    Found by: stack scanning
+87  libv8.so + 0x6e0762
+    rsp = 0x00007fe8d57f8a10   rip = 0x00007fe924526762
+    Found by: stack scanning
+88  libv8.so + 0x53225e
+    rsp = 0x00007fe8d57f8a80   rip = 0x00007fe92437825e
+    Found by: stack scanning
+89  libv8.so + 0x568a8a
+    rsp = 0x00007fe8d57f8ab0   rip = 0x00007fe9243aea8a
+    Found by: stack scanning
+90  libv8.so + 0x5221e2
+    rsp = 0x00007fe8d57f8ad0   rip = 0x00007fe9243681e2
+    Found by: stack scanning
+91  libv8.so + 0x6a95cf
+    rsp = 0x00007fe8d57f8b10   rip = 0x00007fe9244ef5cf
+    Found by: stack scanning
+92  libv8.so + 0x53225e
+    rsp = 0x00007fe8d57f8b70   rip = 0x00007fe92437825e
+    Found by: stack scanning
+93  libv8.so + 0x568a8a
+    rsp = 0x00007fe8d57f8ba0   rip = 0x00007fe9243aea8a
+    Found by: stack scanning
+94  libv8.so + 0x5221e2
+    rsp = 0x00007fe8d57f8bc0   rip = 0x00007fe9243681e2
+    Found by: stack scanning
+95  libv8.so + 0x1b667e
+    rsp = 0x00007fe8d57f8bd0   rip = 0x00007fe923ffc67e
+    Found by: stack scanning
+96  libv8.so + 0x6a95cf
+    rsp = 0x00007fe8d57f8c00   rip = 0x00007fe9244ef5cf
+    Found by: stack scanning
+97  libv8.so + 0x6a9808
+    rsp = 0x00007fe8d57f8c40   rip = 0x00007fe9244ef808
+    Found by: stack scanning
+98  libv8.so + 0x260f6f
+    rsp = 0x00007fe8d57f8c90   rip = 0x00007fe9240a6f6f
+    Found by: stack scanning
+99  libv8.so + 0x2614e9
+    rsp = 0x00007fe8d57f8cb0   rip = 0x00007fe9240a74e9
+    Found by: stack scanning
+100  libv8.so + 0x260f6f
+    rsp = 0x00007fe8d57f8cc0   rip = 0x00007fe9240a6f6f
+    Found by: stack scanning
+101  libv8.so + 0x2614e9
+    rsp = 0x00007fe8d57f8ce0   rip = 0x00007fe9240a74e9
+    Found by: stack scanning
+102  libv8.so + 0x914d8c
+    rsp = 0x00007fe8d57f8d00   rip = 0x00007fe92475ad8c
+    Found by: stack scanning
+103  libv8.so + 0x406aae
+    rsp = 0x00007fe8d57f8d20   rip = 0x00007fe92424caae
+    Found by: stack scanning
+104  libv8.so + 0x53225e
+    rsp = 0x00007fe8d57f8d70   rip = 0x00007fe92437825e
+    Found by: stack scanning
+105  libv8.so + 0x568a8a
+    rsp = 0x00007fe8d57f8da0   rip = 0x00007fe9243aea8a
+    Found by: stack scanning
+106  libv8.so + 0x5221e2
+    rsp = 0x00007fe8d57f8dc0   rip = 0x00007fe9243681e2
+    Found by: stack scanning
+107  libv8.so + 0x6a95cf
+    rsp = 0x00007fe8d57f8e00   rip = 0x00007fe9244ef5cf
+    Found by: stack scanning
+108  libv8.so + 0x53225e
+    rsp = 0x00007fe8d57f8e60   rip = 0x00007fe92437825e
+    Found by: stack scanning
+109  libv8.so + 0x568a8a
+    rsp = 0x00007fe8d57f8e90   rip = 0x00007fe9243aea8a
+    Found by: stack scanning
+110  libv8.so + 0x5221e2
+    rsp = 0x00007fe8d57f8eb0   rip = 0x00007fe9243681e2
+    Found by: stack scanning
+111  libv8.so + 0x6a95cf
+    rsp = 0x00007fe8d57f8ef0   rip = 0x00007fe9244ef5cf
+    Found by: stack scanning
+112  libv8.so + 0x6a9808
+    rsp = 0x00007fe8d57f8f30   rip = 0x00007fe9244ef808
+    Found by: stack scanning
+113  libv8.so + 0x260f6f
+    rsp = 0x00007fe8d57f8f40   rip = 0x00007fe9240a6f6f
+    Found by: stack scanning
+114  libv8.so + 0x2614e9
+    rsp = 0x00007fe8d57f8f60   rip = 0x00007fe9240a74e9
+    Found by: stack scanning
+115  libv8.so + 0x6b4738
+    rsp = 0x00007fe8d57f8f80   rip = 0x00007fe9244fa738
+    Found by: stack scanning
+116  libv8.so + 0x260f6f
+    rsp = 0x00007fe8d57f8f90   rip = 0x00007fe9240a6f6f
+    Found by: stack scanning
+117  libv8.so + 0x2614e9
+    rsp = 0x00007fe8d57f8fb0   rip = 0x00007fe9240a74e9
+    Found by: stack scanning
+118  libv8.so + 0x914d8c
+    rsp = 0x00007fe8d57f8ff0   rip = 0x00007fe92475ad8c
+    Found by: stack scanning
+119  libv8.so + 0x406aae
+    rsp = 0x00007fe8d57f9010   rip = 0x00007fe92424caae
+    Found by: stack scanning
+
+Thread 0
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007ffe90830d18
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x00007fe927248601   rsp = 0x00007ffe90830c50
+     r8 = 0x0000000001dc6a20    r9 = 0x0000000000002592
+    r10 = 0x0000000000000000   r11 = 0x0000000000000202
+    r12 = 0x00007ffe90830ec8   r13 = 0x00000000021b2788
+    r14 = 0x0000000001dc6a20   r15 = 0x00007ffe90830db1
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007ffe90830c68   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libHttp.so + 0x30df84
+    rsp = 0x00007ffe90830c70   rip = 0x00007fe927801f84
+    Found by: stack scanning
+ 3  libc-2.17.so + 0x3ba760
+    rsp = 0x00007ffe90830cc0   rip = 0x00007fe925df4760
+    Found by: stack scanning
+ 4  libv8.so + 0x63911c
+    rsp = 0x00007ffe90830ce0   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 5  libv8.so + 0x8d3b1e
+    rsp = 0x00007ffe90830cf0   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 6  libJsLanguageNode.so!V8ScriptEngine::Start [v8.h : 8086 + 0x8]
+    rsp = 0x00007ffe90830d10   rip = 0x00007fe92582b85b
+    Found by: stack scanning
+ 7  libScripting.so + 0x30614
+    rbx = 0x0000000001e75a50   rsp = 0x00007ffe90830d80
+    r12 = 0x00007ffe90830ec8   r13 = 0x0000000001dbe2f0
+    r14 = 0x0000000001e759e8   r15 = 0x00007ffe90830db1
+    rip = 0x00007fe926ffb614
+    Found by: call frame info
+ 8  libScripting.so + 0x2a27e
+    rsp = 0x00007ffe90830db0   rip = 0x00007fe926ff527e
+    Found by: stack scanning
+ 9  libc-2.17.so + 0x3ba760
+    rsp = 0x00007ffe90830de0   rip = 0x00007fe925df4760
+    Found by: stack scanning
+10  libc-2.17.so + 0x7ffbc
+    rsp = 0x00007ffe90830e10   rip = 0x00007fe925ab9fbc
+    Found by: stack scanning
+11  libScripting.so + 0x2bdf2
+    rsp = 0x00007ffe90830e70   rip = 0x00007fe926ff6df2
+    Found by: stack scanning
+12  libScripting.so + 0x2a5cc
+    rsp = 0x00007ffe90830eb0   rip = 0x00007fe926ff55cc
+    Found by: stack scanning
+13  libc-2.17.so + 0x3ba760
+    rsp = 0x00007ffe90830ee0   rip = 0x00007fe925df4760
+    Found by: stack scanning
+14  libc-2.17.so + 0x7ffbc
+    rsp = 0x00007ffe90830f10   rip = 0x00007fe925ab9fbc
+    Found by: stack scanning
+15  libScripting.so + 0x2a5cc
+    rsp = 0x00007ffe90830fb0   rip = 0x00007fe926ff55cc
+    Found by: stack scanning
+16  libScripting.so + 0x29b9d
+    rsp = 0x00007ffe908310b0   rip = 0x00007fe926ff4b9d
+    Found by: stack scanning
+17  libScripting.so + 0x29b10
+    rsp = 0x00007ffe90831110   rip = 0x00007fe926ff4b10
+    Found by: stack scanning
+18  libkLogger.so + 0x398d0
+    rsp = 0x00007ffe90831120   rip = 0x00007fe926c338d0
+    Found by: stack scanning
+19  Server + 0x14f51
+    rsp = 0x00007ffe90831130   rip = 0x0000000000414f51
+    Found by: stack scanning
+20  Server + 0x149ae
+    rsp = 0x00007ffe90831170   rip = 0x00000000004149ae
+    Found by: stack scanning
+21  libkLogger.so + 0x38b37
+    rsp = 0x00007ffe90831190   rip = 0x00007fe926c32b37
+    Found by: stack scanning
+22  libc-2.17.so + 0x3ba760
+    rsp = 0x00007ffe908311f0   rip = 0x00007fe925df4760
+    Found by: stack scanning
+23  libScripting.so + 0x13040
+    rsp = 0x00007ffe90831200   rip = 0x00007fe926fde040
+    Found by: stack scanning
+24  libHttp.so + 0x3034f8
+    rsp = 0x00007ffe90831240   rip = 0x00007fe9277f74f8
+    Found by: stack scanning
+25  libHttp.so + 0x30281d
+    rsp = 0x00007ffe908312c0   rip = 0x00007fe9277f681d
+    Found by: stack scanning
+26  Server + 0x162c9
+    rsp = 0x00007ffe908312f0   rip = 0x00000000004162c9
+    Found by: stack scanning
+27  libHttp.so + 0x24098
+    rsp = 0x00007ffe90831310   rip = 0x00007fe927518098
+    Found by: stack scanning
+28  libc-2.17.so + 0x7ffbc
+    rsp = 0x00007ffe90831360   rip = 0x00007fe925ab9fbc
+    Found by: stack scanning
+29  libHttp.so + 0x3034f8
+    rsp = 0x00007ffe90831380   rip = 0x00007fe9277f74f8
+    Found by: stack scanning
+30  Server + 0xcb60
+    rsp = 0x00007ffe90831398   rip = 0x000000000040cb60
+    Found by: stack scanning
+31  Server + 0x13e47
+    rsp = 0x00007ffe908313c0   rip = 0x0000000000413e47
+    Found by: stack scanning
+32  Server + 0xcb59
+    rsp = 0x00007ffe908313d0   rip = 0x000000000040cb59
+    Found by: stack scanning
+33  Server + 0xcb60
+    rsp = 0x00007ffe908313f8   rip = 0x000000000040cb60
+    Found by: stack scanning
+34  libc-2.17.so + 0x21b35
+    rsp = 0x00007ffe90831420   rip = 0x00007fe925a5bb35
+    Found by: stack scanning
+35  Server + 0x13d60
+    rsp = 0x00007ffe90831440   rip = 0x0000000000413d60
+    Found by: stack scanning
+36  Server + 0xcb60
+    rsp = 0x00007ffe90831458   rip = 0x000000000040cb60
+    Found by: stack scanning
+37  ld-2.17.so + 0xf1e3
+    rsp = 0x00007ffe908314a0   rip = 0x00007fe927bb21e3
+    Found by: stack scanning
+38  Server + 0xcb60
+    rsp = 0x00007ffe908314c8   rip = 0x000000000040cb60
+    Found by: stack scanning
+39  Server + 0xcb8a
+    rsp = 0x00007ffe908314e0   rip = 0x000000000040cb8a
+    Found by: stack scanning
+40  0x7ffe90851000
+    rsp = 0x00007ffe90831600   rip = 0x00007ffe90851000
+    Found by: stack scanning
+41  Server + 0x40
+    rsp = 0x00007ffe90831640   rip = 0x0000000000400040
+    Found by: stack scanning
+42  0x7fe927ba3000
+    rsp = 0x00007ffe90831670   rip = 0x00007fe927ba3000
+    Found by: stack scanning
+43  Server + 0xcb60
+    rsp = 0x00007ffe90831690   rip = 0x000000000040cb60
+    Found by: stack scanning
+
+Thread 1
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000008f0d180
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe923c3cd88
+    rsi = 0x00007fe923c3cd08   rdi = 0x00007fe923c3cd08
+    rbp = 0x00007fe923c3ced0   rsp = 0x00007fe923c3cc90
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe926fc9190   r13 = 0x0000000001dbe1f0
+    r14 = 0x00007fe923c3cd18   r15 = 0x00007fe923c3cee8
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe923c3ced0   rsp = 0x00007fe923c3cca0
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 2
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000000000000
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe92323bd88
+    rsi = 0x00007fe92323bd08   rdi = 0x00007fe92323bd08
+    rbp = 0x00007fe92323bed0   rsp = 0x00007fe92323bc90
+     r8 = 0x000000003b9aca00    r9 = 0x000000003b9aca00
+    r10 = 0x000000003b9aca00   r11 = 0x0000000000000293
+    r12 = 0x00007fe926fc9190   r13 = 0x00007fe92323c9c0
+    r14 = 0x00007fe92323bd18   r15 = 0x00007fe92323bee8
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe92323bed0   rsp = 0x00007fe92323bca0
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 3
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000000000000
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe92283ad88
+    rsi = 0x00007fe92283ad08   rdi = 0x00007fe92283ad08
+    rbp = 0x00007fe92283aed0   rsp = 0x00007fe92283ac90
+     r8 = 0x000000012a05f200    r9 = 0x000000012a05f200
+    r10 = 0x00007fe92283aa20   r11 = 0x0000000000000293
+    r12 = 0x000000012a05f200   r13 = 0x00007fe926fc9190
+    r14 = 0x00007fe92283ad18   r15 = 0x00007fe92283aee0
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe92283aed0   rsp = 0x00007fe92283aca0
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 4
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000001036640
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe921e39c98
+    rsi = 0x00007fe921e39c18   rdi = 0x00007fe921e39c18
+    rbp = 0x00007fe921e39de0   rsp = 0x00007fe921e39ba0
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x0000000000000000   r13 = 0x0000000001dbc7e8
+    r14 = 0x00007fe921e39c28   r15 = 0x00007fe921e39e28
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libNetwork.so + 0x29aed
+    rbp = 0x00007fe9274eff80   rsp = 0x00007fe921e39df0
+    rip = 0x00007fe927272aed
+    Found by: previous frame's frame pointer
+ 2  libpthread-2.17.so + 0x7dc5
+    rbp = 0x00007fe9274eff80   rsp = 0x00007fe921e39f20
+    rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+ 3  libc-2.17.so + 0xf773d
+    rbp = 0x00007fe9274eff80   rsp = 0x00007fe921e39fc0
+    rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 5
+ 0  libpthread-2.17.so + 0xd79b
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000000
+    rcx = 0xffffffffffffffff   rbx = 0x00000000000000ca
+    rsi = 0x0000000000000080   rdi = 0x0000000001dbfe80
+    rbp = 0x0000000001dbfe80   rsp = 0x00007fe91ce31e10
+     r8 = 0x0000000000000000    r9 = 0x000000000000259f
+    r10 = 0x0000000000000000   r11 = 0x0000000000000282
+    r12 = 0xfffffffeffffffff   r13 = 0x00007fe91ce329c0
+    r14 = 0x0000000001dbfea0   r15 = 0x0000000000000022
+    rip = 0x00007fe925e0879b
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0xd82f
+    rsp = 0x00007fe91ce31e30   rip = 0x00007fe925e0882f
+    Found by: stack scanning
+ 2  libpthread-2.17.so + 0xd760
+    rsp = 0x00007fe91ce31e48   rip = 0x00007fe925e08760
+    Found by: stack scanning
+ 3  libpthread-2.17.so + 0xd8cb
+    rsp = 0x00007fe91ce31e80   rip = 0x00007fe925e088cb
+    Found by: stack scanning
+ 4  libnode.so + 0x285e98
+    rsp = 0x00007fe91ce31ea0   rip = 0x00007fe925082e98
+    Found by: stack scanning
+ 5  libnode.so + 0x1112d8
+    rsp = 0x00007fe91ce31eb0   rip = 0x00007fe924f0e2d8
+    Found by: stack scanning
+ 6  libnode.so + 0x114a8b
+    rsp = 0x00007fe91ce31ee0   rip = 0x00007fe924f11a8b
+    Found by: stack scanning
+ 7  libnode.so + 0x6d6908
+    rsp = 0x00007fe91ce31ee8   rip = 0x00007fe9254d3908
+    Found by: stack scanning
+ 8  libnode.so + 0x2887cd
+    rsp = 0x00007fe91ce31f00   rip = 0x00007fe9250857cd
+    Found by: stack scanning
+ 9  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe91ce31f20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+10  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe91ce31fc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 6
+ 0  libpthread-2.17.so + 0xd79b
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000000
+    rcx = 0xffffffffffffffff   rbx = 0x00000000000000ca
+    rsi = 0x0000000000000080   rdi = 0x0000000001dbfe80
+    rbp = 0x0000000001dbfe80   rsp = 0x00007fe91d832e10
+     r8 = 0x0000000000000000    r9 = 0x00000000000025a0
+    r10 = 0x0000000000000000   r11 = 0x0000000000000282
+    r12 = 0xfffffffeffffffff   r13 = 0x00007fe91d8339c0
+    r14 = 0x0000000001dbfea0   r15 = 0x0000000000000022
+    rip = 0x00007fe925e0879b
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0xd82f
+    rsp = 0x00007fe91d832e30   rip = 0x00007fe925e0882f
+    Found by: stack scanning
+ 2  libpthread-2.17.so + 0xd760
+    rsp = 0x00007fe91d832e48   rip = 0x00007fe925e08760
+    Found by: stack scanning
+ 3  libpthread-2.17.so + 0xd8cb
+    rsp = 0x00007fe91d832e80   rip = 0x00007fe925e088cb
+    Found by: stack scanning
+ 4  libnode.so + 0x285e98
+    rsp = 0x00007fe91d832ea0   rip = 0x00007fe925082e98
+    Found by: stack scanning
+ 5  libnode.so + 0x1112d8
+    rsp = 0x00007fe91d832eb0   rip = 0x00007fe924f0e2d8
+    Found by: stack scanning
+ 6  libnode.so + 0x114a8b
+    rsp = 0x00007fe91d832ee0   rip = 0x00007fe924f11a8b
+    Found by: stack scanning
+ 7  libnode.so + 0x6d6908
+    rsp = 0x00007fe91d832ee8   rip = 0x00007fe9254d3908
+    Found by: stack scanning
+ 8  libnode.so + 0x2887cd
+    rsp = 0x00007fe91d832f00   rip = 0x00007fe9250857cd
+    Found by: stack scanning
+ 9  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe91d832f20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+10  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe91d832fc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 7
+ 0  libpthread-2.17.so + 0xd79b
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000000
+    rcx = 0xffffffffffffffff   rbx = 0x00000000000000ca
+    rsi = 0x0000000000000080   rdi = 0x0000000001dbfe80
+    rbp = 0x0000000001dbfe80   rsp = 0x00007fe91e233e10
+     r8 = 0x0000000000000000    r9 = 0x00000000000025a1
+    r10 = 0x0000000000000000   r11 = 0x0000000000000282
+    r12 = 0xfffffffeffffffff   r13 = 0x00007fe91e2349c0
+    r14 = 0x0000000001dbfea0   r15 = 0x0000000000000022
+    rip = 0x00007fe925e0879b
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0xd82f
+    rsp = 0x00007fe91e233e30   rip = 0x00007fe925e0882f
+    Found by: stack scanning
+ 2  libpthread-2.17.so + 0xd760
+    rsp = 0x00007fe91e233e48   rip = 0x00007fe925e08760
+    Found by: stack scanning
+ 3  libpthread-2.17.so + 0xd8cb
+    rsp = 0x00007fe91e233e80   rip = 0x00007fe925e088cb
+    Found by: stack scanning
+ 4  libnode.so + 0x285e98
+    rsp = 0x00007fe91e233ea0   rip = 0x00007fe925082e98
+    Found by: stack scanning
+ 5  libnode.so + 0x1112d8
+    rsp = 0x00007fe91e233eb0   rip = 0x00007fe924f0e2d8
+    Found by: stack scanning
+ 6  libnode.so + 0x114a8b
+    rsp = 0x00007fe91e233ee0   rip = 0x00007fe924f11a8b
+    Found by: stack scanning
+ 7  libnode.so + 0x6d6908
+    rsp = 0x00007fe91e233ee8   rip = 0x00007fe9254d3908
+    Found by: stack scanning
+ 8  libnode.so + 0x2887cd
+    rsp = 0x00007fe91e233f00   rip = 0x00007fe9250857cd
+    Found by: stack scanning
+ 9  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe91e233f20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+10  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe91e233fc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 8
+ 0  libpthread-2.17.so + 0xd79b
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000000
+    rcx = 0xffffffffffffffff   rbx = 0x00000000000000ca
+    rsi = 0x0000000000000080   rdi = 0x0000000001dbfe80
+    rbp = 0x0000000001dbfe80   rsp = 0x00007fe921438e10
+     r8 = 0x0000000000000000    r9 = 0x00000000000025a2
+    r10 = 0x0000000000000000   r11 = 0x0000000000000282
+    r12 = 0xfffffffeffffffff   r13 = 0x00007fe9214399c0
+    r14 = 0x0000000001dbfea0   r15 = 0x0000000001dbfe68
+    rip = 0x00007fe925e0879b
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0xd82f
+    rsp = 0x00007fe921438e30   rip = 0x00007fe925e0882f
+    Found by: stack scanning
+ 2  libpthread-2.17.so + 0xd760
+    rsp = 0x00007fe921438e48   rip = 0x00007fe925e08760
+    Found by: stack scanning
+ 3  libpthread-2.17.so + 0xd8cb
+    rsp = 0x00007fe921438e80   rip = 0x00007fe925e088cb
+    Found by: stack scanning
+ 4  libnode.so + 0x285e98
+    rsp = 0x00007fe921438ea0   rip = 0x00007fe925082e98
+    Found by: stack scanning
+ 5  libnode.so + 0x1112d8
+    rsp = 0x00007fe921438eb0   rip = 0x00007fe924f0e2d8
+    Found by: stack scanning
+ 6  libnode.so + 0x114a8b
+    rsp = 0x00007fe921438ee0   rip = 0x00007fe924f11a8b
+    Found by: stack scanning
+ 7  libnode.so + 0x6d6908
+    rsp = 0x00007fe921438ee8   rip = 0x00007fe9254d3908
+    Found by: stack scanning
+ 8  libnode.so + 0x2887cd
+    rsp = 0x00007fe921438f00   rip = 0x00007fe9250857cd
+    Found by: stack scanning
+ 9  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe921438f20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+10  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe921438fc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 9
+ 0  libpthread-2.17.so + 0xd79b
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000000
+    rcx = 0xffffffffffffffff   rbx = 0x00000000000000ca
+    rsi = 0x0000000000000080   rdi = 0x00007fe925503bc8
+    rbp = 0x00007fe925503bc8   rsp = 0x00007fe927daee60
+     r8 = 0x0000000000000000    r9 = 0x00007fe927daf700
+    r10 = 0x0000000000000000   r11 = 0x0000000000000282
+    r12 = 0xfffffffeffffffff   r13 = 0x00007fe927daf9c0
+    r14 = 0x00007fe925503bc8   r15 = 0x00007fe925503b00
+    rip = 0x00007fe925e0879b
+    Found by: given as instruction pointer in context
+ 1  libnode.so + 0x706bc8
+    rsp = 0x00007fe927daee70   rip = 0x00007fe925503bc8
+    Found by: stack scanning
+ 2  libpthread-2.17.so + 0xd82f
+    rsp = 0x00007fe927daee80   rip = 0x00007fe925e0882f
+    Found by: stack scanning
+ 3  libpthread-2.17.so + 0xd760
+    rsp = 0x00007fe927daee98   rip = 0x00007fe925e08760
+    Found by: stack scanning
+ 4  libnode.so + 0x706bc8
+    rsp = 0x00007fe927daeea0   rip = 0x00007fe925503bc8
+    Found by: stack scanning
+ 5  libnode.so + 0x706bc8
+    rsp = 0x00007fe927daeeb8   rip = 0x00007fe925503bc8
+    Found by: stack scanning
+ 6  libpthread-2.17.so + 0xd8cb
+    rsp = 0x00007fe927daeed0   rip = 0x00007fe925e088cb
+    Found by: stack scanning
+ 7  libnode.so + 0x27a83c
+    rsp = 0x00007fe927daeef0   rip = 0x00007fe92507783c
+    Found by: stack scanning
+ 8  libnode.so + 0x706a58
+    rsp = 0x00007fe927daeef8   rip = 0x00007fe925503a58
+    Found by: stack scanning
+ 9  libnode.so + 0x9f148
+    rsp = 0x00007fe927daef00   rip = 0x00007fe924e9c148
+    Found by: stack scanning
+10  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe927daef20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+11  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe927daefc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 10
+ 0  libc-2.17.so + 0xf7d13
+    rax = 0xfffffffffffffffc   rdx = 0x0000000000000001
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe920a04b80
+    rsi = 0x00007fe91ee92b00   rdi = 0x000000000000000d
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92af0
+     r8 = 0x0000000000000000    r9 = 0x00000000000025a4
+    r10 = 0x0000000000000031   r11 = 0x0000000000000293
+    r12 = 0x00007fe9180008c0   r13 = 0x00007fe920a1eed0
+    r14 = 0x0000000000000000   r15 = 0x00007fe91ee92ba8
+    rip = 0x00007fe925b31d13
+    Found by: given as instruction pointer in context
+ 1  steamclient.so + 0x215903
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92b00
+    rip = 0x00007fe91f84b903
+    Found by: stack scanning
+ 2  steamclient.so + 0x217d85
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92b20
+    rip = 0x00007fe91f84dd85
+    Found by: stack scanning
+ 3  steamclient.so + 0xda4f9e
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92b80
+    rip = 0x00007fe9203daf9e
+    Found by: stack scanning
+ 4  steamclient.so + 0x12fbfc0
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92ba8
+    rip = 0x00007fe920931fc0
+    Found by: stack scanning
+ 5  libc-2.17.so + 0x3b9440
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92be0
+    rip = 0x00007fe925df3440
+    Found by: stack scanning
+ 6  libc-2.17.so + 0x3b9740
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92c30
+    rip = 0x00007fe925df3740
+    Found by: stack scanning
+ 7  libc-2.17.so + 0x10c838
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92c70
+    rip = 0x00007fe925b46838
+    Found by: stack scanning
+ 8  steamclient.so + 0x218a18
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92d30
+    rip = 0x00007fe91f84ea18
+    Found by: stack scanning
+ 9  steamclient.so + 0x8d6148
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92d40
+    rip = 0x00007fe91ff0c148
+    Found by: stack scanning
+10  steamclient.so + 0x8d52ac
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92d50
+    rip = 0x00007fe91ff0b2ac
+    Found by: stack scanning
+11  steamclient.so + 0xda4f62
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92d98
+    rip = 0x00007fe9203daf62
+    Found by: stack scanning
+12  steamclient.so + 0xda4f66
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92da0
+    rip = 0x00007fe9203daf66
+    Found by: stack scanning
+13  steamclient.so + 0xda4f6a
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92da8
+    rip = 0x00007fe9203daf6a
+    Found by: stack scanning
+14  steamclient.so + 0xda4f6e
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92db0
+    rip = 0x00007fe9203daf6e
+    Found by: stack scanning
+15  steamclient.so + 0xda4f72
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92db8
+    rip = 0x00007fe9203daf72
+    Found by: stack scanning
+16  steamclient.so + 0xda4f76
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92dc0
+    rip = 0x00007fe9203daf76
+    Found by: stack scanning
+17  steamclient.so + 0xda4f7a
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92dc8
+    rip = 0x00007fe9203daf7a
+    Found by: stack scanning
+18  steamclient.so + 0xda4f7e
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92dd0
+    rip = 0x00007fe9203daf7e
+    Found by: stack scanning
+19  steamclient.so + 0xda4f82
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92dd8
+    rip = 0x00007fe9203daf82
+    Found by: stack scanning
+20  steamclient.so + 0xda4f86
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92de0
+    rip = 0x00007fe9203daf86
+    Found by: stack scanning
+21  steamclient.so + 0xda4f8a
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92de8
+    rip = 0x00007fe9203daf8a
+    Found by: stack scanning
+22  ld-2.17.so + 0x150c0
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92e00
+    rip = 0x00007fe927bb80c0
+    Found by: stack scanning
+23  steamclient.so + 0x8d54c7
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92e80
+    rip = 0x00007fe91ff0b4c7
+    Found by: stack scanning
+24  libpthread-2.17.so + 0x1047f
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92e90
+    rip = 0x00007fe925e0b47f
+    Found by: stack scanning
+25  steamclient.so + 0x8d613e
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92ea0
+    rip = 0x00007fe91ff0c13e
+    Found by: stack scanning
+26  steamclient.so + 0x8d71ff
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92ed0
+    rip = 0x00007fe91ff0d1ff
+    Found by: stack scanning
+27  libpthread-2.17.so + 0x7dc5
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92f20
+    rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+28  libc-2.17.so + 0xf773d
+    rbp = 0x00007fe91f84b8e8   rsp = 0x00007fe91ee92fc0
+    rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 11
+ 0  libpthread-2.17.so + 0xb6d5
+    rax = 0xfffffffffffffe00   rdx = 0x000000000000000f
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe918006f30
+    rsi = 0x0000000000000080   rdi = 0x00007fe918006f6c
+    rbp = 0x00007fe918006f40   rsp = 0x00007fe91ed91ab0
+     r8 = 0x00007fe918006f00    r9 = 0x0000000000000007
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x0000000000000000   r13 = 0x00007fe918006f68
+    r14 = 0x00007fe91ed91c80   r15 = 0x0000000000000000
+    rip = 0x00007fe925e066d5
+    Found by: given as instruction pointer in context
+ 1  steamclient.so + 0x8d62ca
+    rsp = 0x00007fe91ed91ae0   rip = 0x00007fe91ff0c2ca
+    Found by: stack scanning
+ 2  steamclient.so + 0x8d7ed7
+    rsp = 0x00007fe91ed91b20   rip = 0x00007fe91ff0ded7
+    Found by: stack scanning
+ 3  steamclient.so + 0x8d9132
+    rsp = 0x00007fe91ed91bf0   rip = 0x00007fe91ff0f132
+    Found by: stack scanning
+ 4  steamclient.so + 0x738538
+    rsp = 0x00007fe91ed91c50   rip = 0x00007fe91fd6e538
+    Found by: stack scanning
+ 5  libpthread-2.17.so + 0xac53
+    rsp = 0x00007fe91ed91d08   rip = 0x00007fe925e05c53
+    Found by: stack scanning
+ 6  steamclient.so + 0x8d6148
+    rsp = 0x00007fe91ed91d40   rip = 0x00007fe91ff0c148
+    Found by: stack scanning
+ 7  steamclient.so + 0x8d52ac
+    rsp = 0x00007fe91ed91d50   rip = 0x00007fe91ff0b2ac
+    Found by: stack scanning
+ 8  steamclient.so + 0x8d7116
+    rsp = 0x00007fe91ed91d90   rip = 0x00007fe91ff0d116
+    Found by: stack scanning
+ 9  steamclient.so + 0x8d54c7
+    rsp = 0x00007fe91ed91e80   rip = 0x00007fe91ff0b4c7
+    Found by: stack scanning
+10  libpthread-2.17.so + 0x1047f
+    rsp = 0x00007fe91ed91e90   rip = 0x00007fe925e0b47f
+    Found by: stack scanning
+11  steamclient.so + 0x8d613e
+    rsp = 0x00007fe91ed91ea0   rip = 0x00007fe91ff0c13e
+    Found by: stack scanning
+12  steamclient.so + 0x8d71ff
+    rsp = 0x00007fe91ed91ed0   rip = 0x00007fe91ff0d1ff
+    Found by: stack scanning
+13  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe91ed91f20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+14  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe91ed91fc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 12
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe90faaec68
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x0000000000000000   rsp = 0x00007fe90faaeba0
+     r8 = 0x0000000001dc6a20    r9 = 0x00000000000025aa
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe90faaecb0   r13 = 0x0000000001dc13f0
+    r14 = 0x0000000001dc6a20   r15 = 0x00007fe90faaec98
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007fe90faaebb8   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libv8.so + 0x63911c
+    rsp = 0x00007fe90faaec30   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 3  libv8.so + 0x8d3b1e
+    rsp = 0x00007fe90faaec40   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 4  libnode.so + 0x9e5c5
+    rsp = 0x00007fe90faaec60   rip = 0x00007fe924e9b5c5
+    Found by: stack scanning
+ 5  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe90faaed00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 6  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe90faaef00   r12 = 0x0000000000000000
+    r13 = 0x00007fe90faaf9c0   r14 = 0x00007fe90faaf700
+    r15 = 0x0000000001e74e10   rip = 0x00007fe92582fa48
+    Found by: call frame info
+ 7  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe90faaef20   r12 = 0x0000000000000000
+    r13 = 0x00007fe90faaf9c0   r14 = 0x00007fe90faaf700
+    r15 = 0x0000000001e8a868   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+ 8  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe90faaefc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 13
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe90f0adc68
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x0000000000000000   rsp = 0x00007fe90f0adba0
+     r8 = 0x0000000001dc6a20    r9 = 0x00000000000025ab
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe90f0adcb0   r13 = 0x0000000001dc13f0
+    r14 = 0x0000000001dc6a20   r15 = 0x00007fe90f0adc98
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007fe90f0adbb8   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libv8.so + 0x63911c
+    rsp = 0x00007fe90f0adc30   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 3  libv8.so + 0x8d3b1e
+    rsp = 0x00007fe90f0adc40   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 4  libnode.so + 0x9e5c5
+    rsp = 0x00007fe90f0adc60   rip = 0x00007fe924e9b5c5
+    Found by: stack scanning
+ 5  libHttp.so + 0x3036b0
+    rsp = 0x00007fe90f0adc90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 6  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe90f0add00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 7  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe90f0adf00   r12 = 0x0000000000000000
+    r13 = 0x00007fe90f0ae9c0   r14 = 0x00007fe90f0ae700
+    r15 = 0x0000000001e8fd90   rip = 0x00007fe92582fa48
+    Found by: call frame info
+ 8  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe90f0adf20   r12 = 0x0000000000000000
+    r13 = 0x00007fe90f0ae9c0   r14 = 0x00007fe90f0ae700
+    r15 = 0x0000000001e94048   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+ 9  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe90f0adfc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 14
+ 0  libc-2.17.so + 0xf7d13
+    rax = 0xfffffffffffffffc   rdx = 0x0000000000000001
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe90000c380
+    rsi = 0x00007fe90e6acc68   rdi = 0x0000000000000023
+    rbp = 0x000000000000752b   rsp = 0x00007fe90e6acc50
+     r8 = 0x0000000000000000    r9 = 0x00000000000025ac
+    r10 = 0x000000000000752b   r11 = 0x0000000000000293
+    r12 = 0x00007fe90e6accb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe90e6acc68   r15 = 0x00007fe90e6acc98
+    rip = 0x00007fe925b31d13
+    Found by: given as instruction pointer in context
+ 1  libnode.so + 0x9e535
+    rsp = 0x00007fe90e6acc60   rip = 0x00007fe924e9b535
+    Found by: stack scanning
+ 2  libHttp.so + 0x3036b0
+    rsp = 0x00007fe90e6acc90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 3  libHttp.so + 0x303715
+    rsp = 0x00007fe90e6accb0   rip = 0x00007fe9277f7715
+    Found by: stack scanning
+ 4  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe90e6acd00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 5  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe90e6acf00   r12 = 0x0000000000000000
+    r13 = 0x00007fe90e6ad9c0   r14 = 0x00007fe90e6ad700
+    r15 = 0x0000000001eb3790   rip = 0x00007fe92582fa48
+    Found by: call frame info
+ 6  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe90e6acf20   r12 = 0x0000000000000000
+    r13 = 0x00007fe90e6ad9c0   r14 = 0x00007fe90e6ad700
+    r15 = 0x0000000001eaf148   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+ 7  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe90e6acfc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 15
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe90dcabc68
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x0000000000000000   rsp = 0x00007fe90dcabba0
+     r8 = 0x0000000001dc6a20    r9 = 0x00000000000025ad
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe90dcabcb0   r13 = 0x0000000001dc13f0
+    r14 = 0x0000000001dc6a20   r15 = 0x00007fe90dcabc98
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007fe90dcabbb8   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libv8.so + 0x63911c
+    rsp = 0x00007fe90dcabc30   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 3  libv8.so + 0x8d3b1e
+    rsp = 0x00007fe90dcabc40   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 4  libnode.so + 0x9e5c5
+    rsp = 0x00007fe90dcabc60   rip = 0x00007fe924e9b5c5
+    Found by: stack scanning
+ 5  libHttp.so + 0x3036b0
+    rsp = 0x00007fe90dcabc90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 6  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe90dcabd00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 7  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe90dcabf00   r12 = 0x0000000000000000
+    r13 = 0x00007fe90dcac9c0   r14 = 0x00007fe90dcac700
+    r15 = 0x0000000001edbe50   rip = 0x00007fe92582fa48
+    Found by: call frame info
+ 8  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe90dcabf20   r12 = 0x0000000000000000
+    r13 = 0x00007fe90dcac9c0   r14 = 0x00007fe90dcac700
+    r15 = 0x0000000001ecc0f8   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+ 9  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe90dcabfc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 16
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe90d2aab08
+    rsi = 0x00007fe90d2aaa88   rdi = 0x00007fe90d2aaa88
+    rbp = 0x00007fe90d2aac50   rsp = 0x00007fe90d2aaa10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe90d2aacb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe90d2aaa98   r15 = 0x00007fe90d2aac98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe90d2aac50   rsp = 0x00007fe90d2aaa20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+ 2  libv8.so + 0x16eb87
+    rbp = 0x00007fe90d2aac50   rsp = 0x00007fe90d2aaa30
+    rip = 0x00007fe923fb4b87
+    Found by: stack scanning
+
+Thread 17
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8efffeb08
+    rsi = 0x00007fe8efffea88   rdi = 0x00007fe8efffea88
+    rbp = 0x00007fe8efffec50   rsp = 0x00007fe8efffea10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe8efffecb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe8efffea98   r15 = 0x00007fe8efffec98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe8efffec50   rsp = 0x00007fe8efffea20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+ 2  libv8.so + 0x16eb87
+    rbp = 0x00007fe8efffec50   rsp = 0x00007fe8efffea30
+    rip = 0x00007fe923fb4b87
+    Found by: stack scanning
+
+Thread 18
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8ef5fdb08
+    rsi = 0x00007fe8ef5fda88   rdi = 0x00007fe8ef5fda88
+    rbp = 0x00007fe8ef5fdc50   rsp = 0x00007fe8ef5fda10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe8ef5fdcb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe8ef5fda98   r15 = 0x00007fe8ef5fdc98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe8ef5fdc50   rsp = 0x00007fe8ef5fda20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+ 2  libv8.so + 0x16eb87
+    rbp = 0x00007fe8ef5fdc50   rsp = 0x00007fe8ef5fda30
+    rip = 0x00007fe923fb4b87
+    Found by: stack scanning
+
+Thread 19
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8eebfcb08
+    rsi = 0x00007fe8eebfca88   rdi = 0x00007fe8eebfca88
+    rbp = 0x00007fe8eebfcc50   rsp = 0x00007fe8eebfca10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe8eebfccb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe8eebfca98   r15 = 0x00007fe8eebfcc98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe8eebfcc50   rsp = 0x00007fe8eebfca20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+ 2  libv8.so + 0x16eb87
+    rbp = 0x00007fe8eebfcc50   rsp = 0x00007fe8eebfca30
+    rip = 0x00007fe923fb4b87
+    Found by: stack scanning
+
+Thread 20
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8ee1fbc68
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x0000000000000000   rsp = 0x00007fe8ee1fbba0
+     r8 = 0x0000000001dc6a20    r9 = 0x00000000000025b2
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe8ee1fbcb0   r13 = 0x0000000001dc13f0
+    r14 = 0x0000000001dc6a20   r15 = 0x00007fe8ee1fbc98
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007fe8ee1fbbb8   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libv8.so + 0x63911c
+    rsp = 0x00007fe8ee1fbc30   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 3  libv8.so + 0x8d3b1e
+    rsp = 0x00007fe8ee1fbc40   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 4  libnode.so + 0x9e5c5
+    rsp = 0x00007fe8ee1fbc60   rip = 0x00007fe924e9b5c5
+    Found by: stack scanning
+ 5  libHttp.so + 0x3036b0
+    rsp = 0x00007fe8ee1fbc90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 6  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe8ee1fbd00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 7  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8ee1fbf00   r12 = 0x0000000000000000
+    r13 = 0x00007fe8ee1fc9c0   r14 = 0x00007fe8ee1fc700
+    r15 = 0x0000000001f4c700   rip = 0x00007fe92582fa48
+    Found by: call frame info
+ 8  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8ee1fbf20   r12 = 0x0000000000000000
+    r13 = 0x00007fe8ee1fc9c0   r14 = 0x00007fe8ee1fc700
+    r15 = 0x0000000001f5bb28   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+ 9  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe8ee1fbfc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 21
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8ed7fab08
+    rsi = 0x00007fe8ed7faa88   rdi = 0x00007fe8ed7faa88
+    rbp = 0x00007fe8ed7fac50   rsp = 0x00007fe8ed7faa10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe8ed7facb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe8ed7faa98   r15 = 0x00007fe8ed7fac98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe8ed7fac50   rsp = 0x00007fe8ed7faa20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+ 2  libv8.so + 0x16eb87
+    rbp = 0x00007fe8ed7fac50   rsp = 0x00007fe8ed7faa30
+    rip = 0x00007fe923fb4b87
+    Found by: stack scanning
+
+Thread 22
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8ecdf9c68
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x0000000000000000   rsp = 0x00007fe8ecdf9ba0
+     r8 = 0x0000000001dc6a20    r9 = 0x00000000000025b4
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe8ecdf9cb0   r13 = 0x0000000001dc13f0
+    r14 = 0x0000000001dc6a20   r15 = 0x00007fe8ecdf9c98
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007fe8ecdf9bb8   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libv8.so + 0x63911c
+    rsp = 0x00007fe8ecdf9c30   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 3  libv8.so + 0x8d3b1e
+    rsp = 0x00007fe8ecdf9c40   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 4  libnode.so + 0x9e5c5
+    rsp = 0x00007fe8ecdf9c60   rip = 0x00007fe924e9b5c5
+    Found by: stack scanning
+ 5  libHttp.so + 0x3036b0
+    rsp = 0x00007fe8ecdf9c90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 6  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe8ecdf9d00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 7  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8ecdf9f00   r12 = 0x0000000000000000
+    r13 = 0x00007fe8ecdfa9c0   r14 = 0x00007fe8ecdfa700
+    r15 = 0x0000000001fa3320   rip = 0x00007fe92582fa48
+    Found by: call frame info
+ 8  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8ecdf9f20   r12 = 0x0000000000000000
+    r13 = 0x00007fe8ecdfa9c0   r14 = 0x00007fe8ecdfa700
+    r15 = 0x0000000001f95e28   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+ 9  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe8ecdf9fc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 23
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8d7ffec68
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x0000000000000000   rsp = 0x00007fe8d7ffeba0
+     r8 = 0x0000000001dc6a20    r9 = 0x00000000000025b5
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe8d7ffecb0   r13 = 0x0000000001dc13f0
+    r14 = 0x0000000001dc6a20   r15 = 0x00007fe8d7ffec98
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007fe8d7ffebb8   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libv8.so + 0x63911c
+    rsp = 0x00007fe8d7ffec30   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 3  libv8.so + 0x8d3b1e
+    rsp = 0x00007fe8d7ffec40   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 4  libnode.so + 0x9e5c5
+    rsp = 0x00007fe8d7ffec60   rip = 0x00007fe924e9b5c5
+    Found by: stack scanning
+ 5  libHttp.so + 0x3036b0
+    rsp = 0x00007fe8d7ffec90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 6  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe8d7ffed00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 7  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8d7ffef00   r12 = 0x0000000000000000
+    r13 = 0x00007fe8d7fff9c0   r14 = 0x00007fe8d7fff700
+    r15 = 0x0000000001fb3570   rip = 0x00007fe92582fa48
+    Found by: call frame info
+ 8  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8d7ffef20   r12 = 0x0000000000000000
+    r13 = 0x00007fe8d7fff9c0   r14 = 0x00007fe8d7fff700
+    r15 = 0x0000000001fb2eb8   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+ 9  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe8d7ffefc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 24
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8d75fdb08
+    rsi = 0x00007fe8d75fda88   rdi = 0x00007fe8d75fda88
+    rbp = 0x00007fe8d75fdc50   rsp = 0x00007fe8d75fda10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe8d75fdcb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe8d75fda98   r15 = 0x00007fe8d75fdc98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe8d75fdc50   rsp = 0x00007fe8d75fda20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+ 2  libv8.so + 0x16eb87
+    rbp = 0x00007fe8d75fdc50   rsp = 0x00007fe8d75fda30
+    rip = 0x00007fe923fb4b87
+    Found by: stack scanning
+
+Thread 25
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8d6bfcb08
+    rsi = 0x00007fe8d6bfca88   rdi = 0x00007fe8d6bfca88
+    rbp = 0x00007fe8d6bfcc50   rsp = 0x00007fe8d6bfca10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe8d6bfccb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe8d6bfca98   r15 = 0x00007fe8d6bfcc98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe8d6bfcc50   rsp = 0x00007fe8d6bfca20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+ 2  libv8.so + 0x16eb87
+    rbp = 0x00007fe8d6bfcc50   rsp = 0x00007fe8d6bfca30
+    rip = 0x00007fe923fb4b87
+    Found by: stack scanning
+
+Thread 26
+ 0  libc-2.17.so + 0xf7d13
+    rax = 0xfffffffffffffffc   rdx = 0x0000000000000001
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8bc009e80
+    rsi = 0x00007fe8d61fbc68   rdi = 0x000000000000005f
+    rbp = 0x00000000000003e5   rsp = 0x00007fe8d61fbc50
+     r8 = 0x0000000000000000    r9 = 0x00000000000025b8
+    r10 = 0x00000000000003e5   r11 = 0x0000000000000293
+    r12 = 0x00007fe8d61fbcb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe8d61fbc68   r15 = 0x00007fe8d61fbc98
+    rip = 0x00007fe925b31d13
+    Found by: given as instruction pointer in context
+ 1  libnode.so + 0x9e535
+    rsp = 0x00007fe8d61fbc60   rip = 0x00007fe924e9b535
+    Found by: stack scanning
+ 2  libHttp.so + 0x3036b0
+    rsp = 0x00007fe8d61fbc90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 3  libHttp.so + 0x303715
+    rsp = 0x00007fe8d61fbcb0   rip = 0x00007fe9277f7715
+    Found by: stack scanning
+ 4  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe8d61fbd00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 5  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8d61fbf00   r12 = 0x0000000000000000
+    r13 = 0x00007fe8d61fc9c0   r14 = 0x00007fe8d61fc700
+    r15 = 0x000000000200a5a0   rip = 0x00007fe92582fa48
+    Found by: call frame info
+ 6  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8d61fbf20   r12 = 0x0000000000000000
+    r13 = 0x00007fe8d61fc9c0   r14 = 0x00007fe8d61fc700
+    r15 = 0x0000000002009f68   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+ 7  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe8d61fbfc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 28
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8d4df9c68
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x0000000000000000   rsp = 0x00007fe8d4df9ba0
+     r8 = 0x0000000001dc6a20    r9 = 0x00000000000025ba
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe8d4df9cb0   r13 = 0x0000000001dc13f0
+    r14 = 0x0000000001dc6a20   r15 = 0x00007fe8d4df9c98
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007fe8d4df9bb8   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libv8.so + 0x63911c
+    rsp = 0x00007fe8d4df9c30   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 3  libv8.so + 0x8d3b1e
+    rsp = 0x00007fe8d4df9c40   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 4  libnode.so + 0x9e5c5
+    rsp = 0x00007fe8d4df9c60   rip = 0x00007fe924e9b5c5
+    Found by: stack scanning
+ 5  libHttp.so + 0x3036b0
+    rsp = 0x00007fe8d4df9c90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 6  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe8d4df9d00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 7  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8d4df9f00   r12 = 0x0000000000000000
+    r13 = 0x00007fe8d4dfa9c0   r14 = 0x00007fe8d4dfa700
+    r15 = 0x000000000204d750   rip = 0x00007fe92582fa48
+    Found by: call frame info
+ 8  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe8d4df9f20   r12 = 0x0000000000000000
+    r13 = 0x00007fe8d4dfa9c0   r14 = 0x00007fe8d4dfa700
+    r15 = 0x000000000203e198   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+ 9  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe8d4df9fc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 29
+ 0  libpthread-2.17.so + 0xb6d5
+    rax = 0xfffffffffffffe00   rdx = 0x000000000000001c
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe925508530
+    rsi = 0x0000000000000080   rdi = 0x00007fe9255084fc
+    rbp = 0x0000000000000000   rsp = 0x00007fe8bbffeeb0
+     r8 = 0x00007fe925508400    r9 = 0x000000000000000c
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe925508490   r13 = 0x00007fe9255084d0
+    r14 = 0x00007fe9255084f8   r15 = 0x00007fe925508530
+    rip = 0x00007fe925e066d5
+    Found by: given as instruction pointer in context
+ 1  libnode.so + 0x27a986
+    rsp = 0x00007fe8bbffeee0   rip = 0x00007fe925077986
+    Found by: stack scanning
+ 2  libnode.so + 0x26f573
+    rsp = 0x00007fe8bbffeef0   rip = 0x00007fe92506c573
+    Found by: stack scanning
+ 3  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe8bbffef20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+ 4  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe8bbffefc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 30
+ 0  libpthread-2.17.so + 0xb6d5
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000022
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe925508530
+    rsi = 0x0000000000000080   rdi = 0x00007fe9255084fc
+    rbp = 0x0000000000000000   rsp = 0x00007fe8bb5fdeb0
+     r8 = 0x00007fe925508400    r9 = 0x000000000000000f
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe925508490   r13 = 0x00007fe9255084d0
+    r14 = 0x00007fe9255084f8   r15 = 0x00007fe925508530
+    rip = 0x00007fe925e066d5
+    Found by: given as instruction pointer in context
+ 1  libnode.so + 0x27a986
+    rsp = 0x00007fe8bb5fdee0   rip = 0x00007fe925077986
+    Found by: stack scanning
+ 2  libnode.so + 0x26f573
+    rsp = 0x00007fe8bb5fdef0   rip = 0x00007fe92506c573
+    Found by: stack scanning
+ 3  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe8bb5fdf20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+ 4  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe8bb5fdfc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 31
+ 0  libpthread-2.17.so + 0xb6d5
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000020
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe925508530
+    rsi = 0x0000000000000080   rdi = 0x00007fe9255084fc
+    rbp = 0x0000000000000000   rsp = 0x00007fe8babfceb0
+     r8 = 0x00007fe925508400    r9 = 0x000000000000000e
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe925508490   r13 = 0x00007fe9255084d0
+    r14 = 0x00007fe9255084f8   r15 = 0x00007fe925508530
+    rip = 0x00007fe925e066d5
+    Found by: given as instruction pointer in context
+ 1  libnode.so + 0x27a986
+    rsp = 0x00007fe8babfcee0   rip = 0x00007fe925077986
+    Found by: stack scanning
+ 2  libnode.so + 0x26f573
+    rsp = 0x00007fe8babfcef0   rip = 0x00007fe92506c573
+    Found by: stack scanning
+ 3  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe8babfcf20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+ 4  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe8babfcfc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 32
+ 0  libpthread-2.17.so + 0xb6d5
+    rax = 0xfffffffffffffe00   rdx = 0x000000000000001e
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe925508530
+    rsi = 0x0000000000000080   rdi = 0x00007fe9255084fc
+    rbp = 0x0000000000000000   rsp = 0x00007fe8ba1fbeb0
+     r8 = 0x00007fe925508400    r9 = 0x000000000000000d
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00007fe925508490   r13 = 0x00007fe9255084d0
+    r14 = 0x00007fe9255084f8   r15 = 0x00007fe925508530
+    rip = 0x00007fe925e066d5
+    Found by: given as instruction pointer in context
+ 1  libnode.so + 0x27a986
+    rsp = 0x00007fe8ba1fbee0   rip = 0x00007fe925077986
+    Found by: stack scanning
+ 2  libnode.so + 0x26f573
+    rsp = 0x00007fe8ba1fbef0   rip = 0x00007fe92506c573
+    Found by: stack scanning
+ 3  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe8ba1fbf20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+ 4  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe8ba1fbfc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 33
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8b97fab08
+    rsi = 0x00007fe8b97faa88   rdi = 0x00007fe8b97faa88
+    rbp = 0x00007fe8b97fac50   rsp = 0x00007fe8b97faa10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe8b97facb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe8b97faa98   r15 = 0x00007fe8b97fac98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe8b97fac50   rsp = 0x00007fe8b97faa20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 34
+ 0  libpthread-2.17.so + 0xba82
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000000000003
+    rcx = 0xffffffffffffffff   rbx = 0x0000000001e77a90
+    rsi = 0x0000000000000089   rdi = 0x0000000001e77acc
+    rbp = 0x0000000001e77aa0   rsp = 0x00007fe91eb8f990
+     r8 = 0x0000000001e77aa0    r9 = 0x00000000ffffffff
+    r10 = 0x00007fe91eb8f9e0   r11 = 0x0000000000000206
+    r12 = 0x0000000000000003   r13 = 0x00007fe91eb8f9e0
+    r14 = 0xffffffffffffff92   r15 = 0x0000000001e77900
+    rip = 0x00007fe925e06a82
+    Found by: given as instruction pointer in context
+ 1  steamclient.so + 0x8d6282
+    rsp = 0x00007fe91eb8f9e0   rip = 0x00007fe91ff0c282
+    Found by: stack scanning
+ 2  steamclient.so + 0x8d7ed7
+    rsp = 0x00007fe91eb8fa20   rip = 0x00007fe91ff0ded7
+    Found by: stack scanning
+ 3  libc-2.17.so + 0x7ffbc
+    rsp = 0x00007fe91eb8fa70   rip = 0x00007fe925ab9fbc
+    Found by: stack scanning
+ 4  libc-2.17.so + 0x7ffbc
+    rsp = 0x00007fe91eb8fac0   rip = 0x00007fe925ab9fbc
+    Found by: stack scanning
+ 5  libpthread-2.17.so + 0xe449
+    rsp = 0x00007fe91eb8fad0   rip = 0x00007fe925e09449
+    Found by: stack scanning
+ 6  steamclient.so + 0x220899
+    rsp = 0x00007fe91eb8fae0   rip = 0x00007fe91f856899
+    Found by: stack scanning
+ 7  steamclient.so + 0x8d9132
+    rsp = 0x00007fe91eb8faf0   rip = 0x00007fe91ff0f132
+    Found by: stack scanning
+ 8  steamclient.so + 0xbb6f9d
+    rsp = 0x00007fe91eb8fb00   rip = 0x00007fe9201ecf9d
+    Found by: stack scanning
+ 9  steamclient.so + 0xbb46b8
+    rsp = 0x00007fe91eb8fb50   rip = 0x00007fe9201ea6b8
+    Found by: stack scanning
+10  steamclient.so + 0xdd4830
+    rsp = 0x00007fe91eb8fb78   rip = 0x00007fe92040a830
+    Found by: stack scanning
+11  libHttp.so + 0x303700
+    rsp = 0x00007fe91eb8fbe0   rip = 0x00007fe9277f7700
+    Found by: stack scanning
+12  steamclient.so + 0xa35420
+    rsp = 0x00007fe91eb8fc00   rip = 0x00007fe92006b420
+    Found by: stack scanning
+13  steamclient.so + 0xdc6f80
+    rsp = 0x00007fe91eb8fc08   rip = 0x00007fe9203fcf80
+    Found by: stack scanning
+14  steamclient.so + 0xa27a72
+    rsp = 0x00007fe91eb8fcd8   rip = 0x00007fe92005da72
+    Found by: stack scanning
+15  libpthread-2.17.so + 0xac53
+    rsp = 0x00007fe91eb8fd08   rip = 0x00007fe925e05c53
+    Found by: stack scanning
+16  steamclient.so + 0x8d6148
+    rsp = 0x00007fe91eb8fd40   rip = 0x00007fe91ff0c148
+    Found by: stack scanning
+17  steamclient.so + 0x8d52ac
+    rsp = 0x00007fe91eb8fd50   rip = 0x00007fe91ff0b2ac
+    Found by: stack scanning
+18  steamclient.so + 0x8d7116
+    rsp = 0x00007fe91eb8fd90   rip = 0x00007fe91ff0d116
+    Found by: stack scanning
+19  steamclient.so + 0x8d54c7
+    rsp = 0x00007fe91eb8fe80   rip = 0x00007fe91ff0b4c7
+    Found by: stack scanning
+20  libpthread-2.17.so + 0x1047f
+    rsp = 0x00007fe91eb8fe90   rip = 0x00007fe925e0b47f
+    Found by: stack scanning
+21  steamclient.so + 0x8d613e
+    rsp = 0x00007fe91eb8fea0   rip = 0x00007fe91ff0c13e
+    Found by: stack scanning
+22  steamclient.so + 0x8d71ff
+    rsp = 0x00007fe91eb8fed0   rip = 0x00007fe91ff0d1ff
+    Found by: stack scanning
+23  libc-2.17.so + 0x3b6850
+    rsp = 0x00007fe91eb8fee0   rip = 0x00007fe925df0850
+    Found by: stack scanning
+24  libc-2.17.so + 0x3b6860
+    rsp = 0x00007fe91eb8fef8   rip = 0x00007fe925df0860
+    Found by: stack scanning
+25  libpthread-2.17.so + 0x7dc5
+    rsp = 0x00007fe91eb8ff20   rip = 0x00007fe925e02dc5
+    Found by: stack scanning
+26  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe91eb8ffc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 35
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe8b8df9b08
+    rsi = 0x00007fe8b8df9a88   rdi = 0x00007fe8b8df9a88
+    rbp = 0x00007fe8b8df9c50   rsp = 0x00007fe8b8df9a10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe8b8df9cb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe8b8df9a98   r15 = 0x00007fe8b8df9c98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe8b8df9c50   rsp = 0x00007fe8b8df9a20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 36
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe89fffeb08
+    rsi = 0x00007fe89fffea88   rdi = 0x00007fe89fffea88
+    rbp = 0x00007fe89fffec50   rsp = 0x00007fe89fffea10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe89fffecb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe89fffea98   r15 = 0x00007fe89fffec98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe89fffec50   rsp = 0x00007fe89fffea20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 37
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe89f5fdb08
+    rsi = 0x00007fe89f5fda88   rdi = 0x00007fe89f5fda88
+    rbp = 0x00007fe89f5fdc50   rsp = 0x00007fe89f5fda10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe89f5fdcb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe89f5fda98   r15 = 0x00007fe89f5fdc98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe89f5fdc50   rsp = 0x00007fe89f5fda20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 38
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe89ebfcb08
+    rsi = 0x00007fe89ebfca88   rdi = 0x00007fe89ebfca88
+    rbp = 0x00007fe89ebfcc50   rsp = 0x00007fe89ebfca10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe89ebfccb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe89ebfca98   r15 = 0x00007fe89ebfcc98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe89ebfcc50   rsp = 0x00007fe89ebfca20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 39
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe89e1fbb08
+    rsi = 0x00007fe89e1fba88   rdi = 0x00007fe89e1fba88
+    rbp = 0x00007fe89e1fbc50   rsp = 0x00007fe89e1fba10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe89e1fbcb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe89e1fba98   r15 = 0x00007fe89e1fbc98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe89e1fbc50   rsp = 0x00007fe89e1fba20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 40
+ 0  libpthread-2.17.so + 0xebdd
+    rax = 0xfffffffffffffdfc   rdx = 0x0000000005f5e100
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe89d7fab08
+    rsi = 0x00007fe89d7faa88   rdi = 0x00007fe89d7faa88
+    rbp = 0x00007fe89d7fac50   rsp = 0x00007fe89d7faa10
+     r8 = 0x0000000000000000    r9 = 0x0000000000000000
+    r10 = 0x0000000000000000   r11 = 0x0000000000000293
+    r12 = 0x00007fe89d7facb0   r13 = 0x0000000001dc13f0
+    r14 = 0x00007fe89d7faa98   r15 = 0x00007fe89d7fac98
+    rip = 0x00007fe925e09bdd
+    Found by: given as instruction pointer in context
+ 1  libHttp.so + 0x34469e
+    rbp = 0x00007fe89d7fac50   rsp = 0x00007fe89d7faa20
+    rip = 0x00007fe92783869e
+    Found by: stack scanning
+
+Thread 41
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe89cdf9c68
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x0000000000000000   rsp = 0x00007fe89cdf9ba0
+     r8 = 0x0000000001dc6a20    r9 = 0x00000000000025c7
+    r10 = 0x0000000000000000   r11 = 0x0000000000000202
+    r12 = 0x00007fe89cdf9cb0   r13 = 0x0000000001dc13f0
+    r14 = 0x0000000001dc6a20   r15 = 0x00007fe89cdf9c98
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007fe89cdf9bb8   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libc-2.17.so + 0x10b38d
+    rsp = 0x00007fe89cdf9bc0   rip = 0x00007fe925b4538d
+    Found by: stack scanning
+ 3  libnode.so + 0x27d3ce
+    rsp = 0x00007fe89cdf9bd0   rip = 0x00007fe92507a3ce
+    Found by: stack scanning
+ 4  libv8.so + 0x6394dc
+    rsp = 0x00007fe89cdf9c00   rip = 0x00007fe92447f4dc
+    Found by: stack scanning
+ 5  libv8.so + 0x63911c
+    rsp = 0x00007fe89cdf9c30   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 6  libv8.so + 0x8d3b1e
+    rsp = 0x00007fe89cdf9c40   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 7  libnode.so + 0x9e553
+    rsp = 0x00007fe89cdf9c60   rip = 0x00007fe924e9b553
+    Found by: stack scanning
+ 8  libHttp.so + 0x3036b0
+    rsp = 0x00007fe89cdf9c90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 9  libHttp.so + 0x303715
+    rsp = 0x00007fe89cdf9cb0   rip = 0x00007fe9277f7715
+    Found by: stack scanning
+10  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe89cdf9d00   rip = 0x00007fe925829435
+    Found by: stack scanning
+11  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe89cdf9f00   r12 = 0x0000000000000000
+    r13 = 0x00007fe89cdfa9c0   r14 = 0x00007fe89cdfa700
+    r15 = 0x0000000002147b40   rip = 0x00007fe92582fa48
+    Found by: call frame info
+12  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe89cdf9f20   r12 = 0x0000000000000000
+    r13 = 0x00007fe89cdfa9c0   r14 = 0x00007fe89cdfa700
+    r15 = 0x0000000002141458   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+13  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe89cdf9fc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Thread 42
+ 0  libpthread-2.17.so + 0xe1bd
+    rax = 0xfffffffffffffe00   rdx = 0x0000000000000002
+    rcx = 0xffffffffffffffff   rbx = 0x00007fe88fffec68
+    rsi = 0x0000000000000080   rdi = 0x0000000001dc6a20
+    rbp = 0x0000000000000000   rsp = 0x00007fe88fffeba0
+     r8 = 0x0000000001dc6a20    r9 = 0x00000000000025c8
+    r10 = 0x0000000000000000   r11 = 0x0000000000000246
+    r12 = 0x00000000021939f8   r13 = 0x0000000002193968
+    r14 = 0x0000000001dc6a20   r15 = 0x0000000002193728
+    rip = 0x00007fe925e091bd
+    Found by: given as instruction pointer in context
+ 1  libpthread-2.17.so + 0x9d02
+    rsp = 0x00007fe88fffebb8   rip = 0x00007fe925e04d02
+    Found by: stack scanning
+ 2  libc-2.17.so + 0x7c3e6
+    rsp = 0x00007fe88fffec10   rip = 0x00007fe925ab63e6
+    Found by: stack scanning
+ 3  libv8.so + 0x63911c
+    rsp = 0x00007fe88fffec30   rip = 0x00007fe92447f11c
+    Found by: stack scanning
+ 4  libv8.so + 0x8d3b1e
+    rsp = 0x00007fe88fffec40   rip = 0x00007fe924719b1e
+    Found by: stack scanning
+ 5  libnode.so + 0x9e442
+    rsp = 0x00007fe88fffec60   rip = 0x00007fe924e9b442
+    Found by: stack scanning
+ 6  libHttp.so + 0x3036b0
+    rsp = 0x00007fe88fffec90   rip = 0x00007fe9277f76b0
+    Found by: stack scanning
+ 7  libHttp.so + 0x303715
+    rsp = 0x00007fe88fffecb0   rip = 0x00007fe9277f7715
+    Found by: stack scanning
+ 8  libJsLanguageNode.so!V8ScriptEngine::Run [V8ScriptEngine.cpp : 202 + 0x5]
+    rsp = 0x00007fe88fffed00   rip = 0x00007fe925829435
+    Found by: stack scanning
+ 9  libJsLanguageNode.so!std::__1::__thread_proxy<std::__1::tuple<std::__1::unique_ptr<std::__1::__thread_struct, std::__1::default_delete<std::__1::__thread_struct> >, (lambda at ../../modules/Scripting/plugins/JsLanguage/src/V8ScriptEngine.cpp:439:33)> > [V8ScriptEngine.cpp : 440 + 0x6]
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe88fffef00   r12 = 0x0000000000000000
+    r13 = 0x00007fe88ffff9c0   r14 = 0x00007fe88ffff700
+    r15 = 0x0000000002193ef0   rip = 0x00007fe92582fa48
+    Found by: call frame info
+10  libpthread-2.17.so + 0x7dc5
+    rbx = 0x0000000000000000   rbp = 0x0000000000000000
+    rsp = 0x00007fe88fffef20   r12 = 0x0000000000000000
+    r13 = 0x00007fe88ffff9c0   r14 = 0x00007fe88ffff700
+    r15 = 0x0000000002193728   rip = 0x00007fe925e02dc5
+    Found by: call frame info
+11  libc-2.17.so + 0xf773d
+    rsp = 0x00007fe88fffefc0   rip = 0x00007fe925b3173d
+    Found by: stack scanning
+
+Loaded modules:
+0x00400000 - 0x004b6fff  Server  ???  (main)  (WARNING: No symbols, Server, 74196D57C7D5F27557EFD28A9FC5D7B10)
+0x7fe90fab0000 - 0x7fe90fffefff  libGamePlugin.so  ???
+0x7fe91e494000 - 0x7fe91e759fff  libShared_ECS.so  ???
+0x7fe91e75a000 - 0x7fe91e98dfff  libServer_EntitySync.so  ???
+0x7fe91f636000 - 0x7fe9209f0fff  steamclient.so  ???  (WARNING: No symbols, steamclient.so, 7890D5C25757A986F74B0B6442FECD890)
+0x7fe923c3e000 - 0x7fe923e45fff  librt-2.17.so  ???
+0x7fe923e46000 - 0x7fe924deafff  libv8.so  ???  (WARNING: No symbols, libv8.so, BD7DDDD6141ED4E2F72A532BDDF0D26A0)
+0x7fe924dfd000 - 0x7fe925503fff  libnode.so  ???  (WARNING: No symbols, libnode.so, 1A624C0349B5FDCCCE2EF8E1BDF35AF50)
+0x7fe925509000 - 0x7fe9257fcfff  libstdc++.so.6.0.19  ???
+0x7fe925812000 - 0x7fe925a39fff  libJsLanguageNode.so  ???
+0x7fe925a3a000 - 0x7fe925df5fff  libc-2.17.so  ???  (WARNING: No symbols, libc-2.17.so, 17422C8B9816925B7AA0CAF2A05D0B1F0)
+0x7fe925dfb000 - 0x7fe926012fff  libpthread-2.17.so  ???  (WARNING: No symbols, libpthread-2.17.so, FAB1DEC3CD271C0C3CC575B944ABACBA0)
+0x7fe926017000 - 0x7fe92622cfff  libgcc_s-4.8.5-20150702.so.1  ???
+0x7fe92622d000 - 0x7fe92652efff  libm-2.17.so  ???
+0x7fe92652f000 - 0x7fe926740fff  libsteam_api.so  ???
+0x7fe926742000 - 0x7fe926945fff  libdl-2.17.so  ???
+0x7fe926946000 - 0x7fe926bf8fff  libtbb.so  ???
+0x7fe926bfa000 - 0x7fe926fc9fff  libkLogger.so  ???  (WARNING: No symbols, libkLogger.so, E7A498122CCC32E3461B9F334943D17E0)
+0x7fe926fcb000 - 0x7fe927248fff  libScripting.so  ???  (WARNING: No symbols, libScripting.so, 68B7FF7C0E85F7C5A2C06C55A29B12ED0)
+0x7fe927249000 - 0x7fe9274effff  libNetwork.so  ???  (WARNING: No symbols, libNetwork.so, 4031D8A2B8CEBB749850D8770BCC12840)
+0x7fe9274f4000 - 0x7fe927b9dfff  libHttp.so  ???  (WARNING: No symbols, libHttp.so, AD914C5FEA61983CDE145B37AB7BEB990)
+0x7fe927ba3000 - 0x7fe927bc2fff  ld-2.17.so  ???  (WARNING: No symbols, ld-2.17.so, 6E363E8FB72D333C0A3791DEAE31AE950)
+0x7ffe90851000 - 0x7ffe90852fff  linux-gate.so  ???

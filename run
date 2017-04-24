@@ -1,0 +1,4 @@
+#!/bin/sh
+program=$1
+shift
+./bazel-bin/cmd/$program/$program "$@"

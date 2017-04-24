@@ -1,0 +1,16 @@
+[collector]
+  storage = ["fs"]
+
+[processor]
+  new_crash_source = "rabbitmq"
+  destination_storage = ["fs"]
+  source_storage = ["fs"]
+  symbol_path = /mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/test/symbols
+
+[storage.fs]
+  fs_root = /mnt/d/dev/jc3mp/go/src/github.com/xforce/glaucium/test/crashes
+
+[storage.boto]
+  access_key = "glaucium"
+  access_secret = "glaucium"
+

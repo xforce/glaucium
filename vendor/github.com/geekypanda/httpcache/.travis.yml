@@ -1,0 +1,6 @@
+go_import_path: github.com/geekypanda/httpcache
+language: go
+
+go:
+  - go1.8
+  - master
