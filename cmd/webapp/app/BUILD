@@ -12,13 +12,12 @@ go_library(
     srcs = ["webapp.go"],
     tags = ["automanaged"],
     deps = [
-        "//pkg/crashstorage:go_default_library",
         "//pkg/crashstorage/interface:go_default_library",
+        "//vendor/github.com/aymerick/raymond:go_default_library",
+        "//vendor/github.com/gin-gonic/gin:go_default_library",
         "//vendor/github.com/pelletier/go-toml:go_default_library",
-        "//vendor/gopkg.in/kataras/iris.v6:go_default_library",
-        "//vendor/gopkg.in/kataras/iris.v6/adaptors/cors:go_default_library",
-        "//vendor/gopkg.in/kataras/iris.v6/adaptors/httprouter:go_default_library",
-        "//vendor/gopkg.in/kataras/iris.v6/adaptors/view:go_default_library",
+        "//vendor/github.com/robvdl/ginraymond:go_default_library",
+        "//vendor/gopkg.in/olivere/elastic.v5:go_default_library",
     ],
 )
 

@@ -234,14 +234,17 @@ func generateSignature(rawCrash map[string]interface{}, processedCrash map[strin
 
 	jsonDump, ok := processedCrash["json_dump"].(map[string]interface{})
 	if !ok {
+		fmt.Println("No json dump found")
 		return processedCrash
 	}
 	crashInfo, ok := jsonDump["crash_info"].(map[string]interface{})
 	if !ok {
+		fmt.Println("No crash info found")
 		return processedCrash
 	}
 	crashingThread, ok := crashInfo["crashing_thread"].(float64)
 	if !ok {
+		fmt.Println("No crashing thread found")
 		return processedCrash
 	}
 	threads, ok := jsonDump["threads"].([]interface{})
@@ -256,7 +259,7 @@ func generateSignature(rawCrash map[string]interface{}, processedCrash map[strin
 			processedCrash["processor_notes"] = signatureNotes
 		}
 	}
-
+	processedCrash["date_processed"] = time.Now()
 	return processedCrash
 }
 
@@ -274,6 +277,7 @@ func processCrash(rawCrash map[string]interface{}, dumps *cs_interface.FileDumps
 		cmd.Run()
 		var f map[string]interface{}
 		json.Unmarshal(out.Bytes(), &f)
+		fmt.Println(f)
 		processedCrash["json_dump"] = f
 	}
 
@@ -312,7 +316,11 @@ func Run() error {
 		symbol_path = glaucium/test/symbols
 	*/
 	processorConfig.SourceStorage = config.GetDefault("processor.source_storage", []string{"fs"}).([]string)
-	processorConfig.DestinationStorage = config.GetDefault("processor.destination_storage", []string{"fs"}).([]string)
+	storage_classes := config.GetDefault("processor.destination_storage", []string{"fs"}).([]interface{})
+	for _, v := range storage_classes {
+		vv, _ := v.(string)
+		processorConfig.DestinationStorage = append(processorConfig.DestinationStorage, vv)
+	}
 	processorConfig.NewCrashSource = config.GetDefault("processor.new_crash_source", "fs").(string)
 	processorConfig.SymbolPath = config.GetDefault("processor.symbol_path", "").(string)
 	processorConfig.RemoveRawDumpFromSource = config.GetDefault("processor.remove_raw_dump", false).(bool)
@@ -324,6 +332,7 @@ func Run() error {
 		sourceCrashStorage = crashstorage.GetCrashStorage(processorConfig.SourceStorage[0], *configFilePath, nil)
 	}
 	if len(processorConfig.DestinationStorage) > 1 {
+		fmt.Println("Creating destination storage")
 		destinationCrashStorage = crashstorage.GetCrashStorage("poly", *configFilePath, processorConfig.DestinationStorage)
 	} else {
 		destinationCrashStorage = crashstorage.GetCrashStorage(processorConfig.DestinationStorage[0], *configFilePath, nil)

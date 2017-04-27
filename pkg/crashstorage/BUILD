@@ -13,6 +13,7 @@ go_library(
     tags = ["automanaged"],
     deps = [
         "//pkg/crashstorage/boto:go_default_library",
+        "//pkg/crashstorage/es:go_default_library",
         "//pkg/crashstorage/fs:go_default_library",
         "//pkg/crashstorage/interface:go_default_library",
     ],

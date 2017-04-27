@@ -13,6 +13,7 @@ go_library(
     tags = ["automanaged"],
     deps = [
         "//pkg/crashstorage/interface:go_default_library",
+        "//vendor/github.com/pelletier/go-toml:go_default_library",
         "//vendor/gopkg.in/olivere/elastic.v5:go_default_library",
     ],
 )
