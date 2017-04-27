@@ -11,6 +11,12 @@ Coming Soon
 
 Coming Soon
 
+## Code Quality...Sucks
+
+The current quality of the code is rather bad (imo)  
+I have nerver used go until i started this project and the primary goal was/is  
+to get a working version out and then worry about cleaning up the code
+
 ## Special Thanks
 
 - To Mozilla for creating [Socorro](https://github.com/mozilla/socorro),
