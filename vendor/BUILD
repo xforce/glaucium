@@ -22,6 +22,7 @@ filegroup(
         "//vendor/github.com/pelletier/go-buffruneio:all-srcs",
         "//vendor/github.com/pelletier/go-toml:all-srcs",
         "//vendor/github.com/robvdl/ginraymond:all-srcs",
+        "//vendor/github.com/xforce/ginraymond:all-srcs",
         "//vendor/golang.org/x/net/context:all-srcs",
         "//vendor/golang.org/x/sys/unix:all-srcs",
         "//vendor/gopkg.in/go-playground/validator.v8:all-srcs",

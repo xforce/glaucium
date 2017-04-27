@@ -75,6 +75,11 @@
 			"Rev": "269299209106d063a8edba627c53b1fc830a89be"
 		},
 		{
+			"ImportPath": "github.com/xforce/ginraymond",
+			"Comment": "1.0.0-1-g6d21096",
+			"Rev": "6d210969658167c1ef13586f4c16dd53ec379c56"
+		},
+		{
 			"ImportPath": "golang.org/x/net/context",
 			"Rev": "0b588ed7a0cd59c271d128ec8c429c1c1607e8ab"
 		},

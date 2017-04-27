@@ -5,11 +5,12 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"net/http"
 
 	"github.com/aymerick/raymond"
 	"github.com/gin-gonic/gin"
 	"github.com/pelletier/go-toml"
-	"github.com/robvdl/ginraymond"
+	"github.com/xforce/ginraymond"
 	"github.com/xforce/glaucium/pkg/crashstorage/interface"
 
 	elastic "gopkg.in/olivere/elastic.v5"
@@ -49,8 +50,19 @@ func Run() error {
 
 	// data/webapp
 	router := gin.Default()
-	router.HTMLRender = ginraymond.Default()
+	renderOptions := ginraymond.RenderOptions{}
+	renderOptions.TemplateDir = "data/webapp/views"
+	renderOptions.Layout = "layout.html"
+
+	router.HTMLRender = ginraymond.New(&renderOptions)
+	router.Static("/css", "data/webapp/css")
+	router.Static("/js", "data/webapp/js")
 	raymond.RegisterHelper("bold", bold)
-	router.Run(":6300")
-	return nil
+	router.GET("/home", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "home.html", gin.H{
+			"title": "Main website",
+		})
+	})
+
+	return router.Run(":6300")
 }

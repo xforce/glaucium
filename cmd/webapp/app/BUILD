@@ -16,7 +16,7 @@ go_library(
         "//vendor/github.com/aymerick/raymond:go_default_library",
         "//vendor/github.com/gin-gonic/gin:go_default_library",
         "//vendor/github.com/pelletier/go-toml:go_default_library",
-        "//vendor/github.com/robvdl/ginraymond:go_default_library",
+        "//vendor/github.com/xforce/ginraymond:go_default_library",
         "//vendor/gopkg.in/olivere/elastic.v5:go_default_library",
     ],
 )
