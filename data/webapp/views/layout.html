@@ -2,44 +2,40 @@
 <head>
     <meta charset="UTF-8">
     <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
-    <title>glaucium</title>
+    <title>Glaucium - {{title}}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="css/material.min.css" rel="stylesheet">
-    <link href="css/project.min.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
     
+    <link href="css/custom.css" rel="stylesheet">
+    {{#if extra_css }}
+      <link href="css/{{extra_css}}" rel="stylesheet">
+    {{/if}}
 </head>
 <body>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Dashboard</a>
+      <a class="navbar-brand" href="#">Glaucium</a>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Settings</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
+            <a class="nav-link" href="#">Link</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
+        <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
     </nav>
     <br />
-    <div class="container-fluid">
+    <div id="content-container" class="container-fluid">
       {{ yield }}
     </div>
 
@@ -48,13 +44,15 @@
         <span class="text-muted">Place sticky footer content here.</span>
       </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="js/tether.min.js"></script>
     <script src="js/material.min.js"></script>
-    <script src="js/project.min.js"></script>
-    <script src="js/Chart.bundle.min.js"></script>
     <script src="http://momentjs.com/downloads/moment.js"></script>
+    <script src="js/Chart.bundle.min.js"></script>
+    <script src="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/dist/dist/bootstrap-material-design.iife.min.js"></script>
     <script src="js/custom.js"></script>
+    {{#if extra_js }}
+    <script src="js/{{extra_js}}"></script>
+    {{/if}}
 </body>
 </html>
