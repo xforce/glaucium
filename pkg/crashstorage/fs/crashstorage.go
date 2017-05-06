@@ -246,11 +246,11 @@ func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(stri
 			if statResult.Mode()&os.ModeSymlink != 0 {
 				s, _ := os.Stat(path.Join(nameDir, crashID+p.config.JsonFileSuffix))
 				if !s.IsDir() {
-					//dateRootPath := nameDir
+					dateRootPath := nameDir
 					callback(crashID)
 					// DISABLED FOR DEBUGGING
-					// os.Remove(dateRootPath)
-					// os.Remove(nameDir)
+					os.Remove(dateRootPath)
+					os.Remove(nameDir)
 				}
 			}
 		}(crashIDs[crashID].Name(), minuteSlotBase)

@@ -1,0 +1,958 @@
+{
+    "BuildID": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "BuildID",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "BuildID",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "CrashTime": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "CrashTime",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "CrashTime",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "InstallTime": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "InstallTime",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "InstallTime",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "Notes": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "Notes",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "Notes",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "text"
+        }
+    },
+    "ProcessType": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "ProcessType",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "ProcessType",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "keyword"
+        }
+    },
+    "SecondsSinceLastCrash": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "SecondsSinceLastCrash",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "SecondsSinceLastCrash",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "adapter_device_id": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "AdapterDeviceID",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "adapter_device_id",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "text"
+        }
+    },
+    "adapter_vendor_id": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "AdapterVendorID",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "adapter_vendor_id",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "text"
+        }
+    },
+    "additional_minidumps": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "additional_minidumps",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "additional_minidumps",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "text"
+        }
+    },
+    "address": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "address",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "address",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "text",
+        "storage_mapping": {
+            "type": "keyword"
+        }
+    },
+    "app_notes": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "app_notes",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "app_notes",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "text"
+        }
+    },
+    "available_page_file": {
+        "data_validation_type": "int",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "AvailablePageFile",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "available_page_file",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "number",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "available_physical_memory": {
+        "data_validation_type": "int",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "AvailablePhysicalMemory",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "available_physical_memory",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "number",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "available_virtual_memory": {
+        "data_validation_type": "int",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "AvailableVirtualMemory",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "available_virtual_memory",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "number",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "bios_manufacturer": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "BIOS_Manufacturer",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "bios_manufacturer",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "keyword"
+        }
+    },
+    "build_date": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "build_date",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "build_date",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "date"
+        }
+    },
+    "build_id": {
+        "data_validation_type": "int",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "build",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "build_id",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "number",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "buildid": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "buildid",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "buildid",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "client_crash_date": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "client_crash_date",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "client_crash_date",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "date"
+        }
+    },
+    "completeddatetime": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "completeddatetime",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "completeddatetime",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "date"
+        }
+    },
+    "cpu_info": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": true,
+        "has_keyword": false,
+        "in_database_name": "cpu_info",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "cpu_info",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "text",
+        "storage_mapping": {
+            "fields": {
+                "full": {
+                    "index": "not_analyzed",
+                    "type": "text"
+                }
+            },
+            "analyzer": "standard",
+            "index": "analyzed",
+            "type": "text"
+        }
+    },
+    "cpu_name": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "cpu_name",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "cpu_name",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "keyword"
+        }
+    },
+    "crash_time": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "crash_time",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "crash_time",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "crashedThread": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "crashedThread",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "crashedThread",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "date": {
+        "data_validation_type": "datetime",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "date_processed",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "date",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "date",
+        "storage_mapping": {
+            "type": "date"
+        }
+    },
+    "dump": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "dump",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "dump",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "text",
+        "storage_mapping": {
+            "index": "not_analyzed",
+            "type": "text"
+        }
+    },
+    "email": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "email",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "email",
+        "namespace": "processed_crash",
+        "permissions_needed": [
+            "crashstats.view_pii"
+        ],
+        "query_type": "text",
+        "storage_mapping": {
+            "type": "keyword"
+        }
+    },
+    "last_crash": {
+        "data_validation_type": "int",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "last_crash",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "last_crash",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "number",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "number_of_processors": {
+        "data_validation_type": "int",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "NumberOfProcessors",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "number_of_processors",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "number",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "platform": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": true,
+        "has_keyword": false,
+        "in_database_name": "os_name",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "platform",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "fields": {
+                "full": {
+                    "index": "not_analyzed",
+                    "type": "text"
+                }
+            },
+            "type": "text"
+        }
+    },
+    "platform_version": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "os_version",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "platform_version",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "text",
+        "storage_mapping": {
+            "type": "text"
+        }
+    },
+    "platform_pretty_version": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "os_pretty_version",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "platform_pretty_version",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "text",
+        "storage_mapping": {
+            "index": "analyzed",
+            "type": "text",
+            "fields": {
+                "full": {
+                    "index": "not_analyzed",
+                    "type": "text"
+                }
+            }
+        }
+    },
+    "processor_notes": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "processor_notes",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "processor_notes",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "text"
+        }
+    },
+    "product": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": true,
+        "has_keyword": false,
+        "in_database_name": "product",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "product",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "fields": {
+                "full": {
+                    "index": "not_analyzed",
+                    "type": "text"
+                }
+            },
+            "index": "analyzed",
+            "type": "text"
+        }
+    },
+    "productid": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "productid",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "productid",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "keyword"
+        }
+    },
+    "reason": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": true,
+        "has_keyword": false,
+        "in_database_name": "reason",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "reason",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "text",
+        "storage_mapping": {
+            "fields": {
+                "full": {
+                    "index": "not_analyzed",
+                    "type": "text"
+                }
+            },
+            "type": "text",
+            "analyzer": "standard"
+        }
+    },
+    "release_channel": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "release_channel",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "release_channel",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "keyword"
+        }
+    },
+    "signature": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": true,
+        "has_keyword": true,
+        "in_database_name": "signature",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "signature",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "text",
+        "storage_mapping": {
+            "fields": {
+                "full": {
+                    "index": "not_analyzed",
+                    "type": "text"
+                },
+                "keyword": {
+                    "type": "keyword"
+                }
+            },
+            "type": "text"
+        }
+    },
+    "success": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "success",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "success",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "boolean"
+        }
+    },
+    "system_memory_use_percentage": {
+        "data_validation_type": "int",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "SystemMemoryUsePercentage",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "system_memory_use_percentage",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "number",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "timestamp": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "timestamp",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "timestamp",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "double"
+        }
+    },
+    "topmost_filenames": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "topmost_filenames",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "topmost_filenames",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "text"
+        }
+    },
+    "total_virtual_memory": {
+        "data_validation_type": "int",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "TotalVirtualMemory",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "total_virtual_memory",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "number",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "truncated": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "truncated",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "truncated",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "boolean"
+        }
+    },
+    "uptime": {
+        "data_validation_type": "int",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "uptime",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "uptime",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "number",
+        "storage_mapping": {
+            "type": "long"
+        }
+    },
+    "url": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "url",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "url",
+        "namespace": "processed_crash",
+        "permissions_needed": [
+            "crashstats.view_pii"
+        ],
+        "query_type": "text",
+        "storage_mapping": {
+            "type": "keyword"
+        }
+    },
+    "user_comments": {
+        "data_validation_type": "str",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": true,
+        "has_keyword": false,
+        "in_database_name": "user_comments",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "user_comments",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "text",
+        "storage_mapping": {
+            "fields": {
+                "full": {
+                    "index": "not_analyzed",
+                    "type": "text"
+                }
+            },
+            "type": "text"
+        }
+    },
+    "uuid": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "uuid",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "uuid",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "index": "not_analyzed",
+            "type": "text"
+        }
+    },
+    "vendor": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "Vendor",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "vendor",
+        "namespace": "raw_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "text"
+        }
+    },
+    "version": {
+        "data_validation_type": "enum",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "version",
+        "is_exposed": true,
+        "is_mandatory": false,
+        "is_returned": true,
+        "name": "version",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "enum",
+        "storage_mapping": {
+            "type": "keyword"
+        }
+    }
+}

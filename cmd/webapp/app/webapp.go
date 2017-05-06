@@ -1,7 +1,6 @@
 package app
 
 import (
-	"context"
 	"errors"
 	"flag"
 	"fmt"
@@ -12,8 +11,6 @@ import (
 	"github.com/pelletier/go-toml"
 	"github.com/xforce/ginraymond"
 	"github.com/xforce/glaucium/pkg/crashstorage/interface"
-
-	elastic "gopkg.in/olivere/elastic.v5"
 )
 
 type WebAppConfig struct {
@@ -25,8 +22,6 @@ func bold(options *raymond.Options) raymond.SafeString {
 	return raymond.SafeString("<strong>" + options.Fn() + "</strong>")
 }
 
-var elastiClient *elastic.Client
-
 func Run() error {
 
 	configFilePath := flag.String("config", "/etc/glaucium/config.toml", "the config location")
@@ -37,10 +32,8 @@ func Run() error {
 		return err
 	}
 
-	ctx := context.Background()
-	elastiClient, err := elastic.NewClient()
-	fmt.Println(ctx)
-	fmt.Println(elastiClient)
+	InitializeEsSearch()
+
 	if err != nil {
 		fmt.Println("Error ", err.Error())
 		// Handle error
@@ -62,13 +55,14 @@ func Run() error {
 	router.Static("/images", "data/webapp/images")
 
 	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "home.html", gin.H{"title": "Home", "extra_js": "home.js"})
+		c.HTML(http.StatusOK, "home.html", gin.H{"title": "Home", "extra_js": "home.js", "extra_css": "home.css"})
 	})
 
 	api := router.Group("/api")
 	{
-		api.GET("/search", searchApiHandler)
-		api.GET("/report", reportApiHandler)
+		api.POST("/search", searchApiPostHandler)
+		api.GET("/search", searchApiGetHandler)
+		api.POST("/report", reportApiHandler)
 	}
 	report := router.Group("/report")
 	{
@@ -83,12 +77,29 @@ func Run() error {
 
 func reportViewHandler(c *gin.Context) {
 	crashID := c.Param("crashID")
-	c.HTML(http.StatusOK, "home.html", gin.H{"title": "Home", "extra_js": "home.js"})
-	c.String(http.StatusOK, "Hello %s", crashID)
+	c.HTML(http.StatusOK, "report.html", gin.H{"title": "Report", "extra_js": "report.js", "crashID": crashID})
 }
 
-func searchApiHandler(c *gin.Context) {
-	//elastiClient
+func searchApiGetHandler(c *gin.Context) {
+	// if we want this.....
+	// maybe just return aggregations for things
+	// ....does that make sense?!
+	// I am confused
+}
+
+func searchApiPostHandler(c *gin.Context) {
+	// build all the filters
+	var m map[string]interface{}
+
+	if c.BindJSON(&m) == nil {
+		searchResult := DoSearch(m)
+		fmt.Println(searchResult)
+		c.JSON(200, searchResult)
+	} else {
+		fmt.Println("Failed to bind json")
+	}
+
+	// TODO(alexander): Return json......................
 }
 
 func reportApiHandler(c *gin.Context) {

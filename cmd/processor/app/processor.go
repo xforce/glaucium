@@ -254,7 +254,6 @@ func generateSignature(rawCrash map[string]interface{}, processedCrash map[strin
 		signature, signatureNotes := internalGenerateSignature(signatureList, &crashingThreadInt)
 		processedCrash["proto_signature"] = strings.Join(signatureList, " | ")
 		processedCrash["signature"] = signature
-		fmt.Println(signature)
 		if signatureNotes != nil {
 			processedCrash["processor_notes"] = signatureNotes
 		}
@@ -277,7 +276,6 @@ func processCrash(rawCrash map[string]interface{}, dumps *cs_interface.FileDumps
 		cmd.Run()
 		var f map[string]interface{}
 		json.Unmarshal(out.Bytes(), &f)
-		fmt.Println(f)
 		processedCrash["json_dump"] = f
 	}
 

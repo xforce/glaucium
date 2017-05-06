@@ -9,7 +9,7 @@ load(
 
 go_library(
     name = "go_default_library",
-    srcs = ["webapp.go"],
+    srcs = ["webapp.go", "es_search.go"],
     tags = ["automanaged"],
     deps = [
         "//pkg/crashstorage/interface:go_default_library",

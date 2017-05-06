@@ -3,3 +3,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+.card {
+    background: #fff;
+    color: #000;
+}

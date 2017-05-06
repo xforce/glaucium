@@ -1,17 +1,18 @@
 package app
 
 import (
+	"crypto/rand"
+	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"net/http"
 	"strconv"
-	"errors"
-	"io"
 	"time"
-	"crypto/rand"
+
+	"github.com/BurntSushi/toml"
 	"github.com/xforce/glaucium/pkg/crashstorage"
 	"github.com/xforce/glaucium/pkg/crashstorage/interface"
-	"github.com/BurntSushi/toml"
 )
 
 var crashStorage cs_interface.CrashStorage
@@ -20,8 +21,8 @@ type StorageConfig struct {
 	Classes []string
 }
 type CollectorConfig struct {
-	Port           int
-	Host           string
+	Port    int
+	Host    string
 	Storage StorageConfig
 }
 
@@ -29,7 +30,7 @@ type Config struct {
 	Collector CollectorConfig
 }
 
-func newUUID() (string) {
+func newUUID() string {
 	uuid := make([]byte, 16)
 	n, err := io.ReadFull(rand.Reader, uuid)
 	if n != len(uuid) || err != nil {
@@ -54,10 +55,14 @@ func getRawCrashFromForm(w http.ResponseWriter, r *http.Request) (map[string]int
 	const _24K = (1 << 20) * 24
 	if err := r.ParseMultipartForm(_24K); nil != err {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
-    	return nil, nil, errors.New("Failed to parse multipart form")
-  	}
+		return nil, nil, errors.New("Failed to parse multipart form")
+	}
 	for key, value := range r.MultipartForm.Value {
-		rawCrash[key] = value
+		if len(value) == 1 {
+			rawCrash[key] = value[0]
+		} else {
+			rawCrash[key] = value
+		}
 	}
 	for key, value := range r.MultipartForm.File {
 		for i := range value {
@@ -99,12 +104,12 @@ func Run() error {
 	if _, err := toml.DecodeFile(*configFilePath, &conf); err != nil {
 		return err
 	}
-	if(len(conf.Collector.Storage.Classes) > 1) {
+	if len(conf.Collector.Storage.Classes) > 1 {
 		crashStorage = crashstorage.GetCrashStorage("poly", *configFilePath, conf.Collector.Storage.Classes)
 	} else {
 		crashStorage = crashstorage.GetCrashStorage(conf.Collector.Storage.Classes[0], *configFilePath, nil)
 	}
 	http.HandleFunc("/submit", handleDumpSubmit)
-	fmt.Println("Starting collector on "+conf.Collector.Host+":"+strconv.FormatInt(int64(conf.Collector.Port), 10))
+	fmt.Println("Starting collector on " + conf.Collector.Host + ":" + strconv.FormatInt(int64(conf.Collector.Port), 10))
 	return http.ListenAndServe(conf.Collector.Host+":"+strconv.FormatInt(int64(conf.Collector.Port), 10), nil)
 }

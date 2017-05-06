@@ -2,8 +2,11 @@ package es
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
+	"os"
 	"strings"
 	"time"
 
@@ -23,13 +26,59 @@ func (p *CrashStorage) Close() {
 	p.client.Stop()
 }
 
+var mapping map[string]interface{}
+
+type MappingType struct {
+	InDatabaseName string                 `json:"in_database_name"`
+	Namespace      string                 `json:"namespace"`
+	StorageMapping map[string]interface{} `json:"storage_mapping"`
+}
+
 func (p *CrashStorage) createIndex(esIndex string) {
+
+	// Get mapping from the json file....
+	if mapping == nil {
+		var n map[string]MappingType
+		file, e := ioutil.ReadFile("/etc/glaucium/elastic_search_mapping.json")
+		if e != nil {
+			fmt.Printf("File error: %v\n", e)
+			os.Exit(1)
+		}
+		json.Unmarshal(file, &n)
+		properties := make(map[string]map[string]map[string]interface{}, 0)
+		for _, value := range n {
+			if properties[value.Namespace] == nil {
+				properties[value.Namespace] = make(map[string]map[string]interface{}, 0)
+			}
+			if properties[value.Namespace]["properties"] == nil {
+				properties[value.Namespace]["properties"] = make(map[string]interface{}, 0)
+			}
+			if properties[value.Namespace]["properties"][value.InDatabaseName] == nil {
+				properties[value.Namespace]["properties"][value.InDatabaseName] = make(map[string]interface{}, 0)
+			}
+			properties[value.Namespace]["properties"][value.InDatabaseName] = value.StorageMapping
+		}
+
+		esMappingRoot := make(map[string]interface{}, 0)
+		esMapping := make(map[string]interface{}, 0)
+		esMapping["_all"] = map[string]interface{}{"enabled": false}
+		esMapping["properties"] = properties
+		esMappingRoot["crash_report"] = esMapping
+
+		mapping = esMappingRoot
+	}
+
+	rankingsJson, _ := json.Marshal(mapping)
+	ioutil.WriteFile("output.json", rankingsJson, 0644)
+
 	// Create an index
-	_, err := p.client.CreateIndex(esIndex).Do(p.ctx)
+	_, err := p.client.CreateIndex(esIndex).BodyJson(map[string]interface{}{"mappings": mapping}).Do(p.ctx)
 	if err != nil && !strings.Contains(err.Error(), "index_already_exists_exception") {
 		// Handle error
 		panic(err)
 	}
+
+	//p.client.PutMapping().Index(esIndex).Type("crash_reports").BodyJson(mapping).Do(p.ctx)
 }
 
 func (p *CrashStorage) SaveRawAndProcessed(rawCrash map[string]interface{}, dumps cs_interface.DumpsMapping, processedCrash map[string]interface{}, crashID string) {
@@ -42,6 +91,8 @@ func (p *CrashStorage) SaveRawAndProcessed(rawCrash map[string]interface{}, dump
 	esIndex := dateProcessed.Format("2006")
 	esIndex = fmt.Sprintf("crash_reports_%s%d", esIndex, week)
 	crashDocument := make(map[string]interface{}, 3)
+	// We don't want this massive dump of stuff we don't need in elastic search...
+	delete(processedCrash, "json_dump")
 	crashDocument["crash_id"] = crashID
 	crashDocument["processed_crash"] = processedCrash
 	crashDocument["raw_crash"] = rawCrash
@@ -65,6 +116,7 @@ func (p *CrashStorage) SaveProcessed(processedCrash map[string]interface{}) {
 	esIndex := dateProcessed.Format("2006")
 	esIndex = fmt.Sprintf("crash_reports_%s%d", esIndex, week)
 	crashDocument := make(map[string]interface{}, 3)
+	delete(processedCrash, "json_dump")
 	crashDocument["crash_id"] = crashID
 	crashDocument["processed_crash"] = processedCrash
 	p.createIndex(esIndex)

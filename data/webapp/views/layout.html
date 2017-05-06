@@ -2,18 +2,19 @@
 <head>
     <meta charset="UTF-8">
     <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
+    <link rel="icon" type="image/jpeg" href="/images/icon.jpg" />
     <title>Glaucium - {{title}}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="css/material.min.css" rel="stylesheet">
+    <link href="/css/material.min.css" rel="stylesheet">
     
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     {{#if extra_css }}
-      <link href="css/{{extra_css}}" rel="stylesheet">
+      <link href="/css/{{extra_css}}" rel="stylesheet">
     {{/if}}
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+    <nav class="navbar navbar-toggleable-md navbar-inverse jumbotron jumbotron-fluid">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -35,7 +36,7 @@
       </div>
     </nav>
     <br />
-    <div id="content-container" class="container-fluid">
+    <div id="content-container" class="container-fluid offset-md-2">
       {{ yield }}
     </div>
 
@@ -45,14 +46,14 @@
       </div>
     </footer>
    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script src="js/tether.min.js"></script>
-    <script src="js/material.min.js"></script>
+    <script src="/js/tether.min.js"></script>
+    <script src="/js/material.min.js"></script>
     <script src="http://momentjs.com/downloads/moment.js"></script>
-    <script src="js/Chart.bundle.min.js"></script>
+    <script src="/js/Chart.bundle.min.js"></script>
     <script src="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/dist/dist/bootstrap-material-design.iife.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="/js/custom.js"></script>
     {{#if extra_js }}
-    <script src="js/{{extra_js}}"></script>
+    <script src="/js/{{extra_js}}"></script>
     {{/if}}
 </body>
 </html>
