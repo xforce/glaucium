@@ -915,8 +915,7 @@
         "permissions_needed": [],
         "query_type": "enum",
         "storage_mapping": {
-            "index": "not_analyzed",
-            "type": "text"
+            "type": "keyword"
         }
     },
     "vendor": {

@@ -63,6 +63,7 @@ func (p *CrashStorage) createIndex(esIndex string) {
 		esMapping := make(map[string]interface{}, 0)
 		esMapping["_all"] = map[string]interface{}{"enabled": false}
 		esMapping["properties"] = properties
+
 		esMappingRoot["crash_report"] = esMapping
 
 		mapping = esMappingRoot

@@ -7,3 +7,6 @@ body {
     background: #fff;
     color: #000;
 }
+.content {
+    background: transparent;
+}

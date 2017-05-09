@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/pelletier/go-toml"
 	"github.com/xforce/ginraymond"
+	"github.com/xforce/glaucium/pkg/crashstorage"
 	"github.com/xforce/glaucium/pkg/crashstorage/interface"
 )
 
@@ -31,6 +32,8 @@ func Run() error {
 		fmt.Println("Error ", err.Error())
 		return err
 	}
+
+	crashStorage = crashstorage.GetCrashStorage("fs", "/etc/glaucium/config.toml", nil)
 
 	InitializeEsSearch()
 
@@ -61,9 +64,10 @@ func Run() error {
 	api := router.Group("/api")
 	{
 		api.POST("/search", searchApiPostHandler)
-		api.GET("/search", searchApiGetHandler)
-		api.POST("/report", reportApiHandler)
+		api.GET("/report/:crashID", reportApiHandler)
+		api.GET("/report/:crashID/download/raw", reportDownloadRawDumpHandler)
 	}
+	router.GET("/search", searchViewHandler)
 	report := router.Group("/report")
 	{
 		report.GET("/:crashID", reportViewHandler)
@@ -80,6 +84,10 @@ func reportViewHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "report.html", gin.H{"title": "Report", "extra_js": "report.js", "crashID": crashID})
 }
 
+func searchViewHandler(c *gin.Context) {
+	c.HTML(http.StatusOK, "search.html", gin.H{"title": "Report", "extra_js": "search.js"})
+}
+
 func searchApiGetHandler(c *gin.Context) {
 	// if we want this.....
 	// maybe just return aggregations for things
@@ -93,15 +101,26 @@ func searchApiPostHandler(c *gin.Context) {
 
 	if c.BindJSON(&m) == nil {
 		searchResult := DoSearch(m)
-		fmt.Println(searchResult)
 		c.JSON(200, searchResult)
 	} else {
 		fmt.Println("Failed to bind json")
 	}
+}
 
-	// TODO(alexander): Return json......................
+func reportDownloadRawDumpHandler(c *gin.Context) {
+	crashID := c.Param("crashID")
+	dumps := crashStorage.GetRawDumpsAsFiles(crashID)
+	c.Header("Content-Disposition", `inline; filename="`+crashID+`.dmp"`)
+	c.File(dumps.(*cs_interface.FileDumpsMapping).M["upload_file_minidump"].(string))
 }
 
 func reportApiHandler(c *gin.Context) {
 	//elastiClient
+	crashID := c.Param("crashID")
+	processedDumpResult := crashStorage.GetProcessedCrash(crashID)
+	if processedDumpResult == nil {
+		c.Status(404)
+		return
+	}
+	c.JSON(200, processedDumpResult)
 }

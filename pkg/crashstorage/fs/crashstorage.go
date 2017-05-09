@@ -143,6 +143,11 @@ func (p *CrashStorage) createNameToDateSymlink(crashID string, slot [2]string) e
 		path.Join(p.getDatedParentDirectory(crashID, slot), crashID))
 }
 
+func (p *CrashStorage) SaveRawAndProcessed(rawCrash map[string]interface{}, dumps cs_interface.DumpsMapping, processedCrash map[string]interface{}, crashID string) {
+	p.SaveProcessed(processedCrash)
+	p.SaveRawCrash(rawCrash, dumps, crashID)
+}
+
 func (p *CrashStorage) SaveRawCrash(rawCrash map[string]interface{}, dumps cs_interface.DumpsMapping, crashID string) {
 	memoryMapping := dumps.AsMemoryDumpsMapping().(*cs_interface.MemoryDumpsMapping)
 	b, err := json.Marshal(rawCrash)
@@ -341,6 +346,22 @@ func (p *CrashStorage) GetRawDumpsAsFiles(crashID string) cs_interface.DumpsMapp
 		return &dumps
 	}
 	return nil
+}
+
+func (p *CrashStorage) GetProcessedCrash(crashID string) map[string]interface{} {
+	var processedCrash interface{}
+	parentDir := p.getRadixedParentDirectory(crashID)
+	processedJsonPath := path.Join(parentDir, crashID+p.config.JsonzFileSuffix)
+	fmt.Println(processedJsonPath)
+	f, err := os.Open(processedJsonPath) // Error handling elided for brevity.
+	if err != nil {
+		return nil
+	}
+	defer f.Close()
+	gz, _ := gzip.NewReader(f)
+	json.NewDecoder(gz).Decode(&processedCrash)
+	gz.Close()
+	return processedCrash.(map[string]interface{})
 }
 
 func (p *CrashStorage) GetProcessedCrashes(time time.Time) map[string]interface{} {

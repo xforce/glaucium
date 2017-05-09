@@ -1,0 +1,115 @@
+<v-row>
+    <h5>${report.product} ${report.version} [${report.signature}]</h5>
+</v-row>
+<v-divider></v-divider>
+<section>
+    <v-tabs id="mobile-tabs-7" left>
+        <v-tab-item slot="activators" href="#details">
+            Details
+        </v-tab-item>
+        <v-tab-item slot="activators" href="#modules">
+            Modules
+        </v-tab-item>
+        <v-tab-content id="details" slot="content">
+            <v-card>
+                <v-card-text>
+                    <v-container fluid="fluid">
+                        <v-row>
+                            <v-col xl5>
+                                <v-table-overflow>
+                                    <table class="table table--component elevation-0">
+                                        <thead>
+                                             <tr>
+                                                <th class="text-xl-left col md2">Crash ID:</th>
+                                                <td>${report.uuid}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-xl-left col md2">Signature:</th>
+                                                <td>${report.signature}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-xl-left col md2">Date Processed:</th>
+                                                <td>${report.date_processed}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-xl-left col md2">Product:</th>
+                                                <td>${report.product}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-xl-left col md2">Version:</th>
+                                                <td>${report.version}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-xl-left col md2">OS:</th>
+                                                <td>${report.os}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-xl-left col md2">OS Version:</th>
+                                                <td>${report.os_version}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-xl-left col md2">Build Architecture:</th>
+                                                <td>${report.architecture}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-xl-left col md2">Crash Address:</th>
+                                                <td>${report.address}</td>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </v-table-overflow>
+                            </v-col>
+                            <v-col xl5>
+                                <v-btn light default id="download_raw_dump_button">Download Raw Dump</v-btn>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-card-text>
+            </v-card>
+        </v-tab-content>
+        <v-tab-content id="modules" slot="content">
+            <v-container fluid="fluid">
+                <v-row>
+                    <v-col xl8>
+                        <v-data-table 
+                        v-bind:headers="modules_headers"
+                        v-model="modules_items"
+                        hide-actions class="elevation-0" id="modules_table">
+                            <template class="red darken-4" slot="items" scope="props" v-if="props.item.missing_symbols" >
+                                <td>${ props.item.filename }</td>
+                                <td>${ props.item.version }</td>
+                                <td>${ props.item.debug_identifier }</td>
+                                <td>${ props.item.debug_filename }</td>
+                            </template>
+                            <template class="red darken-4" v-else slot="items" scope="props">
+                                <td>${ props.item.filename }</td>
+                                <td>${ props.item.version }</td>
+                                <td>${ props.item.debug_identifier }</td>
+                                <td>${ props.item.debug_filename }</td>
+                            </template>
+                           
+                        </v-data-table>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-tab-content>
+    </v-tabs>
+</section>
+<section>
+    <v-container fluid class="mt-4">
+        <v-subheader>Trace</v-subheader>
+        <v-expansion-panel  expand>
+            <v-expansion-panel-content v-for="(item,i) in stack_trace" :key="i">
+            <div slot="header">${item.module}+${item.module_offset} [${item.offset}]</div>
+            <v-card>
+                <v-card-text class="grey darken-3">
+                    ${item.registers}
+                </v-card-text>
+            </v-card>
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-container>
+</section>
+<script>
+let crashID = "{{crashID}}";
+</script>

@@ -1,39 +1,57 @@
-
-    <div class="card-deck">
-        <div class="card text-center">
-            <div class="card-header">
-                Featured
-            </div>
-            <div class="card-block">
-                <h4 class="card-title">Crash Stats past 7 days</h4>
-                <canvas id="crash-stat-chart-7days" class="container"></canvas>
-            </div>
-            <button type="button" id="7-day-reports-card-view-reports" class="btn btn-primary">View Reports</button>
-        </div>
-        <div class="card text-center">
-            <div class="card-header">
-                Featured
-            </div>
-            <div class="card-block">
-                <h4 class="card-title">Special title treatment</h4>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="card-footer text-muted">
-                2 days ago
-            </div>
-        </div>
-        <div class="card text-center">
-            <div class="card-header">
-                Featured
-            </div>
-            <div class="card-block">
-                <h4 class="card-title">Special title treatment</h4>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-            <div class="card-footer text-muted">
-                2 days ago
-            </div>
-        </div>
-    </div>
+<v-row>
+    <v-col sm4>
+      <v-card class="blue-grey">
+          <v-card-row class="blue-grey darken-1">
+            <v-card-title>
+                <span class="white--text">Crash Reports by Version (past 24 hours)</span>
+            </v-card-title>
+          </v-card-row>
+        <v-card-row class="blue-grey">
+            <canvas id="crash-stat-chart-24hours" class="container"></canvas>
+        </v-card-row>
+        <v-btn block class="purple" >View Reports</v-btn>
+      </v-card>
+    </v-col>
+    <v-col sm4>
+      <v-card class="blue-grey">
+          <v-card-row class="blue-grey darken-1">
+            <v-card-title>
+                <span class="white--text">Crash Reports by Version (past 7 days)</span>
+            </v-card-title>
+          </v-card-row>
+        <v-card-row class="blue-grey">
+            <canvas id="crash-stat-chart-7days" class="container"></canvas>
+        </v-card-row>
+        <v-btn block class="purple" id="7-day-reports-card-view-reports">View Reports</v-btn>
+      </v-card>
+    </v-col>
+        <v-col sm4>
+      <v-card class="blue-grey">
+          <v-card-row class="blue-grey darken-1">
+            <v-card-title>
+                <span class="white--text">Crash Reports by Version (past 30 days)</span>
+            </v-card-title>
+          </v-card-row>
+        <v-card-row class="blue-grey">
+            <canvas id="crash-stat-chart-7days" class="container"></canvas>
+        </v-card-row>
+        <v-btn block class="purple">View Reports</v-btn>
+      </v-card>
+    </v-col>
+</v-row>
+<v-row class="mt-4">
+<v-subheader>Recent Reports (Showing ${ loaded_report_count } of ${ total_report_count } Reports)</v-subheader>
+<v-data-table 
+  v-bind:headers="recent_reports_headers"
+  v-model="recent_reports_items"
+  hide-actions class="elevation-1" id="recent_reports_table">
+  <template slot="items" scope="props">
+    <td><a v-bind:href="'/report/' + props.item.crash_id">${ props.item.crash_id }</a></td>
+    <td class="text-xs-right">${ props.item.date }</td>
+    <td class="text-xs-right">${ props.item.signature }</td>
+    <td class="text-xs-right">${ props.item.product }</td>
+    <td class="text-xs-right">${ props.item.version }</td>
+    <td class="text-xs-right">${ props.item.platform }</td>
+  </template>
+</v-data-table>
+</v-row>

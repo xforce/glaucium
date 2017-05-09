@@ -32,15 +32,38 @@ type ProcessorConfig struct {
 	SaveRawDumpInDestination bool
 }
 
-func extractCrashingThread(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
+func extractCrashInfo(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
+	if val, ok := processedCrash["json_dump"].(map[string]interface{}); ok {
+		if crashInfo, ok := val["crash_info"].(map[string]interface{}); ok {
+			processedCrash["address"] = crashInfo["address"]
+			processedCrash["reason"] = crashInfo["type"]
+			processedCrash["crashedThread"] = crashInfo["crashing_thread"]
+		}
+	}
 	return processedCrash
 }
 
 func extractCPUInfo(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
+	if val, ok := processedCrash["json_dump"].(map[string]interface{}); ok {
+		if systemInfo, ok := val["system_info"].(map[string]interface{}); ok {
+			cpuInfo, okCPUInfo := systemInfo["cpu_info"].(string)
+			cpuCount, okCPUCount := systemInfo["cpu_count"].(string)
+			if okCPUInfo && okCPUCount {
+				processedCrash["cpu_info"] = fmt.Sprintf("%s | %s", cpuInfo, cpuCount)
+			}
+			processedCrash["cpu_name"] = systemInfo["cpu_arch"]
+		}
+	}
 	return processedCrash
 }
 
 func extractOSInfo(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
+	if val, ok := processedCrash["json_dump"].(map[string]interface{}); ok {
+		if systemInfo, ok := val["system_info"].(map[string]interface{}); ok {
+			processedCrash["os_version"] = systemInfo["os_ver"]
+			processedCrash["os_name"] = systemInfo["os"]
+		}
+	}
 	return processedCrash
 }
 
@@ -284,7 +307,7 @@ func processCrash(rawCrash map[string]interface{}, dumps *cs_interface.FileDumps
 	processedCrash["productid"] = rawCrash["ProductID"]
 	processedCrash["notes"] = rawCrash["Notes"]
 
-	processedCrash = extractCrashingThread(rawCrash, processedCrash)
+	processedCrash = extractCrashInfo(rawCrash, processedCrash)
 	processedCrash = extractCPUInfo(rawCrash, processedCrash)
 	processedCrash = extractOSInfo(rawCrash, processedCrash)
 	processedCrash = extractOSPrettyVersion(rawCrash, processedCrash)

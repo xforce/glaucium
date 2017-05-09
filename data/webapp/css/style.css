@@ -1,19 +1,9 @@
-html {
-  position: relative;
-  min-height: 100%;
-}
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  background: #E1E2E1;
+  background: #eee;
 }
 .footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+  flex: none;
   background-color: #f5f5f5;
 }
 nav, .jumbotron {
@@ -22,5 +12,8 @@ nav, .jumbotron {
 .card {
     background: #4C4C4C;
     color: #fff;
+}
+.content {
+  background: #eee;
 }
 /* https://material.io/color/#!/?view.left=0&view.right=0&secondary.color=7B1FA2&primary.color=ab47bc */

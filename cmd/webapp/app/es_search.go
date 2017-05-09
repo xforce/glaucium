@@ -18,8 +18,9 @@ var ctx context.Context
 
 func InitializeEsSearch() {
 	ctx = context.Background()
+	f, _ := os.OpenFile("testlogfile", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	// elastic.SetTraceLog(log.New(os.Stderr, "ELASTIC ", log.LstdFlags))
-	elastiClient, _ = elastic.NewClient(elastic.SetTraceLog(log.New(os.Stderr, "ELASTIC ", log.LstdFlags)))
+	elastiClient, _ = elastic.NewClient(elastic.SetTraceLog(log.New(f, "ELASTIC ", log.LstdFlags)))
 }
 
 type MappingType struct {
@@ -65,8 +66,6 @@ func buildFields(jsonData map[string]interface{}) []string {
 			columnStr, ok := column.(string)
 			if !ok {
 				fmt.Println("invalid column type")
-			} else {
-				fmt.Println(columnStr)
 			}
 			columns = append(columns, getFieldName(columnStr, false))
 		}
@@ -78,10 +77,10 @@ func buildPaginate(jsonData map[string]interface{}) (int, int) {
 	from := int(0)
 	size := int(100)
 	if val, ok := jsonData["results_from"]; ok {
-		from = val.(int)
+		from = int(val.(float64))
 	}
 	if val, ok := jsonData["results_size"]; ok {
-		size = val.(int)
+		size = int(val.(float64))
 	}
 	if size > 1000 {
 		size = 1000
@@ -96,7 +95,6 @@ func buildFilters(jsonData map[string]interface{}) []elastic.Query {
 		for _, filter := range filtersInterface {
 			filterMap, ok := filter.(map[string]interface{})
 			if ok {
-				fmt.Println(filterMap)
 				if val, ok := filterMap["operator"]; ok {
 					if operatorStr, ok := val.(string); ok {
 						query := elastic.NewRangeQuery(getFieldName(filterMap["name"].(string), false))
@@ -191,7 +189,7 @@ func buildAggregations(search *elastic.SearchService, jsonData map[string]interf
 		for histogram, histogramValue := range histogramsInterface {
 			histogramStr, ok := histogramValue.(string)
 			if ok {
-				agg := elastic.NewHistogramAggregation().Interval(float64(1000)).Field(getFieldName(histogram, true))
+				agg := elastic.NewHistogramAggregation().Interval(float64(1000 * 60 * 60 * 24)).Field(getFieldName(histogram, true))
 				histogramKeyValue := histogramKey{histogram: histogram}
 
 				if len(histogramStr) > 0 {
@@ -293,7 +291,6 @@ func DoSearch(m map[string]interface{}) map[string]interface{} {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(searchResult.Hits)
 	resultHits := make([]interface{}, 0)
 	resultAggregations := make(map[string]interface{}, 0)
 	resultHistograms := make(map[string]interface{}, 0)
@@ -316,11 +313,11 @@ func DoSearch(m map[string]interface{}) map[string]interface{} {
 			var t map[string]interface{}
 			err := json.Unmarshal(*hit.Source, &t)
 			if err == nil {
-				fmt.Println(t)
-				//requestedFields
 				resultHits = append(resultHits, t)
 			}
 		}
 	}
-	return map[string]interface{}{"hits": resultHits, "facets": resultAggregations, "histograms": resultHistograms}
+	docCount, _ := elastiClient.Count().Do(ctx)
+	fmt.Println(docCount)
+	return map[string]interface{}{"hits": resultHits, "facets": resultAggregations, "histograms": resultHistograms, "total": docCount}
 }

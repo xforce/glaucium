@@ -4,56 +4,44 @@
     <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
     <link rel="icon" type="image/jpeg" href="/images/icon.jpg" />
     <title>Glaucium - {{title}}</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="/css/material.min.css" rel="stylesheet">
-    
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+    <link href="/css/vuetify.min.css" rel="stylesheet" type="text/css">
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/vuetify.min.js"></script>
     <link href="/css/style.css" rel="stylesheet">
     {{#if extra_css }}
       <link href="/css/{{extra_css}}" rel="stylesheet">
     {{/if}}
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-md navbar-inverse jumbotron jumbotron-fluid">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="#">Glaucium</a>
-
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-    <br />
-    <div id="content-container" class="container-fluid offset-md-2">
-      {{ yield }}
-    </div>
-
-    <footer class="footer">
-      <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
-      </div>
-    </footer>
-   <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script src="/js/tether.min.js"></script>
-    <script src="/js/material.min.js"></script>
-    <script src="http://momentjs.com/downloads/moment.js"></script>
+    <v-app id="app">
+      <v-toolbar class="secondary">
+         <v-toolbar-side-icon></v-toolbar-side-icon>
+        <v-toolbar-title class="hidden-sm-and-down">Glaucium</v-toolbar-title>
+        <v-toolbar-items class="hidden-md-and-down">
+          <v-toolbar-item ripple>Link</v-toolbar-item>
+          <v-toolbar-item ripple>Link</v-toolbar-item>
+          <v-toolbar-item ripple>Link</v-toolbar-item>
+        </v-toolbar-items>
+        <v-text-field prepend-icon="search" xs3 label="Search..." hide-details single-line dark></v-text-field>
+      </v-toolbar>
+      <main>
+        <v-content>
+          <v-container fluid class="ma-4">
+              {{ yield }}
+            </v-container>
+        </v-content>
+      </main>
+      <v-footer>
+        <div class="text-xs-right">© 2016</div>
+      </v-footer>
+    </v-app>
+    <script src="/js/moment.min.js"></script>
     <script src="/js/Chart.bundle.min.js"></script>
-    <script src="https://cdn.rawgit.com/FezVrasta/bootstrap-material-design/dist/dist/bootstrap-material-design.iife.min.js"></script>
-    <script src="/js/custom.js"></script>
     {{#if extra_js }}
     <script src="/js/{{extra_js}}"></script>
+    {{else}}
+    <script src="/js/default_app.js"></script>
     {{/if}}
 </body>
 </html>

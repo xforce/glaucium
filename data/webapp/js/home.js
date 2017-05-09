@@ -1,10 +1,3 @@
-function onClickSevenDayReports() {
-    // Build the search URL
-    //document.location = 
-}
-
-document.getElementById("7-day-reports-card-view-reports").onclick = onClickSevenDayReports; 
-
 function GetDateRangePrior(numberOfDays) {
     let dateArray = new Array();
     for(i = 0; numberOfDays >= 0; ++i) {
@@ -39,9 +32,9 @@ function load7DayHistogramData() {
         }
     }
 
-    let versions = ["1.0"];
+    let versions = ["1.0", "0.9.9"];
 
-    xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     let url = "api/search";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json");
@@ -91,31 +84,37 @@ function load7DayHistogramData() {
                     dataStruct[baseVersion][histogram.term.substring(0, 10)] = dataStruct[baseVersion][histogram.term.substring(0, 10)] + versionCount.count; // Works fine
                 });
                 counter = 0;
-                for(let dataS in dataStruct) {
-                    datasets.push(
-                    {
-                            label: dataS,
-                            data: $.map(dataStruct[dataS], function(value, index) {return [value];}),
-                            fill: false,
-                            lineTension: 0.1,
-                            backgroundColor: "rgba(75,192,192,0.4)",
-                            borderColor: "rgba(75,192,192,1)",
-                            borderCapStyle: 'butt',
-                            borderDash: [],
-                            borderDashOffset: 0.0,
-                            borderJoinStyle: 'miter',
-                            pointBorderColor: "rgba(75,192,192,1)",
-                            pointBackgroundColor: "#fff",
-                            pointBorderWidth: 1,
-                            pointHoverRadius: 5,
-                            pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                            pointHoverBorderColor: "rgba(220,220,220,1)",
-                            pointHoverBorderWidth: 2,
-                            pointRadius: 1,
-                            pointHitRadius: 10,
-                    });
-                }
             }
+            console.log(dataStruct);
+            for(let dataS in dataStruct) {
+                let dataArray = [];
+                Object.keys(dataStruct[dataS]).forEach(function(value) {
+                    dataArray.push(dataStruct[dataS][value]);
+                });
+                datasets.push(
+                {
+                        label: dataS,
+                        data: dataArray,
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "rgba(75,192,192,0.4)",
+                        borderColor: "rgba(75,192,192,1)",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                });
+            }
+            console.log(datasets);
             let myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -143,8 +142,80 @@ function load7DayHistogramData() {
         }
     }
     xhr.send(JSON.stringify(meow));
+
+    document.getElementById("7-day-reports-card-view-reports").onclick = function() {
+        document.location = "/search";
+    }; 
 }
-load7DayHistogramData();
+
 
 Chart.defaults.global.defaultFontColor = "#fff";
+let vm = new Vue({
+  el: '#app',
+  delimiters: ['${', '}'],
+  data: {
+    loaded_report_count: 0,
+    total_report_count: 0,
+      recent_reports_headers: [
+          { text: 'Crash ID', value: 'crash_id',  left: true, sortable: false },
+          { text: 'Date', value: 'date' },
+          { text: 'Signature', value: 'signature' },
+          { text: 'Product', value: 'product' },
+          { text: 'Version', value: 'version' },
+          { text: 'Platform', value: 'platform' },
+      ],
+      recent_reports_items: [],
+  }
+});
 
+function fetchRecentReports() {
+    let endDate = moment();
+    let startDate = moment().subtract(7, 'd');
+    let meow = {
+        "columns": ["signature","product","version"],
+        "results_from": 0,
+        "results_size": 50,
+        "sort": [
+            {"field": "date","asc": true}
+        ],
+        "facets": [
+            "signature"
+        ],
+        "histograms": {
+            "date": "version"
+        }
+    }
+
+    let versions = ["1.0", "0.9.9"];
+
+    let xhr = new XMLHttpRequest();
+    let url = "api/search";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            let jsonResponse = JSON.parse(xhr.responseText);
+            console.log(jsonResponse);
+            let resultArray = [];
+            jsonResponse.hits.forEach((hit) => {
+                resultArray.push(
+                   {
+                        crash_id: hit.crash_id,
+                        date: moment(hit.processed_crash.date_processed).format("YYYY-MM-DD HH:MM:SS"),
+                        signature: hit.processed_crash.signature,
+                        product: hit.processed_crash.product,
+                        version: hit.processed_crash.version,
+                        platform: hit.processed_crash.platform,
+                    });
+            });
+            vm.recent_reports_items = resultArray;
+            vm.loaded_report_count = jsonResponse.hits.length;
+            vm.total_report_count = jsonResponse.total;
+        }
+    }
+    xhr.send(JSON.stringify(meow));
+
+}
+
+fetchRecentReports();
+load7DayHistogramData();
