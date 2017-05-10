@@ -12,10 +12,10 @@ go_library(
     srcs = ["crashstorage.go"],
     tags = ["automanaged"],
     deps = [
-        "//pkg/crashstorage/boto:go_default_library",
         "//pkg/crashstorage/es:go_default_library",
         "//pkg/crashstorage/fs:go_default_library",
         "//pkg/crashstorage/interface:go_default_library",
+        "//pkg/crashstorage/s3:go_default_library",
     ],
 )
 
@@ -30,11 +30,11 @@ filegroup(
     name = "all-srcs",
     srcs = [
         ":package-srcs",
-        "//pkg/crashstorage/boto:all-srcs",
         "//pkg/crashstorage/es:all-srcs",
         "//pkg/crashstorage/fs:all-srcs",
         "//pkg/crashstorage/interface:all-srcs",
         "//pkg/crashstorage/rabbitmq:all-srcs",
+        "//pkg/crashstorage/s3:all-srcs",
     ],
     tags = ["automanaged"],
 )

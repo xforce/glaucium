@@ -5,6 +5,8 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"path"
+	"strconv"
 
 	"github.com/aymerick/raymond"
 	"github.com/gin-gonic/gin"
@@ -32,10 +34,11 @@ func Run() error {
 		fmt.Println("Error ", err.Error())
 		return err
 	}
-
-	crashStorage = crashstorage.GetCrashStorage("fs", "/etc/glaucium/config.toml", nil)
+	crashStorage = crashstorage.GetCrashStorage(config.GetDefault("webapp.crashstorage", "fs").(string), "/etc/glaucium/config.toml", nil)
 
 	InitializeEsSearch()
+
+	webappDataPath := config.GetDefault("webapp.webapp_data", "/usr/share/glaucium/webapp/data").(string)
 
 	if err != nil {
 		fmt.Println("Error ", err.Error())
@@ -49,13 +52,13 @@ func Run() error {
 	// data/webapp
 	router := gin.Default()
 	renderOptions := ginraymond.RenderOptions{}
-	renderOptions.TemplateDir = "data/webapp/views"
+	renderOptions.TemplateDir = path.Join(webappDataPath, "views")
 	renderOptions.Layout = "layout.html"
 
 	router.HTMLRender = ginraymond.New(&renderOptions)
-	router.Static("/css", "data/webapp/css")
-	router.Static("/js", "data/webapp/js")
-	router.Static("/images", "data/webapp/images")
+	router.Static("/css", path.Join(webappDataPath, "css"))
+	router.Static("/js", path.Join(webappDataPath, "js"))
+	router.Static("/images", path.Join(webappDataPath, "images"))
 
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "home.html", gin.H{"title": "Home", "extra_js": "home.js", "extra_css": "home.css"})
@@ -66,6 +69,9 @@ func Run() error {
 		api.POST("/search", searchApiPostHandler)
 		api.GET("/report/:crashID", reportApiHandler)
 		api.GET("/report/:crashID/download/raw", reportDownloadRawDumpHandler)
+		api.GET("/versions", versionsApiHandler)
+		api.GET("/products", productsApiHandler)
+		api.GET("/platforms", platformsApiHandler)
 	}
 	router.GET("/search", searchViewHandler)
 	report := router.Group("/report")
@@ -75,8 +81,7 @@ func Run() error {
 	router.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{"title": "Page Not Found!", "extra_css": "404.css"})
 	})
-
-	return router.Run(":6300")
+	return router.Run(":" + strconv.Itoa(config.GetDefault("webapp.port", 6300).(int)))
 }
 
 func reportViewHandler(c *gin.Context) {
@@ -85,7 +90,7 @@ func reportViewHandler(c *gin.Context) {
 }
 
 func searchViewHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "search.html", gin.H{"title": "Report", "extra_js": "search.js"})
+	c.HTML(http.StatusOK, "search.html", gin.H{"title": "Report", "extra_js": "search.js", "extra_css": "search.css"})
 }
 
 func searchApiGetHandler(c *gin.Context) {
@@ -93,6 +98,18 @@ func searchApiGetHandler(c *gin.Context) {
 	// maybe just return aggregations for things
 	// ....does that make sense?!
 	// I am confused
+}
+
+func versionsApiHandler(c *gin.Context) {
+
+}
+
+func productsApiHandler(c *gin.Context) {
+	c.JSON(200, []string{"Meow"})
+}
+
+func platformsApiHandler(c *gin.Context) {
+
 }
 
 func searchApiPostHandler(c *gin.Context) {
@@ -109,9 +126,9 @@ func searchApiPostHandler(c *gin.Context) {
 
 func reportDownloadRawDumpHandler(c *gin.Context) {
 	crashID := c.Param("crashID")
-	dumps := crashStorage.GetRawDumpsAsFiles(crashID)
+	dumps := crashStorage.GetRawDumps(crashID).(*cs_interface.MemoryDumpsMapping)
 	c.Header("Content-Disposition", `inline; filename="`+crashID+`.dmp"`)
-	c.File(dumps.(*cs_interface.FileDumpsMapping).M["upload_file_minidump"].(string))
+	c.Data(200, "application/octet-stream", dumps.M["upload_file_minidump"].([]byte))
 }
 
 func reportApiHandler(c *gin.Context) {

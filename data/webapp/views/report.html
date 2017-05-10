@@ -75,19 +75,12 @@
                         v-bind:headers="modules_headers"
                         v-model="modules_items"
                         hide-actions class="elevation-0" id="modules_table">
-                            <template class="red darken-4" slot="items" scope="props" v-if="props.item.missing_symbols" >
+                            <template slot="items" scope="props">
                                 <td>${ props.item.filename }</td>
                                 <td>${ props.item.version }</td>
                                 <td>${ props.item.debug_identifier }</td>
                                 <td>${ props.item.debug_filename }</td>
                             </template>
-                            <template class="red darken-4" v-else slot="items" scope="props">
-                                <td>${ props.item.filename }</td>
-                                <td>${ props.item.version }</td>
-                                <td>${ props.item.debug_identifier }</td>
-                                <td>${ props.item.debug_filename }</td>
-                            </template>
-                           
                         </v-data-table>
                     </v-col>
                 </v-row>

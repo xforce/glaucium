@@ -9,9 +9,9 @@ load(
 
 go_library(
     name = "go_default_library",
-    srcs = ["crashstorage.go"],
+    srcs = ["queryutil.go"],
     tags = ["automanaged"],
-    deps = ["//pkg/crashstorage/interface:go_default_library"],
+    deps = ["//vendor/github.com/aws/aws-sdk-go/private/protocol:go_default_library"],
 )
 
 filegroup(

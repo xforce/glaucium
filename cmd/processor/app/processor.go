@@ -12,6 +12,7 @@ import (
 	"os/signal"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/pelletier/go-toml"
@@ -31,6 +32,8 @@ type ProcessorConfig struct {
 	RemoveRawDumpFromSource  bool
 	SaveRawDumpInDestination bool
 }
+
+var processorConfig ProcessorConfig
 
 func extractCrashInfo(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
 	if val, ok := processedCrash["json_dump"].(map[string]interface{}); ok {
@@ -328,7 +331,7 @@ func Run() error {
 		return err
 	}
 
-	processorConfig := ProcessorConfig{}
+	processorConfig = ProcessorConfig{}
 
 	/*
 		new_crash_source = ["rabbitmq"]
@@ -375,8 +378,8 @@ func Run() error {
 	// this currently is hard coded to check every 5 minutes to process the next crashes
 	// all the crashes processing actually runs in go routines so that is nice-ish
 	for {
+		var wg sync.WaitGroup
 		newCrashCrashStorage.NewCrashes(func(crashID string) {
-
 			fmt.Println("Processing new crash: " + crashID)
 
 			rawCrash := sourceCrashStorage.GetRawCrash(crashID)
@@ -396,7 +399,8 @@ func Run() error {
 				sourceCrashStorage.Remove(crashID)
 			}
 			newCrashCrashStorage.AckCrash(crashID)
-		})
+		}, &wg)
+		wg.Wait()
 		time.Sleep(5 * time.Second)
 		if stop {
 			return nil

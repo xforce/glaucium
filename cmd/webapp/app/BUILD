@@ -9,11 +9,14 @@ load(
 
 go_library(
     name = "go_default_library",
-    srcs = ["webapp.go", "es_search.go"],
+    srcs = [
+        "es_search.go",
+        "webapp.go",
+    ],
     tags = ["automanaged"],
     deps = [
-        "//pkg/crashstorage/interface:go_default_library",
         "//pkg/crashstorage:go_default_library",
+        "//pkg/crashstorage/interface:go_default_library",
         "//vendor/github.com/aymerick/raymond:go_default_library",
         "//vendor/github.com/gin-gonic/gin:go_default_library",
         "//vendor/github.com/pelletier/go-toml:go_default_library",

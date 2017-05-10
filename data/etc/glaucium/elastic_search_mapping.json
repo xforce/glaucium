@@ -537,7 +537,7 @@
         "default_value": null,
         "form_field_choices": null,
         "has_full_version": true,
-        "has_keyword": false,
+        "has_keyword": true,
         "in_database_name": "os_name",
         "is_exposed": true,
         "is_mandatory": false,
@@ -551,6 +551,9 @@
                 "full": {
                     "index": "not_analyzed",
                     "type": "text"
+                },
+                "keyword": {
+                    "type": "keyword"
                 }
             },
             "type": "text"
@@ -622,7 +625,7 @@
         "default_value": null,
         "form_field_choices": null,
         "has_full_version": true,
-        "has_keyword": false,
+        "has_keyword": true,
         "in_database_name": "product",
         "is_exposed": true,
         "is_mandatory": false,
@@ -636,6 +639,9 @@
                 "full": {
                     "index": "not_analyzed",
                     "type": "text"
+                },
+                "keyword": {
+                    "type": "keyword"
                 }
             },
             "index": "analyzed",
@@ -665,7 +671,7 @@
         "default_value": null,
         "form_field_choices": null,
         "has_full_version": true,
-        "has_keyword": false,
+        "has_keyword": true,
         "in_database_name": "reason",
         "is_exposed": true,
         "is_mandatory": false,
@@ -679,6 +685,9 @@
                 "full": {
                     "index": "not_analyzed",
                     "type": "text"
+                },
+                "keyword": {
+                    "type": "keyword"
                 }
             },
             "type": "text",

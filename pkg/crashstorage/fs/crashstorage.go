@@ -11,6 +11,7 @@ import (
 	"path"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/pelletier/go-toml"
@@ -242,10 +243,12 @@ func (p *CrashStorage) Remove(crashID string) {
 	}
 }
 
-func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(string)) {
+func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(string), wg *sync.WaitGroup) {
 	crashIDs, _ := ioutil.ReadDir(minuteSlotBase)
 	for crashID := range crashIDs {
+		wg.Add(1)
 		go func(crashID string, minuteSlotBase string) {
+			defer wg.Done()
 			nameDir := path.Join(minuteSlotBase, crashID)
 			statResult, _ := os.Lstat(nameDir)
 			if statResult.Mode()&os.ModeSymlink != 0 {
@@ -266,7 +269,7 @@ func greaterThanEqualsSlot(lhs [2]string, rhs [2]string) bool {
 	return lhs[0] >= rhs[0] && lhs[1] >= rhs[1]
 }
 
-func (p *CrashStorage) NewCrashes(callback func(string)) {
+func (p *CrashStorage) NewCrashes(callback func(string), wg *sync.WaitGroup) {
 	currentSlot := p.currentSlot()
 	currentDate := getCurrentDate()
 
@@ -291,7 +294,9 @@ func (p *CrashStorage) NewCrashes(callback func(string)) {
 						skipDir = true
 						continue
 					}
-					p.visitMinuteSlot(minuteSlotBase, func(crashID string) { callback(crashID) })
+					p.visitMinuteSlot(minuteSlotBase, func(crashID string) {
+						callback(crashID)
+					}, wg)
 					os.Remove(minuteSlotBase)
 				}
 				h, _ := strconv.Atoi(currentSlot[0])
@@ -335,7 +340,7 @@ func (p *CrashStorage) GetRawDumpsAsFiles(crashID string) cs_interface.DumpsMapp
 			return nil
 		}
 
-		dumps := cs_interface.NewFileDumpsMapping()
+		dumps := cs_interface.NewFileDumpsMapping(false)
 		dumpFileNames, _ := ioutil.ReadDir(parentDir)
 		for _, dumpFileName := range dumpFileNames {
 			realDumpFileName := dumpFileName.Name()

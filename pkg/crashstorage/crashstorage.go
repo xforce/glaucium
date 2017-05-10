@@ -1,10 +1,10 @@
 package crashstorage
 
 import (
-	"github.com/xforce/glaucium/pkg/crashstorage/boto"
 	"github.com/xforce/glaucium/pkg/crashstorage/es"
 	"github.com/xforce/glaucium/pkg/crashstorage/fs"
 	"github.com/xforce/glaucium/pkg/crashstorage/interface"
+	"github.com/xforce/glaucium/pkg/crashstorage/s3"
 )
 
 type PolyCrashStorage struct {
@@ -29,8 +29,9 @@ func (p *PolyCrashStorage) SaveRawAndProcessed(rawCrash map[string]interface{}, 
 }
 func GetCrashStorage(name string, configFile string, additionals []string) cs_interface.CrashStorage {
 	nullStorage := cs_interface.NullStorage{}
-	if name == "boto" {
-		return &boto.CrashStorage{}
+	if name == "s3" {
+		crashStorage, _ := s3.NewCrashStorage(configFile)
+		return crashStorage
 	} else if name == "fs" {
 		crashStorage, _ := fs.NewCrashStorage(configFile)
 		return crashStorage

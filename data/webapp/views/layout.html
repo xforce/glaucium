@@ -16,14 +16,11 @@
 <body>
     <v-app id="app">
       <v-toolbar class="secondary">
-         <v-toolbar-side-icon></v-toolbar-side-icon>
-        <v-toolbar-title class="hidden-sm-and-down">Glaucium</v-toolbar-title>
-        <v-toolbar-items class="hidden-md-and-down">
-          <v-toolbar-item ripple>Link</v-toolbar-item>
-          <v-toolbar-item ripple>Link</v-toolbar-item>
-          <v-toolbar-item ripple>Link</v-toolbar-item>
-        </v-toolbar-items>
-        <v-text-field prepend-icon="search" xs3 label="Search..." hide-details single-line dark></v-text-field>
+        <v-toolbar-title class="hidden-sm-and-down"><a href="/">Glaucium</a></v-toolbar-title>
+        <v-btn icon class="white--text text--lighten-2" id="search_btn">
+          <v-icon>search</v-icon>
+        </v-btn>
+        <v-text-field xs3 label="Search..." hide-details single-line dark></v-text-field>
       </v-toolbar>
       <main>
         <v-content>
@@ -43,5 +40,6 @@
     {{else}}
     <script src="/js/default_app.js"></script>
     {{/if}}
+    <script>document.getElementById("search_btn").onclick = () => {document.location = "/search";};</script>
 </body>
 </html>

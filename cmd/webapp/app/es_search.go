@@ -88,8 +88,7 @@ func buildPaginate(jsonData map[string]interface{}) (int, int) {
 	return from, size
 }
 
-func buildFilters(jsonData map[string]interface{}) []elastic.Query {
-	result := make([]elastic.Query, 0)
+func buildFilters(searchQuery *elastic.BoolQuery, jsonData map[string]interface{}) {
 	if val, ok := jsonData["filters"]; ok {
 		filtersInterface, _ := val.([]interface{})
 		for _, filter := range filtersInterface {
@@ -107,11 +106,11 @@ func buildFilters(jsonData map[string]interface{}) []elastic.Query {
 						} else if operatorStr == "lt" {
 							query.Lt(filterMap["value"].(string))
 						}
-						result = append(result, query)
+						searchQuery = searchQuery.Filter(query)
 					}
 				} else {
 					query := elastic.NewTermQuery(getFieldName(filterMap["name"].(string), false), filterMap["value"].(string))
-					result = append(result, query)
+					searchQuery = searchQuery.Should(query)
 				}
 			} else {
 				fmt.Println("Failed to convert filter is", reflect.TypeOf(filter),
@@ -147,7 +146,6 @@ func buildFilters(jsonData map[string]interface{}) []elastic.Query {
 			]
 		}
 	*/
-	return result
 }
 
 type histogramKey struct {
@@ -272,7 +270,7 @@ func DoSearch(m map[string]interface{}) map[string]interface{} {
 	//requestedFields := buildFields(m)
 
 	from, size := buildPaginate(m)
-	searchQuery.Filter(buildFilters(m)...)
+	buildFilters(searchQuery, m)
 	search := elastiClient.Search().
 		Index([]string{}...).
 		Query(searchQuery).
@@ -320,4 +318,8 @@ func DoSearch(m map[string]interface{}) map[string]interface{} {
 	docCount, _ := elastiClient.Count().Do(ctx)
 	fmt.Println(docCount)
 	return map[string]interface{}{"hits": resultHits, "facets": resultAggregations, "histograms": resultHistograms, "total": docCount}
+}
+
+func GetVersions() []string {
+	return []string{}
 }
