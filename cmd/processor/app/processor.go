@@ -85,8 +85,7 @@ func appendIfNotInCollapseMode(list []string, targetCounter int, aCharacter stri
 	if targetCounter == 0 {
 		return append(list, aCharacter)
 	}
-
-	return []string{}
+	return list
 }
 
 func isCollapseException([]string, string, string) bool {
@@ -107,7 +106,6 @@ func collapse(functionSignature string, openString string, replacementOpenString
 				collapsedList = appendIfNotInCollapseMode(collapsedList, targetCounter, string(aCharacter))
 				continue
 			}
-
 			collapsedList = appendIfNotInCollapseMode(collapsedList, targetCounter, replacementOpenString)
 			targetCounter++
 		} else if aCharacter == closeString {
@@ -121,8 +119,6 @@ func collapse(functionSignature string, openString string, replacementOpenString
 		} else {
 			collapsedList = appendIfNotInCollapseMode(collapsedList, targetCounter, aCharacter)
 		}
-		fmt.Println(aCharacter)
-		fmt.Println(index)
 	}
 	return strings.Join(collapsedList, "")
 }
@@ -408,6 +404,47 @@ func Run() error {
 		fmt.Println("Error ", err.Error())
 		return err
 	}
+
+	function := "V8ObjectBind::Ctor(v8::FunctionCallbackInfo<v8::Value> const &)"
+	function = collapse(function, "<", "<", ">", "T>")
+	fmt.Println(function)
+	// TOOD(alexander): siglist
+	function = fmt.Sprintf("%s:%d", function, int(150))
+	fmt.Println(function)
+	var tmpString string
+	functionLength := len(function)
+	for index, character := range function {
+		if index+1 < functionLength {
+			if character == ' ' {
+				nextCharacter := function[index+1]
+				if nextCharacter == '*' ||
+					nextCharacter == '&' ||
+					nextCharacter == ',' {
+					continue
+				}
+			}
+		}
+		tmpString += string(character)
+	}
+	function = tmpString
+	tmpString = ""
+	functionLength = len(function)
+	for index, character := range function {
+		if index+1 < functionLength {
+			if character == ',' {
+				nextCharacter := function[index+1]
+				if nextCharacter != ' ' {
+					tmpString += ", "
+					continue
+				}
+			}
+		}
+		tmpString += string(character)
+	}
+	function = tmpString
+
+	fmt.Println(function)
+	return nil
 
 	processorConfig = ProcessorConfig{}
 
