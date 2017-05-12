@@ -131,6 +131,7 @@ func reportDownloadRawDumpHandler(c *gin.Context) {
 	crashID := c.Param("crashID")
 	dumps := crashStorage.GetRawDumps(crashID).(*cs_interface.MemoryDumpsMapping)
 	c.Header("Content-Disposition", `inline; filename="`+crashID+`.dmp"`)
+	c.Header("Content-Length", strconv.Itoa(len(dumps.M["upload_file_minidump"].([]byte))))
 	c.Data(200, "application/octet-stream", dumps.M["upload_file_minidump"].([]byte))
 }
 

@@ -62,7 +62,36 @@ function loadStackTrace() {
             let jsonResponse = JSON.parse(xhr.responseText);
             console.log(jsonResponse);
             let resultArray = [];
-            vm.stack_trace = jsonResponse.json_dump.crashing_thread.frames;
+            vm.stack_trace = [];
+            jsonResponse.json_dump.crashing_thread.frames.forEach((frame) => {
+                frame_object = {};
+                console.log(frame)
+                if (frame.function !== undefined) {
+                    frame_object.display_name = frame.module + "___" + frame.function;
+                } else {
+                    frame_object.display_name = frame.module + "+" + frame.module_offset + "[" + frame.offset +"]"
+                }
+
+				if (frame.file !== undefined) {
+					frame_object.file = frame.file;
+					frame_object.line = frame.line;
+					frame_object.show_file = true;
+				} else {
+					frame_object.show_file = false;
+				}
+				frame_object.module = frame.module;
+				frame_object.module_offset = frame.module_offset;
+
+				if (frame.function_offset !== undefined) {
+					frame_object.function_offset = frame.function_offset;
+					frame_object.show_function_offset = true;
+				} else {
+					frame_object.show_function_offset = false;
+				}
+				
+
+                vm.stack_trace.push(frame_object);
+            });
             jsonResponse.json_dump.modules.forEach((module) => {
                 resultArray.push({
                     filename: module.filename,

@@ -91,16 +91,11 @@
 <section>
     <v-container fluid class="mt-4">
         <v-subheader>Trace</v-subheader>
-        <v-expansion-panel  expand>
-            <v-expansion-panel-content v-for="(item,i) in stack_trace" :key="i">
-            <div slot="header">${item.module}+${item.module_offset} [${item.offset}]</div>
-            <v-card>
-                <v-card-text class="grey darken-3">
-                    ${item.registers}
+            <v-card slot="header" v-for="(item,i) in stack_trace" :key="i">
+                <v-card-text class="white darken-2">
+                     ${item.display_name}  <template v-if="item.show_file">( ${item.file}:${item.line} )</template>
                 </v-card-text>
             </v-card>
-            </v-expansion-panel-content>
-        </v-expansion-panel>
     </v-container>
 </section>
 <script>
