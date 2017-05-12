@@ -11,6 +11,7 @@ import (
 	"os/exec"
 	"os/signal"
 	"path"
+	"reflect"
 	"regexp"
 	"strings"
 	"sync"
@@ -80,9 +81,50 @@ func extractMissingSymbols(rawCrash map[string]interface{}, processedCrash map[s
 	return processedCrash
 }
 
-func collapse(functionSignature string, openString string, replacementOpenString string, closeString string, replacementCloseString string) string {
+func appendIfNotInCollapseMode(list []string, targetCounter int, aCharacter string) []string {
+	if targetCounter == 0 {
+		return append(list, aCharacter)
+	}
 
-	return ""
+	return []string{}
+}
+
+func isCollapseException([]string, string, string) bool {
+	return false
+}
+
+func collapse(functionSignature string, openString string, replacementOpenString string, closeString string, replacementCloseString string) string {
+	var collapsedList []string
+	targetCounter := int(0)
+	exceptionMode := false
+
+	for index, rCharacter := range functionSignature {
+		aCharacter := string(rCharacter)
+		if aCharacter == openString {
+			if isCollapseException([]string{}, functionSignature[index+1:],
+				functionSignature[:index]) {
+				exceptionMode = true
+				collapsedList = appendIfNotInCollapseMode(collapsedList, targetCounter, string(aCharacter))
+				continue
+			}
+
+			collapsedList = appendIfNotInCollapseMode(collapsedList, targetCounter, replacementOpenString)
+			targetCounter++
+		} else if aCharacter == closeString {
+			if exceptionMode {
+				collapsedList = appendIfNotInCollapseMode(collapsedList, targetCounter, replacementCloseString)
+				exceptionMode = false
+			} else {
+				targetCounter--
+				collapsedList = appendIfNotInCollapseMode(collapsedList, targetCounter, replacementCloseString)
+			}
+		} else {
+			collapsedList = appendIfNotInCollapseMode(collapsedList, targetCounter, aCharacter)
+		}
+		fmt.Println(aCharacter)
+		fmt.Println(index)
+	}
+	return strings.Join(collapsedList, "")
 }
 
 func normalizeSignature(frame map[string]interface{}) string {
@@ -101,6 +143,7 @@ func normalizeSignature(frame map[string]interface{}) string {
 	line, ok := frame["line"].(string)
 	if !ok {
 		line = ""
+		fmt.Println(reflect.TypeOf(frame["line"]))
 	}
 	moduleOffset, ok := frame["module_offset"].(string)
 	if !ok {
@@ -121,13 +164,41 @@ func normalizeSignature(frame map[string]interface{}) string {
 
 	if len(function) > 0 {
 		function = collapse(function, "<", "<", ">", "T>")
-
+		fmt.Println(function)
 		// TOOD(alexander): siglist
 		function = fmt.Sprintf("%s:%s", function, line)
-		fixupSpace, _ := regexp.Compile(" (?=[\\*&,])")
-		fixupComma, _ := regexp.Compile(",(?! )")
-		function = fixupSpace.ReplaceAllString(function, "")
-		function = fixupComma.ReplaceAllString(function, ", ")
+		fmt.Println(function)
+		var tmpString string
+		functionLength := len(function)
+		for index, character := range function {
+			if index+1 < functionLength {
+				if character == ' ' {
+					nextCharacter := function[index+1]
+					if nextCharacter == '*' ||
+						nextCharacter == '&' ||
+						nextCharacter == ',' {
+						continue
+					}
+				}
+			}
+			tmpString += string(character)
+		}
+		function = tmpString
+		tmpString = ""
+		functionLength = len(function)
+		for index, character := range function {
+			if index+1 < functionLength {
+				if character == ',' {
+					nextCharacter := function[index+1]
+					if nextCharacter != ' ' {
+						tmpString += ", "
+						continue
+					}
+				}
+			}
+			tmpString += string(character)
+		}
+		function = tmpString
 		return function
 	}
 	if len(file) > 0 && len(line) > 0 {
