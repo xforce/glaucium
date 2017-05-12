@@ -140,9 +140,11 @@ func normalizeSignature(frame map[string]interface{}) string {
 	if !ok {
 		file = ""
 	}
+	hasLine := true
 	line, ok := frame["line"].(float64)
 	if !ok {
 		line = 0
+		hasLine = false
 		fmt.Println(reflect.TypeOf(frame["line"]))
 	}
 	moduleOffset, ok := frame["module_offset"].(string)
@@ -201,14 +203,14 @@ func normalizeSignature(frame map[string]interface{}) string {
 		function = tmpString
 		return function
 	}
-	if len(file) > 0 && len(line) > 0 {
+	if len(file) > 0 && hasLine {
 		file = strings.TrimRight(file, "/\\")
 		if strings.Contains(file, "\\") {
 			file = strings.Split(file, "\\")[0]
 		} else {
 			file = strings.Split(file, "/")[0]
 		}
-		return fmt.Sprintf("%s#%s", file, line)
+		return fmt.Sprintf("%s#%d", file, int(line))
 	}
 	if len(module) == 0 && len(moduleOffset) == 0 && len(offset) > 0 {
 		return fmt.Sprintf("@%s", offset)
