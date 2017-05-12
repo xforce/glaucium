@@ -44,6 +44,7 @@ COPY ./glaucium-webapp.service /build_files/glaucium-webapp.service
 COPY ./glaucium-collector.service /build_files/glaucium-collector.service
 COPY ./glaucium-processor.service /build_files/glaucium-processor.service
 COPY ./glaucium.postinst /build_files/glaucium.postinst
+COPY ./glaucium.preinst /build_files/glaucium.preinst
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

@@ -1,0 +1,67 @@
+#!/bin/sh
+set -e
+
+add_groups()
+{
+    if ! getent passwd glaucium >/dev/null; then
+        adduser --system glaucium --home /home/glaucium --shell /bin/false
+
+        # UID allocation
+        NEXT_UID=100000
+        while read line; do
+            OLD_IFS=$IFS
+            IFS=":"
+            set -- $line
+            IFS=$OLD_IFS
+
+            [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] && continue
+
+            LAST=$(($2+$3))
+            [ "$LAST" -gt "$NEXT_UID" ] && NEXT_UID=$LAST
+        done < /etc/subuid
+        usermod --add-subuids ${NEXT_UID}-$(($NEXT_UID+65535)) glaucium
+        usermod --add-subuids ${NEXT_UID}-$(($NEXT_UID+65535)) root
+
+        # GID allocation
+        NEXT_GID=100000
+        while read line; do
+            OLD_IFS=$IFS
+            IFS=":"
+            set -- $line
+            IFS=$OLD_IFS
+
+            [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] && continue
+
+            LAST=$(($2+$3))
+            [ "$LAST" -gt "$NEXT_GID" ] && NEXT_GID=$LAST
+        done < /etc/subgid
+        usermod --add-subgids ${NEXT_GID}-$(($NEXT_GID+65535)) glaucium
+        usermod --add-subgids ${NEXT_GID}-$(($NEXT_GID+65535)) root
+    fi
+
+    if ! getent group glaucium >/dev/null; then
+        addgroup --system glaucium
+    fi
+
+    for u in $(getent group sudo | sed -e "s/^.*://" -e "s/,/ /g"); do
+        adduser "$u" glaucium >/dev/null || true
+    done
+}
+
+case "$1" in
+    install|upgrade)
+        add_groups
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0

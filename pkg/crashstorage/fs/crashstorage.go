@@ -118,7 +118,7 @@ func (p *CrashStorage) getDatedParentDirectory(crashID string, slot [2]string) s
 
 func (p *CrashStorage) saveFiles(files map[string][]byte, crashID string) {
 	parentDir := p.getRadixedParentDirectory(crashID)
-	os.MkdirAll(parentDir, 0644)
+	os.MkdirAll(parentDir, 0755)
 	for k, v := range files {
 		err := ioutil.WriteFile(path.Join(parentDir, k), v, 0644)
 		if err != nil {
@@ -169,7 +169,7 @@ func (p *CrashStorage) SaveRawCrash(rawCrash map[string]interface{}, dumps cs_in
 
 	slot := p.currentSlot()
 	parentDir := p.getDatedParentDirectory(crashID, slot)
-	os.MkdirAll(parentDir, 0644)
+	os.MkdirAll(parentDir, 0755)
 
 	err = p.createDateToNameSymlink(crashID, slot)
 	if err == nil {
@@ -248,10 +248,15 @@ func (p *CrashStorage) Remove(crashID string) {
 
 func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(string), wg *sync.WaitGroup) {
 	crashIDs, _ := ioutil.ReadDir(minuteSlotBase)
+	var subWg sync.WaitGroup
+	var runningCount int
 	for crashID := range crashIDs {
 		wg.Add(1)
+		subWg.Add(1)
+		runningCount++
 		go func(crashID string, minuteSlotBase string) {
 			defer wg.Done()
+			defer subWg.Done()
 			nameDir := path.Join(minuteSlotBase, crashID)
 			statResult, _ := os.Lstat(nameDir)
 			if statResult.Mode()&os.ModeSymlink != 0 {
@@ -265,6 +270,10 @@ func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(stri
 				}
 			}
 		}(crashIDs[crashID].Name(), minuteSlotBase)
+		// TODO(alexander): This not ideal, as we have to wait for all 10 to finish before we can start working on the next 10
+		if runningCount >= 10 {
+			subWg.Wait()
+		}
 	}
 }
 

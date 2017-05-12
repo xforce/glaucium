@@ -1,5 +1,5 @@
 #!/bin/bash
-rm -rf /build/*  
+#rm -rf /build/*  
 rm -rf /release/*
 
 git clone http://github.com/xforce/glaucium.git
@@ -25,4 +25,4 @@ mv bazel-bin/cmd/processor/processor bazel-bin/cmd/processor/glaucium-processor
 
 debuild -us -uc
 
-mv ../*.deb /build/
+cp ../*.deb /build/

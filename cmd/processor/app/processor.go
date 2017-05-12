@@ -298,7 +298,7 @@ func processCrash(rawCrash map[string]interface{}, dumps *cs_interface.FileDumps
 		if !strings.HasPrefix(k, "upload_file_minidump") {
 			continue
 		}
-		cmd := exec.Command(path.Join(processorConfig.BreakpadPath, "stackwalker"), "--raw-json glaucium.json", v.(string))
+		cmd := exec.Command(path.Join(processorConfig.BreakpadPath, "stackwalker"), "--raw-json glaucium.json", v.(string), processorConfig.SymbolPath)
 		var out bytes.Buffer
 		cmd.Stdout = &out
 		err := cmd.Run()
@@ -351,7 +351,7 @@ func Run() error {
 		processorConfig.DestinationStorage = append(processorConfig.DestinationStorage, vv)
 	}
 	processorConfig.NewCrashSource = config.GetDefault("processor.new_crash_source", "fs").(string)
-	processorConfig.SymbolPath = config.GetDefault("processor.symbol_path", "").(string)
+	processorConfig.SymbolPath = config.GetDefault("processor.symbol_path", "/home/glaucium/symbols").(string)
 	processorConfig.BreakpadPath = config.GetDefault("processor.breakpad_path", "/usr/bin/glaucium/breakpad").(string)
 	processorConfig.RemoveRawDumpFromSource = config.GetDefault("processor.remove_raw_dump", false).(bool)
 	processorConfig.SaveRawDumpInDestination = config.GetDefault("processor.save_raw_dump", false).(bool)

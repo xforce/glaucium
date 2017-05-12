@@ -9,8 +9,8 @@ override_dh_install:
 	mkdir -p $(PKGDIR)/usr/share/glaucium/webapp/data/
 	cp -r data/webapp/* $(PKGDIR)/usr/share/glaucium/webapp/data/
 
-	mkdir -p $(PKGDIR)/usr/bin/vendor/breakpad/
-	cp -r vendor/breakpad/* $(PKGDIR)/usr/bin/vendor/breakpad/
+	mkdir -p $(PKGDIR)/usr/bin/glaucium/breakpad/
+	cp -r vendor/breakpad/* $(PKGDIR)/usr/bin/glaucium/breakpad/
 
 	mkdir -p $(PKGDIR)/usr/bin/
 	cp bazel-bin/cmd/webapp/glaucium-webapp $(PKGDIR)/usr/bin/
