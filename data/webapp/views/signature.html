@@ -1,0 +1,61 @@
+<section>
+    <v-tabs id="mobile-tabs-7" left>
+        <v-tab-item slot="activators" href="#summary">
+            Summary
+        </v-tab-item>
+        <v-tab-item slot="activators" href="#reports">
+            Reports
+        </v-tab-item>
+        <v-tab-item slot="activators" href="#aggregations">
+            Aggregations
+        </v-tab-item>
+        <v-tab-content id="summary" slot="content">
+            <v-card>
+                <v-card-text>
+                    <v-container fluid="fluid">
+                        <v-row>
+                            <v-col xl5>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-card-text>
+            </v-card>
+        </v-tab-content>
+        <v-tab-content id="reports" slot="content">
+            <v-card>
+                <v-card-text>
+                    <v-container fluid="fluid">
+                        <v-row>
+                            <v-data-table v-bind:headers="reports_headers" v-model="reports_items" hide-actions class="elevation-0" id="reports_table">
+                                <template slot="items" scope="props">
+                                    <td><a v-bind:href="'/report/' + props.item.crash_id">${ props.item.crash_id }</a></td>
+                                    <td class="text-xs-right">${ props.item.date }</td>
+                                    <td class="text-xs-right">${ props.item.signature }</td>
+                                    <td class="text-xs-right">${ props.item.product }</td>
+                                    <td class="text-xs-right">${ props.item.version }</td>
+                                    <td class="text-xs-right">${ props.item.platform }</td>
+                                </template>
+                            </v-data-table>
+                        </v-row>
+                    </v-container>
+                </v-card-text>
+            </v-card>
+        </v-tab-content>
+        <v-tab-content id="aggregations" slot="content">
+            <v-card>
+                <v-card-text>
+                    <v-container fluid="fluid">
+                        <v-row>
+                            <v-col xl5>
+                                Coming Soon
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                </v-card-text>
+            </v-card>
+        </v-tab-content>
+    </v-tabs>
+</section>
+<script>
+let signature = "{{signature}}";
+</script>

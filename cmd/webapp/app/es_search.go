@@ -107,7 +107,7 @@ func buildFilters(searchQuery *elastic.BoolQuery, jsonData map[string]interface{
 						searchQuery = searchQuery.Filter(query)
 					}
 				} else {
-					query := elastic.NewTermQuery(getFieldName(filterMap["name"].(string), false), filterMap["value"].(string))
+					query := elastic.NewTermQuery(getFieldName(filterMap["name"].(string), true), filterMap["value"].(string))
 					searchQuery = searchQuery.Should(query)
 				}
 			} else {

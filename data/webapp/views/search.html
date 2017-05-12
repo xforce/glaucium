@@ -62,7 +62,7 @@
         id="search_result_facet_table">
         <template slot="items" scope="props">
           <td>${ props.item.rank }</td>
-          <td class="text-xs-right"><a v-bind:href="'/report/' + props.item.crash_id">${ props.item.signature }</a></td>
+          <td class="text-xs-right"><a v-bind:href="'/signature/' + props.item.signature">${ props.item.signature }</a></td>
           <td class="text-xs-right">${ props.item.count }</td>
           <td class="text-xs-right">${ props.item.percentage }</td>
         </template>

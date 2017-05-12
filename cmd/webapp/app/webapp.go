@@ -74,10 +74,8 @@ func Run() error {
 		api.GET("/platforms", platformsApiHandler)
 	}
 	router.GET("/search", searchViewHandler)
-	report := router.Group("/report")
-	{
-		report.GET("/:crashID", reportViewHandler)
-	}
+	router.GET("/report/:crashID", reportViewHandler)
+	router.GET("/signature/:signature", signatureViewHandler)
 	router.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{"title": "Page Not Found!", "extra_css": "404.css"})
 	})
@@ -87,6 +85,11 @@ func Run() error {
 func reportViewHandler(c *gin.Context) {
 	crashID := c.Param("crashID")
 	c.HTML(http.StatusOK, "report.html", gin.H{"title": "Report", "extra_js": "report.js", "crashID": crashID})
+}
+
+func signatureViewHandler(c *gin.Context) {
+	signature := c.Param("signature")
+	c.HTML(http.StatusOK, "signature.html", gin.H{"title": "Report", "extra_js": "signature.js", "signature": signature})
 }
 
 func searchViewHandler(c *gin.Context) {
