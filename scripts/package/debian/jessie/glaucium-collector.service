@@ -1,0 +1,13 @@
+[Unit]
+Description=Meow
+Documentation=man:glaucium-collector(8)
+After=network.target
+
+[Service]
+User=glaucium
+Type=simple
+ExecStart=/usr/bin/glaucium-collector
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -e
+
+if [ "$1" = "configure" ]; then
+	if ! getent passwd glaucium >/dev/null; then
+		adduser --system --quiet --shell /bin/false --group --gecos "glaucium daemon user" glaucium
+	fi
+
+	# Ensure configuration files are readable by the dedicated glaucium user.
+	chgrp -R glaucium /etc/glaucium
+
+	# For upgrades: Ensure configuration files are not world-readable.
+	find /etc/glaucium -perm -o+r -type f -exec chmod 640 '{}' \;
+fi
+
+#DEBHELPER#
+
+exit 0

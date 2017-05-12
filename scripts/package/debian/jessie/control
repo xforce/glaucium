@@ -1,0 +1,11 @@
+Source: glaucium
+Section: unknown
+Priority: extra
+Standards-Version: 3.9.4
+Maintainer: Alexander Guettler <alexander@guettler.io>
+
+Package: glaucium
+Architecture: amd64
+Description: Meow
+Homepage: http://github.com/xforce/glaucium
+Build-Depends: debhelper (>= 8), dh-systemd

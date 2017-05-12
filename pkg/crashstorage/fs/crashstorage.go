@@ -120,7 +120,10 @@ func (p *CrashStorage) saveFiles(files map[string][]byte, crashID string) {
 	parentDir := p.getRadixedParentDirectory(crashID)
 	os.MkdirAll(parentDir, 0644)
 	for k, v := range files {
-		ioutil.WriteFile(path.Join(parentDir, k), v, 0644)
+		err := ioutil.WriteFile(path.Join(parentDir, k), v, 0644)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 }
 

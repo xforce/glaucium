@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+	"path"
 	"regexp"
 	"strings"
 	"sync"
@@ -28,6 +29,7 @@ type ProcessorConfig struct {
 	SourceStorage            []string
 	DestinationStorage       []string
 	NewCrashSource           string
+	BreakpadPath             string
 	SymbolPath               string
 	RemoveRawDumpFromSource  bool
 	SaveRawDumpInDestination bool
@@ -233,7 +235,7 @@ func internalGenerateSignature(signatureList []string, crashedThread *int) (stri
 
 		newSignatureList = append(newSignatureList, aSignature)
 		// TODO(alexander): This is horrible
-		prefixSignatureRe, _ := regexp.Compile(strings.Join(getFileContents("data/etc/glaucium/prefix_signature_re.txt"), "|"))
+		prefixSignatureRe, _ := regexp.Compile(strings.Join(getFileContents("/etc/glaucium/prefix_signature_re.txt"), "|"))
 		if !prefixSignatureRe.MatchString(aSignature) {
 			break
 		}
@@ -296,10 +298,13 @@ func processCrash(rawCrash map[string]interface{}, dumps *cs_interface.FileDumps
 		if !strings.HasPrefix(k, "upload_file_minidump") {
 			continue
 		}
-		cmd := exec.Command("vendor/breakpad/stackwalker", "--raw-json glaucium.json", v.(string))
+		cmd := exec.Command(path.Join(processorConfig.BreakpadPath, "stackwalker"), "--raw-json glaucium.json", v.(string))
 		var out bytes.Buffer
 		cmd.Stdout = &out
-		cmd.Run()
+		err := cmd.Run()
+		if err != nil {
+			fmt.Println(err)
+		}
 		var f map[string]interface{}
 		json.Unmarshal(out.Bytes(), &f)
 		processedCrash["json_dump"] = f
@@ -347,6 +352,7 @@ func Run() error {
 	}
 	processorConfig.NewCrashSource = config.GetDefault("processor.new_crash_source", "fs").(string)
 	processorConfig.SymbolPath = config.GetDefault("processor.symbol_path", "").(string)
+	processorConfig.BreakpadPath = config.GetDefault("processor.breakpad_path", "/usr/bin/glaucium/breakpad").(string)
 	processorConfig.RemoveRawDumpFromSource = config.GetDefault("processor.remove_raw_dump", false).(bool)
 	processorConfig.SaveRawDumpInDestination = config.GetDefault("processor.save_raw_dump", false).(bool)
 

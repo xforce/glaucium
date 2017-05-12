@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 	"reflect"
 	"strconv"
@@ -18,9 +17,8 @@ var ctx context.Context
 
 func InitializeEsSearch() {
 	ctx = context.Background()
-	f, _ := os.OpenFile("testlogfile", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	// elastic.SetTraceLog(log.New(os.Stderr, "ELASTIC ", log.LstdFlags))
-	elastiClient, _ = elastic.NewClient(elastic.SetTraceLog(log.New(f, "ELASTIC ", log.LstdFlags)))
+	elastiClient, _ = elastic.NewClient()
 }
 
 type MappingType struct {

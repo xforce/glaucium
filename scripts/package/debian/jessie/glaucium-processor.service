@@ -1,0 +1,13 @@
+[Unit]
+Description=Meow
+Documentation=man:glaucium-processor(8)
+After=network.target
+
+[Service]
+User=glaucium
+Type=simple
+ExecStart=/usr/bin/glaucium-processor
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target
