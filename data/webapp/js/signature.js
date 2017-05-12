@@ -2,6 +2,9 @@ let vm = new Vue({
   el: '#app',
   delimiters: ['${', '}'],
   data: {
+    reports_page: 0,
+    reports_pages: 0,
+    has_pages: false,
     visisble_reports: [
     ],
     reports_headers: [
@@ -53,6 +56,8 @@ function fetchRecentReports() {
             vm.reports_items = resultArray;
             vm.loaded_report_count = jsonResponse.hits.length;
             vm.total_report_count = jsonResponse.total;
+            vm.reports_pages = Math.ceil(vm.loaded_report_count / 2);
+            vm.has_pages = vm.reports_pages > 0;
         }
     }
     xhr.send(JSON.stringify(meow));

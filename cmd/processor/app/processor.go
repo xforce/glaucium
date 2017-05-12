@@ -140,9 +140,9 @@ func normalizeSignature(frame map[string]interface{}) string {
 	if !ok {
 		file = ""
 	}
-	line, ok := frame["line"].(string)
+	line, ok := frame["line"].(float64)
 	if !ok {
-		line = ""
+		line = 0
 		fmt.Println(reflect.TypeOf(frame["line"]))
 	}
 	moduleOffset, ok := frame["module_offset"].(string)
@@ -166,7 +166,7 @@ func normalizeSignature(frame map[string]interface{}) string {
 		function = collapse(function, "<", "<", ">", "T>")
 		fmt.Println(function)
 		// TOOD(alexander): siglist
-		function = fmt.Sprintf("%s:%s", function, line)
+		function = fmt.Sprintf("%s:%d", function, int(line))
 		fmt.Println(function)
 		var tmpString string
 		functionLength := len(function)

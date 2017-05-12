@@ -33,6 +33,7 @@ RUN apt-get -y -t jessie-backports install ca-certificates-java openjdk-8-jre-he
 RUN apt-get update && apt-get -y install bazel
 
 RUN apt-get -y install dh-systemd
+RUN apt-get -y install git-buildpackage
 
 RUN mkdir /build_files
 

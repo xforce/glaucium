@@ -1,11 +1,4 @@
-glaucium (0.0.1) UNRELEASED; urgency=low
-
-  [ Alexander Guettler ]
-
- -- Alexander Guettler <alexander@guettler.io>  Thu, 11 May 2017 17:55:47 +0000
-
- glaucium (0.0.2) UNRELEASED; urgency=low
-
-  [ Alexander Guettler ]
-
- -- Alexander Guettler <alexander@guettler.io>  Thu, 12 May 2017 17:55:47 +0000
+glaucium (1:0.0.2) unstable; urgency=low
+ * Meow:
+   - Meow
+ -- Alexander Guettler <alexander@guettler.io>  Fri, 12 May 2017 21:16:04 +0000

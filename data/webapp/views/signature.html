@@ -25,6 +25,11 @@
             <v-card>
                 <v-card-text>
                     <v-container fluid="fluid">
+                        <v-row v-if="has_pages">
+                            <v-col xs7 offset-xs10>
+                                <v-pagination v-bind:length.number="reports_pages" v-model="reports_page" />
+                            </v-col>
+                        </v-row>
                         <v-row>
                             <v-data-table v-bind:headers="reports_headers" v-model="reports_items" hide-actions class="elevation-0" id="reports_table">
                                 <template slot="items" scope="props">

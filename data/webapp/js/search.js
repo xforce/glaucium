@@ -25,6 +25,17 @@ let vm = new Vue({
         { text: 'Percentage', value: 'percentage' }
       ],
       search_result_facet_items: [],
+  },
+  watch: {
+    selected_products: (val)=> {
+    loadSignatureTable()
+    },
+    selected_versions: (val)=> {
+    loadSignatureTable()
+    },
+    selected_platforms: (val)=> {
+    loadSignatureTable()
+    }
   }
 })
 
@@ -115,6 +126,12 @@ let meow = {
     vm.selected_versions.forEach((value) => {
       meow.filters.push({name: "version", value: value});
     });
+    vm.selected_products.forEach((value) => {
+      meow.filters.push({name: "product", value: value});
+    });
+    vm.selected_platforms.forEach((value) => {
+      meow.filters.push({name: "platform", value: value});
+    });
 
     let xhr = new XMLHttpRequest();
     let url = "api/search";
@@ -146,4 +163,4 @@ loadVersions();
 loadPlatforms();
 loadSignatureTable();
 
-setInterval(loadSignatureTable, 1000);
+//setInterval(loadSignatureTable, 1000);
