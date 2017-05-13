@@ -148,7 +148,8 @@ let meow = {
                 signature: value.term,
                 count: value.count,
                 percentage: 0,
-                rank: rank
+                rank: rank,
+                signature_uri: encodeURI(value.term)
               }
               vm.search_result_facet_items.push(m);
               ++rank;
