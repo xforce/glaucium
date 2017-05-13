@@ -274,33 +274,18 @@ func internalGenerateSignature(signatureList []string, crashedThread *int) (stri
 
 	newSignatureList := make([]string, 0)
 	for _, aSignature := range signatureList {
-		/*  # If the signature matches the irrelevant signatures regex,
-		    # skip to the next frame.
-		    if self.irrelevant_signature_re.match(a_signature):
-		        continue
-		*/
-		// glaucium := []string{"glaucium", ""}
-		// trimDllSignatureRe, _ := regexp.Compile(strings.Join(glaucium, "|"))
-		// if trimDllSignatureRe.MatchString(aSignature) {
-		// 	aSignature = strings.Split(aSignature, "@")[0]
-		// 	if len(newSignatureList) > 0 && newSignatureList[len(newSignatureList)-1] == aSignature {
-		// 		continue
-		// 	}
-		// }
-		/*
-			# If the signature matches the trim dll signatures regex,
-			# rewrite it to remove all but the module name.
-			if self.trim_dll_signature_re.match(a_signature):
-				a_signature = a_signature.split('@')[0]
+		irrelevantSignatureRe, _ := regexp.Compile(strings.Join(getFileContents("/etc/glaucium/irrelevant_signature_re.txt"), "|"))
+		if irrelevantSignatureRe.MatchString(aSignature) {
+			continue
+		}
 
-				# If this trimmed DLL signature is the same as the previous
-				# frame's, we do not want to add it.
-				if (
-					new_signature_list and
-					a_signature == new_signature_list[-1]
-				):
-					continue
-		*/
+		trimDllSignatureRe, _ := regexp.Compile(strings.Join(getFileContents("/etc/glaucium/trim_dll_signature_re.txt"), "|"))
+		if trimDllSignatureRe.MatchString(aSignature) {
+			aSignature = strings.Split(aSignature, "@")[0]
+			if len(newSignatureList) > 0 && newSignatureList[len(newSignatureList)-1] == aSignature {
+				continue
+			}
+		}
 
 		newSignatureList = append(newSignatureList, aSignature)
 		// TODO(alexander): This is horrible
@@ -404,6 +389,8 @@ func Run() error {
 		fmt.Println("Error ", err.Error())
 		return err
 	}
+
+	@0x0
 
 	processorConfig = ProcessorConfig{}
 
