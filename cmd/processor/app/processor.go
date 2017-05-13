@@ -390,8 +390,6 @@ func Run() error {
 		return err
 	}
 
-	@0x0
-
 	processorConfig = ProcessorConfig{}
 
 	/*
