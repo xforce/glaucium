@@ -87,6 +87,7 @@ func buildPaginate(jsonData map[string]interface{}) (int, int) {
 }
 
 func buildFilters(searchQuery *elastic.BoolQuery, jsonData map[string]interface{}) {
+	subFilters := make(map[string][]*elastic.TermQuery, 0)
 	if val, ok := jsonData["filters"]; ok {
 		filtersInterface, _ := val.([]interface{})
 		for _, filter := range filtersInterface {
@@ -108,14 +109,20 @@ func buildFilters(searchQuery *elastic.BoolQuery, jsonData map[string]interface{
 					}
 				} else {
 					query := elastic.NewTermQuery(getFieldName(filterMap["name"].(string), true), filterMap["value"].(string))
-					searchQuery = searchQuery.Should(query)
+					subFilters[getFieldName(filterMap["name"].(string), true)] = append(subFilters[getFieldName(filterMap["name"].(string), true)], query)
 				}
 			} else {
 				fmt.Println("Failed to convert filter is", reflect.TypeOf(filter),
 					"expected map[string]interface{}")
 			}
-
 		}
+	}
+	for _, v := range subFilters {
+		query := elastic.NewBoolQuery()
+		for _, q := range v {
+			query = query.Should(q)
+		}
+		searchQuery.Filter(query)
 	}
 	/*
 		{
