@@ -281,6 +281,19 @@ func DoSearch(m map[string]interface{}) map[string]interface{} {
 		Query(searchQuery).
 		Pretty(true)
 
+	if val, ok := m["sort"]; ok {
+		sortObject, ok := val.(map[string]interface{})
+		if ok {
+			if field, ok := sortObject["field"]; ok {
+				asc := true
+				if ascJ, ok := sortObject["asc"]; ok {
+					asc = ascJ.(bool)
+				}
+				search = search.Sort(field.(string), asc)
+			}
+		}
+	}
+
 	if from > 0 {
 		search = search.From(from)
 	}
