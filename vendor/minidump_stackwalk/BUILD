@@ -68,9 +68,7 @@ cc_binary(
       'http_symbol_supplier.h',
       'stackwalker.cc',
     ],
-    linkopts = [                                                                
-        "-lssl",                                                                
-        "-lcrypto",
+    linkopts = [
         "-lcurl",                                                            
     ],    
 )

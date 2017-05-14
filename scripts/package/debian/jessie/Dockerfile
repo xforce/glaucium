@@ -34,7 +34,7 @@ RUN apt-get update && apt-get -y install bazel
 
 RUN apt-get -y install dh-systemd
 RUN apt-get -y install git-buildpackage
-
+RUN apt-get -y install libcurl4-openssl-dev
 RUN mkdir /build_files
 
 COPY ./control /build_files/control
