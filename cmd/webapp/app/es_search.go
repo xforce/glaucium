@@ -289,7 +289,7 @@ func DoSearch(m map[string]interface{}) map[string]interface{} {
 				if ascJ, ok := sortObject["asc"]; ok {
 					asc = ascJ.(bool)
 				}
-				search = search.Sort(field.(string), asc)
+				search = search.Sort(getFieldName(field.(string), true), asc)
 			}
 		}
 	}

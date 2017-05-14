@@ -24,7 +24,7 @@ function load7DayHistogramData() {
             { "name": "date", "operator": "gte", "value": startDate.format() },
             { "name": "date", "operator": "lt", "value": endDate.format() }
         ],
-        "sort":{ "field": "date", "asc": true },
+        "sort":{ "field": "date", "asc": false },
         "facets": [
             "signature"
         ],
@@ -199,7 +199,7 @@ function fetchRecentReports() {
         "columns": ["signature", "product", "version"],
         "results_from": 0,
         "results_size": 50,
-        "sort": { "field": "date", "asc": true },
+        "sort": { "field": "date", "asc": false },
         "facets": [
             "signature"
         ],
