@@ -19,7 +19,7 @@
           <v-col xs12>
             <v-menu lazy :close-on-content-click="false" v-model="end_date_menu" transition="v-scale-transition" offset-y :nudge-left="56">
               <v-text-field slot="activator" label="Picker in menu" v-model="end_date" prepend-icon="event" readonly></v-text-field>
-              <v-date-picker v-model="e4" no-title light scrollable actions>
+              <v-date-picker v-model="end_date" no-title light scrollable actions>
                 <template scope="{ save, cancel }">
                   <v-card-row actions>
                     <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
