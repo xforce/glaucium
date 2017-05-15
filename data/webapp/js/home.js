@@ -1,3 +1,132 @@
+Chart.defaults.global.defaultFontColor = "#fff";
+let vm = new Vue({
+    el: '#app',
+    delimiters: ['${', '}'],
+    data: {
+        loaded_report_count: 0,
+        total_report_count: 0,
+        recent_reports_headers: [
+            { text: 'Crash ID', value: 'crash_id', left: true, sortable: false },
+            { text: 'Date', value: 'date', desc: true },
+            { text: 'Signature', value: 'signature' },
+            { text: 'Product', value: 'product' },
+            { text: 'Version', value: 'version' },
+            { text: 'Platform', value: 'platform' },
+        ],
+        loading: false,
+        recent_reports_items: [],
+        recent_reports_pagination: {
+            descending: true,
+        },
+    },
+    methods: {
+       getRecentReports(reload_data) {
+           this.loading = true;
+           return new Promise((resolve, reject) => {
+               const { sortBy, descending, page, rowsPerPage } = this.recent_reports_pagination
+               if(reload_data) {
+                    let meow = {
+                        "columns": ["signature", "product", "version"],
+                        "results_from": 0,
+                        "results_size": 50,
+                        "sort": { "field": "date", "asc": false },
+                        "facets": [
+                            "signature"
+                        ],
+                        "histograms": {
+                            "date": "version"
+                        }
+                    }
+                    let xhr = new XMLHttpRequest();
+                    let url = "api/search";
+                    xhr.open("POST", url, true);
+                    xhr.setRequestHeader("Content-type", "application/json");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            let jsonResponse = JSON.parse(xhr.responseText);
+                            let resultArray = [];
+                            jsonResponse.hits.forEach((hit) => {
+                                resultArray.push(
+                                    {
+                                        crash_id: hit.crash_id,
+                                        date: moment(hit.processed_crash.date_processed).format("YYYY-MM-DD HH:MM:SS"),
+                                        signature: hit.processed_crash.signature,
+                                        product: hit.processed_crash.product,
+                                        version: hit.processed_crash.version,
+                                        platform: hit.processed_crash.os_name,
+                                    });
+                            });
+                            if (sortBy) {
+                                resultArray = resultArray.sort((a, b) => {
+                                const sortA = a[sortBy]
+                                const sortB = b[sortBy]
+                                if (descending) {
+                                    if (sortA < sortB) return 1
+                                    if (sortA > sortB) return -1
+                                    return 0
+                                } else {
+                                    if (sortA < sortB) return -1
+                                    if (sortA > sortB) return 1
+                                    return 0
+                                }
+                                })
+                            }
+                            this.loading = false;
+                            resolve({items: resultArray, loadedReportCount: jsonResponse.hits.length, totalReportCount: jsonResponse.total});
+                        } else if(xhr.readyState == 4) {
+                            this.loading = false;
+                            reject();
+                        }
+                    };
+                    xhr.send(JSON.stringify(meow));
+               } else {
+                   let resultArray = this.recent_reports_items;
+                   if (sortBy) {
+                        resultArray = resultArray.sort((a, b) => {
+                        const sortA = a[sortBy]
+                        const sortB = b[sortBy]
+                        if (descending) {
+                            if (sortA < sortB) return 1
+                            if (sortA > sortB) return -1
+                            return 0
+                        } else {
+                            if (sortA < sortB) return -1
+                            if (sortA > sortB) return 1
+                            return 0
+                        }
+                        })
+                    }
+                    this.loading = false;
+                    resolve({items: resultArray, loadedReportCount: this.loaded_report_count, totalReportCount: this.total_report_count});
+               }
+           })
+        }
+    },
+    mounted () {
+        this.getRecentReports(true)
+        .then(data => {
+            this.recent_reports_items = data.items;
+            this.loaded_report_count = data.loadedReportCount;
+            this.total_report_count = data.totalReportCount;
+        })
+    },
+    watch: {
+      recent_reports_pagination: {
+        handler () {
+          this.getRecentReports(false)
+            .then(data => {
+                this.recent_reports_items = data.items;
+                this.loaded_report_count = data.loadedReportCount;
+                this.total_report_count = data.totalReportCount;
+            })
+        },
+        deep: true
+      }
+    },
+});
+
+
+
 function GetDateRangePrior(numberOfDays) {
     let dateArray = new Array();
     for (i = 0; numberOfDays >= 0; ++i) {
@@ -11,13 +140,9 @@ function dateIsoFormat(date) {
     return date.toISOString().substring(0, 10);
 }
 
-function loadVersions() {
-
-}
-
-function load7DayHistogramData() {
+function loadDayHistogramData(days) {
     let endDate = moment();
-    let startDate = moment().subtract(7, 'd');
+    let startDate = moment().subtract(days, 'd');
     let meow = {
         "columns": ["signature", "product", "version"],
         "filters": [
@@ -53,15 +178,14 @@ function load7DayHistogramData() {
             jsonResponse.facets.version.forEach((value) => {
                 versions.push(value.term);
             });
-
             let xhr = new XMLHttpRequest();
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     let jsonResponse = JSON.parse(xhr.responseText);
-                    let dates = GetDateRangePrior(7);
-                    let ctx = document.getElementById("crash-stat-chart-7days");
+                    let dates = GetDateRangePrior(days);
+                    let ctx = document.getElementById("crash-stat-chart-"+days+"days");
                     let versionDataSets = [];
                     let datasets = [];
                     let dataStruct = {};
@@ -104,7 +228,6 @@ function load7DayHistogramData() {
                         });
                         counter = 0;
                     }
-                    console.log(dataStruct);
                     for (let dataS in dataStruct) {
                         let dataArray = [];
                         Object.keys(dataStruct[dataS]).forEach(function (value) {
@@ -133,7 +256,6 @@ function load7DayHistogramData() {
                                 pointHitRadius: 10,
                             });
                     }
-                    console.log(datasets);
                     let myChart = new Chart(ctx, {
                         type: 'line',
                         data: {
@@ -165,79 +287,11 @@ function load7DayHistogramData() {
     }
     xhr_version.send(JSON.stringify(meow_version));
 
-
-
-    document.getElementById("7-day-reports-card-view-reports").onclick = function () {
+    document.getElementById(days+"-day-reports-card-view-reports").onclick = function () {
         document.location = "/search";
     };
 }
 
-
-Chart.defaults.global.defaultFontColor = "#fff";
-let vm = new Vue({
-    el: '#app',
-    delimiters: ['${', '}'],
-    data: {
-        loaded_report_count: 0,
-        total_report_count: 0,
-        recent_reports_headers: [
-            { text: 'Crash ID', value: 'crash_id', left: true, sortable: false },
-            { text: 'Date', value: 'date' },
-            { text: 'Signature', value: 'signature' },
-            { text: 'Product', value: 'product' },
-            { text: 'Version', value: 'version' },
-            { text: 'Platform', value: 'platform' },
-        ],
-        recent_reports_items: [],
-    }
-});
-
-function fetchRecentReports() {
-    let endDate = moment();
-    let startDate = moment().subtract(7, 'd');
-    let meow = {
-        "columns": ["signature", "product", "version"],
-        "results_from": 0,
-        "results_size": 50,
-        "sort": { "field": "date", "asc": false },
-        "facets": [
-            "signature"
-        ],
-        "histograms": {
-            "date": "version"
-        }
-    }
-
-    let versions = ["1.0", "0.9.9"];
-
-    let xhr = new XMLHttpRequest();
-    let url = "api/search";
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            let jsonResponse = JSON.parse(xhr.responseText);
-            console.log(jsonResponse);
-            let resultArray = [];
-            jsonResponse.hits.forEach((hit) => {
-                resultArray.push(
-                    {
-                        crash_id: hit.crash_id,
-                        date: moment(hit.processed_crash.date_processed).format("YYYY-MM-DD HH:MM:SS"),
-                        signature: hit.processed_crash.signature,
-                        product: hit.processed_crash.product,
-                        version: hit.processed_crash.version,
-                        platform: hit.processed_crash.platform,
-                    });
-            });
-            vm.recent_reports_items = resultArray;
-            vm.loaded_report_count = jsonResponse.hits.length;
-            vm.total_report_count = jsonResponse.total;
-        }
-    }
-    xhr.send(JSON.stringify(meow));
-
-}
-
-fetchRecentReports();
-load7DayHistogramData();
+loadDayHistogramData(1);
+loadDayHistogramData(7);
+loadDayHistogramData(30);

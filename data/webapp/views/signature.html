@@ -12,26 +12,38 @@
         <v-tab-content id="summary" slot="content">
             <v-card>
                 <v-card-text>
-                    <v-container fluid="fluid">
-                        <v-row>
-                            <v-col xl5>
+                    <section fluid>
+                        <v-layout row wrap>
+                            <v-col xs12 lg6>
+                                <v-data-table v-bind:headers="os_headers" v-bind:items="os_items" v-bind:pagination.sync="os_pagination"
+                                    hide-actions class="elevation-0" id="os_table">
+                                    <template slot="items" scope="props">
+                                        <td><a v-bind:href="'/report/' + props.item.crash_id">${ props.item.os_name }</a></td>
+                                        <td class="text-xs-right">${ props.item.count }</td>
+                                        <td class="text-xs-right">${ props.item.percentage }</td>
+                                    </template>
+                                </v-data-table>
                             </v-col>
-                        </v-row>
-                    </v-container>
+                            <v-col xs12 lg6>
+                                <canvas id="signature-stat-chart-14days" class="container"></canvas>
+                            </v-col>
+                        </v-layout>
+                    </section>
                 </v-card-text>
             </v-card>
         </v-tab-content>
         <v-tab-content id="reports" slot="content">
             <v-card>
                 <v-card-text>
-                    <v-container fluid="fluid">
-                        <v-row v-if="has_pages">
-                            <v-col xs7 offset-xs10>
-                                <v-pagination v-bind:length.number="reports_pages" v-model="reports_page" />
-                            </v-col>
-                        </v-row>
-                        <v-row>
-                            <v-data-table v-bind:headers="reports_headers" v-model="reports_items" hide-actions class="elevation-0" id="reports_table">
+                    <section fluid>
+                        <v-layout row wrap>
+                            <div class="text-lg-right text-xs-center pt-2">
+                                <v-pagination v-model="reports_pagination.page" v-bind:length="Math.ceil(reports_pagination.totalItems / reports_pagination.rowsPerPage)"></v-pagination>
+                            </div>
+                        </v-layout>
+                        <v-layout row wrap>
+                            <v-data-table v-bind:headers="reports_headers" v-bind:items="reports_items" v-bind:pagination.sync="reports_pagination" :total-items="total_report_count"
+                                hide-actions class="elevation-0" id="reports_table">
                                 <template slot="items" scope="props">
                                     <td><a v-bind:href="'/report/' + props.item.crash_id">${ props.item.crash_id }</a></td>
                                     <td class="text-xs-right">${ props.item.date }</td>
@@ -41,8 +53,8 @@
                                     <td class="text-xs-right">${ props.item.platform }</td>
                                 </template>
                             </v-data-table>
-                        </v-row>
-                    </v-container>
+                        </v-layout>
+                    </section>
                 </v-card-text>
             </v-card>
         </v-tab-content>
@@ -50,11 +62,11 @@
             <v-card>
                 <v-card-text>
                     <v-container fluid="fluid">
-                        <v-row>
+                        <v-layout row wrap>
                             <v-col xl5>
                                 Coming Soon
                             </v-col>
-                        </v-row>
+                        </v-layout>
                     </v-container>
                 </v-card-text>
             </v-card>
@@ -62,10 +74,11 @@
     </v-tabs>
 </section>
 <script>
-function htmlDecode(input){
-  var e = document.createElement('div');
-  e.innerHTML = input;
-  return e.childNodes[0].nodeValue;
-}
-let signature = htmlDecode(decodeURI("{{signature}}"));
+    function htmlDecode(input) {
+        var e = document.createElement('div');
+        e.innerHTML = input;
+        return e.childNodes[0].nodeValue;
+    }
+    let signature = htmlDecode(decodeURI("{{signature}}"));
+
 </script>

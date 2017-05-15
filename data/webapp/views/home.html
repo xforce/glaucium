@@ -1,4 +1,4 @@
-<v-row>
+ <v-layout row wrap>
     <v-col sm4>
       <v-card class="blue-grey">
           <v-card-row class="blue-grey darken-1">
@@ -7,9 +7,9 @@
             </v-card-title>
           </v-card-row>
         <v-card-row class="blue-grey">
-            <canvas id="crash-stat-chart-24hours" class="container"></canvas>
+            <canvas id="crash-stat-chart-1days" class="container"></canvas>
         </v-card-row>
-        <v-btn block class="purple" >View Reports</v-btn>
+        <v-btn block class="purple" id="1-day-reports-card-view-reports">View Reports</v-btn>
       </v-card>
     </v-col>
     <v-col sm4>
@@ -33,17 +33,20 @@
             </v-card-title>
           </v-card-row>
         <v-card-row class="blue-grey">
-            <canvas id="crash-stat-chart-7days" class="container"></canvas>
+            <canvas id="crash-stat-chart-30days" class="container"></canvas>
         </v-card-row>
-        <v-btn block class="purple">View Reports</v-btn>
+        <v-btn block class="purple" id="30-day-reports-card-view-reports">View Reports</v-btn>
       </v-card>
     </v-col>
-</v-row>
-<v-row class="mt-4">
+ </v-layout>
+<v-layout row wrap class="mt-4">
 <v-subheader>Recent Reports (Showing ${ loaded_report_count } of ${ total_report_count } Reports)</v-subheader>
 <v-data-table 
   v-bind:headers="recent_reports_headers"
-  v-model="recent_reports_items"
+  v-bind:items="recent_reports_items"
+  v-bind:pagination.sync="recent_reports_pagination"
+  :total-items="loaded_report_count"
+  :loading="loading"
   hide-actions class="elevation-1" id="recent_reports_table">
   <template slot="items" scope="props">
     <td><a v-bind:href="'/report/' + props.item.crash_id">${ props.item.crash_id }</a></td>
@@ -54,4 +57,4 @@
     <td class="text-xs-right">${ props.item.platform }</td>
   </template>
 </v-data-table>
-</v-row>
+</v-layout>

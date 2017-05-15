@@ -174,7 +174,7 @@
         "name": "address",
         "namespace": "processed_crash",
         "permissions_needed": [],
-        "query_type": "text",
+        "query_type": "keyword",
         "storage_mapping": {
             "type": "keyword"
         }
@@ -581,8 +581,8 @@
         "data_validation_type": "str",
         "default_value": null,
         "form_field_choices": null,
-        "has_full_version": false,
-        "has_keyword": false,
+        "has_full_version": true,
+        "has_keyword": true,
         "in_database_name": "os_pretty_version",
         "is_exposed": true,
         "is_mandatory": false,
@@ -598,6 +598,9 @@
                 "full": {
                     "index": "not_analyzed",
                     "type": "text"
+                },
+                "keyword": {
+                    "type": "keyword"
                 }
             }
         }

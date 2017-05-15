@@ -13,6 +13,7 @@ import (
 	"path"
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -66,14 +67,62 @@ func extractCPUInfo(rawCrash map[string]interface{}, processedCrash map[string]i
 func extractOSInfo(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
 	if val, ok := processedCrash["json_dump"].(map[string]interface{}); ok {
 		if systemInfo, ok := val["system_info"].(map[string]interface{}); ok {
-			processedCrash["os_version"] = systemInfo["os_ver"]
-			processedCrash["os_name"] = systemInfo["os"]
+			processedCrash["os_version"] = strings.TrimSpace(systemInfo["os_ver"].(string))
+			processedCrash["os_name"] = strings.TrimSpace(systemInfo["os"].(string))
 		}
 	}
 	return processedCrash
 }
 
 func extractOSPrettyVersion(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
+	windowsVersions := map[string]string{
+		"6.0":  "Windows Vista",
+		"6.1":  "Windows 7",
+		"6.2":  "Windows 8",
+		"6.3":  "Windows 8.1",
+		"10.0": "Windows 10",
+	}
+
+	osName, ok := processedCrash["os_name"].(string)
+	if !ok {
+		return processedCrash
+	}
+	processedCrash["os_pretty_version"] = osName
+	osVersion, ok := processedCrash["os_version"].(string)
+	if !ok {
+		return processedCrash
+	}
+
+	versionSplit := strings.Split(osVersion, ".")
+	if len(versionSplit) < 2 {
+		return processedCrash
+	}
+
+	majorVersion, _ := strconv.Atoi(versionSplit[0])
+	minorVersion, _ := strconv.Atoi(versionSplit[1])
+
+	if strings.HasPrefix(strings.ToLower(osName), "windows") {
+		prettyWindows, ok := windowsVersions[fmt.Sprint(majorVersion, ".", minorVersion)]
+		if ok {
+			if majorVersion == 10 &&
+				len(versionSplit) > 2 {
+				processedCrash["os_pretty_version"] = fmt.Sprint(prettyWindows, " ", versionSplit[2])
+			} else {
+				processedCrash["os_pretty_version"] = prettyWindows
+			}
+		} else {
+			processedCrash["os_pretty_version"] = "Windows Unknown"
+		}
+	} else if osName == "Mac OS X" {
+		if majorVersion >= 10 &&
+			majorVersion < 11 &&
+			minorVersion >= 0 &&
+			minorVersion <= 20 {
+			processedCrash["os_pretty_version"] = fmt.Sprint("OS X ", majorVersion, ".", minorVersion)
+		} else {
+			processedCrash["os_pretty_version"] = "OS X Unknown"
+		}
+	}
 	return processedCrash
 }
 
@@ -88,7 +137,15 @@ func appendIfNotInCollapseMode(list []string, targetCounter int, aCharacter stri
 	return list
 }
 
-func isCollapseException([]string, string, string) bool {
+func isCollapseException(exceptionList []string, remainingOriginalLine string, lineUpToCurrentPosition string) bool {
+	for _, anException := range exceptionList {
+		if strings.HasPrefix(remainingOriginalLine, anException) {
+			return true
+		}
+		if strings.HasPrefix(lineUpToCurrentPosition, anException) {
+			return true
+		}
+	}
 	return false
 }
 
@@ -100,7 +157,7 @@ func collapse(functionSignature string, openString string, replacementOpenString
 	for index, rCharacter := range functionSignature {
 		aCharacter := string(rCharacter)
 		if aCharacter == openString {
-			if isCollapseException([]string{}, functionSignature[index+1:],
+			if isCollapseException([]string{"name omitted"}, functionSignature[index+1:],
 				functionSignature[:index]) {
 				exceptionMode = true
 				collapsedList = appendIfNotInCollapseMode(collapsedList, targetCounter, string(aCharacter))

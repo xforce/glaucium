@@ -15,10 +15,56 @@ import (
 var elastiClient *elastic.Client
 var ctx context.Context
 
+type MappingTypeN struct {
+	InDatabaseName string                 `json:"in_database_name"`
+	Namespace      string                 `json:"namespace"`
+	StorageMapping map[string]interface{} `json:"storage_mapping"`
+}
+
 func InitializeEsSearch() {
 	ctx = context.Background()
 	// elastic.SetTraceLog(log.New(os.Stderr, "ELASTIC ", log.LstdFlags))
 	elastiClient, _ = elastic.NewClient()
+
+	// Get mapping from the json file....
+	var n map[string]MappingTypeN
+	file, e := ioutil.ReadFile("/etc/glaucium/elastic_search_mapping.json")
+	if e != nil {
+		fmt.Printf("File error: %v\n", e)
+		os.Exit(1)
+	}
+	json.Unmarshal(file, &n)
+	properties := make(map[string]map[string]map[string]interface{}, 0)
+	for _, value := range n {
+		if properties[value.Namespace] == nil {
+			properties[value.Namespace] = make(map[string]map[string]interface{}, 0)
+		}
+		if properties[value.Namespace]["properties"] == nil {
+			properties[value.Namespace]["properties"] = make(map[string]interface{}, 0)
+		}
+		if properties[value.Namespace]["properties"][value.InDatabaseName] == nil {
+			properties[value.Namespace]["properties"][value.InDatabaseName] = make(map[string]interface{}, 0)
+		}
+		properties[value.Namespace]["properties"][value.InDatabaseName] = value.StorageMapping
+	}
+
+	esMappingRoot := make(map[string]interface{}, 0)
+	esMapping := make(map[string]interface{}, 0)
+	esMapping["_all"] = map[string]interface{}{"enabled": false}
+	esMapping["properties"] = properties
+
+	esMappingRoot["crash_report"] = esMapping
+
+	res, _ := elastiClient.IndexNames()
+
+	if len(res) > 0 {
+		for _, indexName := range res {
+			_, err := elastiClient.PutMapping().Index(indexName).Type("crash_report").BodyJson(esMappingRoot).Do(context.TODO())
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+	}
 }
 
 type MappingType struct {
@@ -27,11 +73,12 @@ type MappingType struct {
 	StorageMapping map[string]interface{} `json:"storage_mapping"`
 	HasFullVersion bool                   `json:"has_full_version"`
 	HasKeyword     bool                   `json:"has_keyword"`
+	QueryType      string                 `json:"query_type"`
 }
 
 var mapping map[string]MappingType
 
-func getFieldName(field string, useKeyword bool) string {
+func getFieldName(field string, useKeyword bool) (string, bool) {
 	if mapping == nil {
 		file, e := ioutil.ReadFile("/etc/glaucium/elastic_search_mapping.json")
 		if e != nil {
@@ -40,7 +87,6 @@ func getFieldName(field string, useKeyword bool) string {
 		}
 		json.Unmarshal(file, &mapping)
 	}
-
 	if val, ok := mapping[field]; ok {
 		finalFieldName := val.Namespace + "." + val.InDatabaseName
 		if useKeyword && val.HasKeyword {
@@ -49,10 +95,15 @@ func getFieldName(field string, useKeyword bool) string {
 		if val.HasFullVersion && !val.HasKeyword {
 			finalFieldName += ".full"
 		}
-		//do something here
-		return finalFieldName
+		if !val.HasFullVersion &&
+			!val.HasKeyword &&
+			val.QueryType == "text" {
+			return finalFieldName, true
+		}
+		return finalFieldName, false
 	}
-	panic(field)
+	fmt.Println("Failed to map type")
+	return field, false
 }
 
 func buildFields(jsonData map[string]interface{}) []string {
@@ -65,7 +116,8 @@ func buildFields(jsonData map[string]interface{}) []string {
 			if !ok {
 				fmt.Println("invalid column type")
 			}
-			columns = append(columns, getFieldName(columnStr, false))
+			fieldName, _ := getFieldName(columnStr, false)
+			columns = append(columns, fieldName)
 		}
 	}
 	return columns
@@ -87,7 +139,7 @@ func buildPaginate(jsonData map[string]interface{}) (int, int) {
 }
 
 func buildFilters(searchQuery *elastic.BoolQuery, jsonData map[string]interface{}) {
-	subFilters := make(map[string][]*elastic.TermQuery, 0)
+	subFilters := make(map[string][]elastic.Query, 0)
 	if val, ok := jsonData["filters"]; ok {
 		filtersInterface, _ := val.([]interface{})
 		for _, filter := range filtersInterface {
@@ -95,7 +147,8 @@ func buildFilters(searchQuery *elastic.BoolQuery, jsonData map[string]interface{
 			if ok {
 				if val, ok := filterMap["operator"]; ok {
 					if operatorStr, ok := val.(string); ok {
-						query := elastic.NewRangeQuery(getFieldName(filterMap["name"].(string), false))
+						fieldName, _ := getFieldName(filterMap["name"].(string), false)
+						query := elastic.NewRangeQuery(fieldName)
 						if operatorStr == "gte" {
 							query.Gte(filterMap["value"].(string))
 						} else if operatorStr == "gt" {
@@ -108,8 +161,14 @@ func buildFilters(searchQuery *elastic.BoolQuery, jsonData map[string]interface{
 						searchQuery = searchQuery.Filter(query)
 					}
 				} else {
-					query := elastic.NewTermQuery(getFieldName(filterMap["name"].(string), true), filterMap["value"].(string))
-					subFilters[getFieldName(filterMap["name"].(string), true)] = append(subFilters[getFieldName(filterMap["name"].(string), true)], query)
+					fieldName, shouldBeMatch := getFieldName(filterMap["name"].(string), true)
+					if shouldBeMatch {
+						query := elastic.NewMatchQuery(fieldName, filterMap["value"].(string))
+						subFilters[fieldName] = append(subFilters[fieldName], query)
+					} else {
+						query := elastic.NewTermQuery(fieldName, filterMap["value"].(string))
+						subFilters[fieldName] = append(subFilters[fieldName], query)
+					}
 				}
 			} else {
 				fmt.Println("Failed to convert filter is", reflect.TypeOf(filter),
@@ -179,7 +238,8 @@ func buildAggregations(search *elastic.SearchService, jsonData map[string]interf
 		for _, facet := range facetsInterface {
 			facetStr, ok := facet.(string)
 			if ok {
-				agg := elastic.NewTermsAggregation().Field(getFieldName(facetStr, true)).Size(facetsSize)
+				fieldName, _ := getFieldName(facetStr, true)
+				agg := elastic.NewTermsAggregation().Field(fieldName).Size(facetsSize)
 				search = search.Aggregation(facetStr, agg)
 				keys.term = append(keys.term, facetStr)
 			}
@@ -192,11 +252,13 @@ func buildAggregations(search *elastic.SearchService, jsonData map[string]interf
 		for histogram, histogramValue := range histogramsInterface {
 			histogramStr, ok := histogramValue.(string)
 			if ok {
-				agg := elastic.NewHistogramAggregation().Interval(float64(1000 * 60 * 60 * 24)).Field(getFieldName(histogram, true))
+				fieldName, _ := getFieldName(histogram, true)
+				agg := elastic.NewHistogramAggregation().Interval(float64(1000 * 60 * 60 * 24)).Field(fieldName)
 				histogramKeyValue := histogramKey{histogram: histogram}
 
 				if len(histogramStr) > 0 {
-					subAgg := elastic.NewTermsAggregation().Field(getFieldName(histogramStr, true)).Size(facetsSize)
+					fieldName, _ := getFieldName(histogram, true)
+					subAgg := elastic.NewTermsAggregation().Field(fieldName).Size(facetsSize)
 					agg = agg.SubAggregation(histogramStr, subAgg)
 					histogramKeyValue.subHistograms = append(histogramKeyValue.subHistograms, histogramKey{term: histogramStr})
 				}
@@ -289,17 +351,14 @@ func DoSearch(m map[string]interface{}) map[string]interface{} {
 				if ascJ, ok := sortObject["asc"]; ok {
 					asc = ascJ.(bool)
 				}
-				search = search.Sort(getFieldName(field.(string), true), asc)
+				fieldName, _ := getFieldName(field.(string), true)
+				search = search.Sort(fieldName, asc)
 			}
 		}
 	}
 
-	if from > 0 {
-		search = search.From(from)
-	}
-	if size > 0 {
-		search = search.Size(size)
-	}
+	search = search.From(from)
+	search = search.Size(size)
 
 	search, aggregateKeys := buildAggregations(search, m)
 	searchResult, err := search.

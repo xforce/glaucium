@@ -1,6 +1,6 @@
-<v-row>
+<v-layout row wrap>
     <h5>${report.product} ${report.version} [${report.signature}]</h5>
-</v-row>
+</v-layout>
 <v-divider></v-divider>
 <section>
     <v-tabs id="mobile-tabs-7" left>
@@ -13,13 +13,13 @@
         <v-tab-content id="details" slot="content">
             <v-card>
                 <v-card-text>
-                    <v-container fluid="fluid">
-                        <v-row>
+                    <section fluid>
+                        <v-layout row wrap>
                             <v-col xl5>
                                 <v-table-overflow>
                                     <table class="table table--component elevation-0">
                                         <thead>
-                                             <tr>
+                                            <tr>
                                                 <th class="text-xl-left col md2">Crash ID:</th>
                                                 <td>${report.uuid}</td>
                                             </tr>
@@ -62,19 +62,16 @@
                             <v-col xl5>
                                 <v-btn light default id="download_raw_dump_button">Download Raw Dump</v-btn>
                             </v-col>
-                        </v-row>
-                    </v-container>
+                        </v-layout>
+                    </section>
                 </v-card-text>
             </v-card>
         </v-tab-content>
         <v-tab-content id="modules" slot="content">
-            <v-container fluid="fluid">
-                <v-row>
+            <section fluid>
+                <v-layout row wrap>
                     <v-col xl8>
-                        <v-data-table 
-                        v-bind:headers="modules_headers"
-                        v-model="modules_items"
-                        hide-actions class="elevation-0" id="modules_table">
+                        <v-data-table v-bind:headers="modules_headers" v-bind:items="modules_items" hide-actions class="elevation-0" id="modules_table">
                             <template slot="items" scope="props">
                                 <td>${ props.item.filename }</td>
                                 <td>${ props.item.version }</td>
@@ -83,21 +80,20 @@
                             </template>
                         </v-data-table>
                     </v-col>
-                </v-row>
-            </v-container>
+                </v-layout>
+            </section>
         </v-tab-content>
     </v-tabs>
 </section>
-<section>
-    <v-container fluid class="mt-4">
-        <v-subheader>Trace</v-subheader>
-            <v-card slot="header" v-for="(item,i) in stack_trace" :key="i">
-                <v-card-text class="white darken-2">
-                     ${item.display_name}  <template v-if="item.show_file">( ${item.file}:${item.line} )</template>
-                </v-card-text>
-            </v-card>
-    </v-container>
+<section fluid class="mt-4">
+    <v-subheader>Trace</v-subheader>
+    <v-card slot="header" v-for="(item,i) in stack_trace" :key="i">
+        <v-card-text class="white darken-2">
+            ${item.display_name}
+            <template v-if="item.show_file">( ${item.file}:${item.line} )</template>
+        </v-card-text>
+    </v-card>
 </section>
 <script>
-let crashID = "{{crashID}}";
+    let crashID = "{{crashID}}";
 </script>

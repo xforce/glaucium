@@ -60,12 +60,10 @@ function loadStackTrace() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
             let jsonResponse = JSON.parse(xhr.responseText);
-            console.log(jsonResponse);
             let resultArray = [];
             vm.stack_trace = [];
             jsonResponse.json_dump.crashing_thread.frames.forEach((frame) => {
                 frame_object = {};
-                console.log(frame)
                 if (frame.function !== undefined) {
                     frame_object.display_name = frame.module + "___" + frame.function;
                 } else {

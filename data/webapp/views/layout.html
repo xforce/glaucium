@@ -8,6 +8,7 @@
     <link href="/css/vuetify.min.css" rel="stylesheet" type="text/css">
     <script src="/js/vue.min.js"></script>
     <script src="/js/vuetify.min.js"></script>
+    <script src="/js/number-functions.js"></script>
     <link href="/css/style.css" rel="stylesheet">
     {{#if extra_css }}
       <link href="/css/{{extra_css}}" rel="stylesheet">
@@ -15,19 +16,32 @@
 </head>
 <body>
     <v-app id="app">
-      <v-toolbar class="secondary">
+      <v-toolbar class="purple">
+        <v-toolbar-side-icon></v-toolbar-side-icon>
         <v-toolbar-title class="hidden-sm-and-down"><a href="/">Glaucium</a></v-toolbar-title>
         <v-btn icon class="white--text text--lighten-2" id="search_btn">
           <v-icon>search</v-icon>
         </v-btn>
-        <v-text-field xs3 label="Search..." hide-details single-line dark></v-text-field>
+        <!--<v-toolbar-items class="hidden-md-and-down">
+           <v-toolbar-item>
+             Meow
+           </v-toolbar-item>
+                      <v-toolbar-item>
+             Meow
+           </v-toolbar-item>
+                      <v-toolbar-item>
+             Meow
+           </v-toolbar-item>
+                      <v-toolbar-item>
+             Meow
+           </v-toolbar-item>-->
+      </v-toolbar-items>
+      <v-text-field xs3 label="Search..." hide-details single-line dark></v-text-field>
       </v-toolbar>
       <main>
-        <v-content>
-          <v-container fluid class="ma-4">
-              {{ yield }}
-            </v-container>
-        </v-content>
+        <v-container fluid class="mt-4">
+            {{ yield }}
+        </v-container>
       </main>
       <v-footer>
         <div class="text-xs-right">© 2016</div>

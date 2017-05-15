@@ -1,58 +1,58 @@
-<v-row class="mt-4">
-</v-row>
-<v-row class="mt-4">
-<v-card class="lighten-4 elevation-0">
-  <v-card-text>
-    <v-container fluid>
-      <v-row>
-        <v-col xs12>
-          <v-menu lazy :close-on-content-click="false" v-model="menu" transition="v-scale-transition" offset-y :nudge-left="56">
-            <v-text-field slot="activator" label="Picker in menu" v-model="e3" prepend-icon="event" readonly></v-text-field>
-            <v-date-picker v-model="e3" no-title scrollable actions>
-              <template scope="{ save, cancel }">
-                <v-card-row actions>
-                  <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                  <v-btn flat primary @click.native="save()">Save</v-btn>
-                </v-card-row>
-              </template>
-            </v-date-picker>
-          </v-menu>
-        </v-col>
-        <v-col xs12>
-          <v-menu lazy :close-on-content-click="false" v-model="menu2" transition="v-scale-transition" offset-y :nudge-left="56">
-            <v-text-field slot="activator" label="Picker in menu" v-model="e4" prepend-icon="event" readonly></v-text-field>
-            <v-date-picker v-model="e4" no-title light scrollable actions>
-              <template scope="{ save, cancel }">
-                <v-card-row actions>
-                  <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
-                  <v-btn flat primary @click.native="save()">Save</v-btn>
-                </v-card-row>
-              </template>
-            </v-date-picker>
-          </v-menu>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col xs12 sm6>
-          <v-select label="Product" v-bind:items="products" v-model="selected_products" multiple chips light hint="What are the target regions" />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col xs12 sm6>
-          <v-select label="Version" v-bind:items="versions" v-model="selected_versions" multiple chips light hint="What are the target regions" />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col xs12 sm6>
-          <v-select label="Platform" v-bind:items="platforms" v-model="selected_platforms" multiple chips single-line hint="What are the target regions"
-          />
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-card-text>
-</v-card>
-</v-row>
-<v-row class="mt-4">
+<v-layout row wrap class="mt-4">
+  <v-card class="lighten-4 elevation-0">
+    <v-card-text>
+      <v-container fluid>
+        <v-layout row wrap>
+          <v-col xs12>
+            <v-menu lazy :close-on-content-click="false" v-model="menu" transition="v-scale-transition" offset-y :nudge-left="56">
+              <v-text-field slot="activator" label="Picker in menu" v-model="e3" prepend-icon="event" readonly></v-text-field>
+              <v-date-picker v-model="e3" no-title scrollable actions>
+                <template scope="{ save, cancel }">
+                  <v-card-row actions>
+                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                    <v-btn flat primary @click.native="save()">Save</v-btn>
+                  </v-card-row>
+                </template>
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+          <v-col xs12>
+            <v-menu lazy :close-on-content-click="false" v-model="end_date_menu" transition="v-scale-transition" offset-y :nudge-left="56">
+              <v-text-field slot="activator" label="Picker in menu" v-model="end_date" prepend-icon="event" readonly></v-text-field>
+              <v-date-picker v-model="e4" no-title light scrollable actions>
+                <template scope="{ save, cancel }">
+                  <v-card-row actions>
+                    <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                    <v-btn flat primary @click.native="save()">Save</v-btn>
+                  </v-card-row>
+                </template>
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+        </v-layout>
+        <v-layout row wrap>
+          <v-col xs12 sm6>
+            <v-select label="Product" v-bind:items="products" v-model="selected_products" multiple chips light hint="What are the target regions"
+            />
+          </v-col>
+        </v-layout>
+        <v-layout row wrap>
+          <v-col xs12 sm6>
+            <v-select label="Version" v-bind:items="versions" v-model="selected_versions" multiple chips light hint="What are the target regions"
+            />
+          </v-col>
+        </v-layout>
+        <v-layout row wrap>
+          <v-col xs12 sm6>
+            <v-select label="Platform" v-bind:items="platforms" v-model="selected_platforms" multiple chips single-line hint="What are the target regions"
+            />
+          </v-col>
+        </v-layout>
+      </v-container>
+    </v-card-text>
+  </v-card>
+</v-layout>
+<v-layout row wrap class="mt-4">
   <v-tabs id="mobile-tabs-7" left>
     <v-tab-item slot="activators" href="#signatures">
       Signatures
@@ -61,15 +61,36 @@
       Reports
     </v-tab-item>
     <v-tab-content id="signatures" slot="content">
-      <v-data-table v-bind:headers="search_result_facet_headers" v-model="search_result_facet_items" hide-actions class="elevation-1"
-        id="search_result_facet_table">
+      <v-data-table v-bind:headers="search_result_facet_headers" v-bind:items="search_result_facet_items" v-bind:pagination.sync="search_result_facet_pagination"
+        hide-actions class="elevation-1" id="search_result_facet_table">
         <template slot="items" scope="props">
           <td>${ props.item.rank }</td>
           <td class="text-xs-right"><a v-bind:href="'/signature/' + props.item.signature_uri">${ props.item.signature }</a></td>
           <td class="text-xs-right">${ props.item.count }</td>
-          <td class="text-xs-right">${ props.item.percentage }</td>
+          <td class="text-xs-right">${ percentage(props.item.percentage) }</td>
         </template>
       </v-data-table>
     </v-tab-content>
+    <v-tab-content id="reports" slot="content">
+      <section fluid>
+          <div class="text-lg-right text-xs-center pt-2">
+            <v-pagination v-model="search_result_report_pagination.page" v-bind:length="Math.ceil(search_result_report_pagination.totalItems / search_result_report_pagination.rowsPerPage)"></v-pagination>
+          </div>
+          <v-data-table v-bind:headers="search_result_report_headers" v-bind:items="search_result_report_items" 
+          v-bind:pagination.sync="search_result_report_pagination"
+            :total-items="search_result_report_count"
+            :loading="search_result_report_loading"
+            hide-actions class="elevation-1" id="search_result_report_table">
+            <template slot="items" scope="props">
+              <td><a v-bind:href="'/report/' + props.item.crash_id">${ props.item.crash_id }</a></td>
+              <td class="text-xs-right">${ props.item.date }</td>
+              <td class="text-xs-right">${ props.item.signature }</td>
+              <td class="text-xs-right">${ props.item.product }</td>
+              <td class="text-xs-right">${ props.item.version }</td>
+              <td class="text-xs-right">${ props.item.platform }</td>
+            </template>
+          </v-data-table>
+      </section>
+    </v-tab-content>
   </v-tabs>
-</v-row>
+</v-layout>
