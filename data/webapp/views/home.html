@@ -1,60 +1,55 @@
- <v-layout row wrap>
-    <v-col sm4>
-      <v-card class="blue-grey">
-          <v-card-row class="blue-grey darken-1">
-            <v-card-title>
-                <span class="white--text">Crash Reports by Version (past 24 hours)</span>
-            </v-card-title>
-          </v-card-row>
-        <v-card-row class="blue-grey">
-            <canvas id="crash-stat-chart-1days" class="container"></canvas>
-        </v-card-row>
-        <v-btn block class="purple" id="1-day-reports-card-view-reports">View Reports</v-btn>
-      </v-card>
-    </v-col>
-    <v-col sm4>
-      <v-card class="blue-grey">
-          <v-card-row class="blue-grey darken-1">
-            <v-card-title>
-                <span class="white--text">Crash Reports by Version (past 7 days)</span>
-            </v-card-title>
-          </v-card-row>
-        <v-card-row class="blue-grey">
-            <canvas id="crash-stat-chart-7days" class="container"></canvas>
-        </v-card-row>
-        <v-btn block class="purple" id="7-day-reports-card-view-reports">View Reports</v-btn>
-      </v-card>
-    </v-col>
-        <v-col sm4>
-      <v-card class="blue-grey">
-          <v-card-row class="blue-grey darken-1">
-            <v-card-title>
-                <span class="white--text">Crash Reports by Version (past 30 days)</span>
-            </v-card-title>
-          </v-card-row>
-        <v-card-row class="blue-grey">
-            <canvas id="crash-stat-chart-30days" class="container"></canvas>
-        </v-card-row>
-        <v-btn block class="purple" id="30-day-reports-card-view-reports">View Reports</v-btn>
-      </v-card>
-    </v-col>
- </v-layout>
-<v-layout row wrap class="mt-4">
-<v-subheader>Recent Reports (Showing ${ loaded_report_count } of ${ total_report_count } Reports)</v-subheader>
-<v-data-table 
-  v-bind:headers="recent_reports_headers"
-  v-bind:items="recent_reports_items"
-  v-bind:pagination.sync="recent_reports_pagination"
-  :total-items="loaded_report_count"
-  :loading="loading"
-  hide-actions class="elevation-1" id="recent_reports_table">
-  <template slot="items" scope="props">
-    <td><a v-bind:href="'/report/' + props.item.crash_id">${ props.item.crash_id }</a></td>
-    <td class="text-xs-right">${ props.item.date }</td>
-    <td class="text-xs-right">${ props.item.signature }</td>
-    <td class="text-xs-right">${ props.item.product }</td>
-    <td class="text-xs-right">${ props.item.version }</td>
-    <td class="text-xs-right">${ props.item.platform }</td>
-  </template>
-</v-data-table>
+<v-layout row wrap  class="hidden-xs-only">
+  <v-col md6 lg4 sm12>
+    <v-card class="elevation-5">
+      <v-card-row>
+        <v-card-title>
+          <span>Reports 24 hours</span>
+        </v-card-title>
+      </v-card-row>
+      <v-card-row>
+        <canvas id="crash-stat-chart-1days" class="container"></canvas>
+      </v-card-row>
+      <v-btn flat light block id="1-day-reports-card-view-reports">View Reports</v-btn>
+    </v-card>
+  </v-col>
+  <v-col md6 lg4 sm12>
+    <v-card class="elevation-5">
+      <v-card-row>
+        <v-card-title>
+          <span>Reports 7 days</span>
+        </v-card-title>
+      </v-card-row>
+      <v-card-row>
+        <canvas id="crash-stat-chart-7days" class="container"></canvas>
+      </v-card-row>
+      <v-btn flat light block id="7-day-reports-card-view-reports">View Reports</v-btn>
+    </v-card>
+  </v-col>
+  <v-col md6 lg4 sm12>
+    <v-card class="elevation-5">
+      <v-card-row>
+        <v-card-title>
+          <span>Reports 14 days</span>
+        </v-card-title>
+      </v-card-row>
+      <v-card-row>
+        <canvas id="crash-stat-chart-14days" class="container"></canvas>
+      </v-card-row>
+      <v-btn flat light block id="14-day-reports-card-view-reports">View Reports</v-btn>
+    </v-card>
+  </v-col>
+</v-layout>
+<v-layout row wrap class="mt-4 elevation-5">
+  <v-subheader>Recent Reports (Showing ${ loaded_report_count } of ${ total_report_count } Reports)</v-subheader>
+  <v-data-table v-bind:headers="recent_reports_headers" v-bind:items="recent_reports_items" v-bind:pagination.sync="recent_reports_pagination"
+    :total-items="loaded_report_count" :loading="loading" hide-actions class="elevation-1" id="recent_reports_table">
+    <template slot="items" scope="props">
+      <td><a v-bind:href="'/report/' + props.item.crash_id">${ props.item.crash_id }</a></td>
+      <td class="text-xs-right">${ props.item.date }</td>
+      <td class="text-xs-right">${ props.item.signature }</td>
+      <td class="text-xs-right">${ props.item.product }</td>
+      <td class="text-xs-right">${ props.item.version }</td>
+      <td class="text-xs-right">${ props.item.platform }</td>
+    </template>
+  </v-data-table>
 </v-layout>

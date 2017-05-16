@@ -1,4 +1,3 @@
-Chart.defaults.global.defaultFontColor = "#fff";
 let vm = new Vue({
     el: '#app',
     delimiters: ['${', '}'],
@@ -233,6 +232,7 @@ function loadDayHistogramData(days) {
                         Object.keys(dataStruct[dataS]).forEach(function (value) {
                             dataArray.push(dataStruct[dataS][value]);
                         });
+                        
                         datasets.push(
                             {
                                 label: dataS,
@@ -256,6 +256,7 @@ function loadDayHistogramData(days) {
                                 pointHitRadius: 10,
                             });
                     }
+
                     let myChart = new Chart(ctx, {
                         type: 'line',
                         data: {
@@ -266,7 +267,7 @@ function loadDayHistogramData(days) {
                             scales: {
                                 yAxes: [{
                                     gridLines: {
-                                        color: "rgba(255, 255, 255, 0.5)",
+                                        color: "rgba(0, 0, 0, 0.5)",
                                     },
                                     ticks: {
                                         beginAtZero: true
@@ -274,7 +275,7 @@ function loadDayHistogramData(days) {
                                 }],
                                 xAxes: [{
                                     gridLines: {
-                                        color: "rgba(255, 255, 255, 0.5)",
+                                        color: "rgba(0, 0, 0, 0.5)",
                                     }
                                 }]
                             }
@@ -292,6 +293,8 @@ function loadDayHistogramData(days) {
     };
 }
 
+
+
 loadDayHistogramData(1);
 loadDayHistogramData(7);
-loadDayHistogramData(30);
+loadDayHistogramData(14);

@@ -76,10 +76,11 @@ func Run() error {
 	router.GET("/search", searchViewHandler)
 	router.GET("/report/:crashID", reportViewHandler)
 	router.GET("/signature/:signature", signatureViewHandler)
+
 	router.NoRoute(func(c *gin.Context) {
 		c.HTML(404, "404.html", gin.H{"title": "Page Not Found!", "extra_css": "404.css"})
 	})
-	return router.Run(":" + strconv.Itoa(config.GetDefault("webapp.port", 6300).(int)))
+	return router.Run(config.GetDefault("webapp.host", "").(string) + ":" + strconv.Itoa(config.GetDefault("webapp.port", 6300).(int)))
 }
 
 func reportViewHandler(c *gin.Context) {

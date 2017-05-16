@@ -3,7 +3,7 @@
 </v-layout>
 <v-divider></v-divider>
 <section>
-    <v-tabs id="mobile-tabs-7" left>
+    <v-tabs id="mobile-tabs-7"  class="elevation-5" left>
         <v-tab-item slot="activators" href="#details">
             Details
         </v-tab-item>
@@ -85,10 +85,10 @@
         </v-tab-content>
     </v-tabs>
 </section>
-<section fluid class="mt-4">
+<section fluid class="mt-4 elevation-5">
     <v-subheader>Trace</v-subheader>
     <v-card slot="header" v-for="(item,i) in stack_trace" :key="i">
-        <v-card-text class="white darken-2">
+        <v-card-text>
             ${item.display_name}
             <template v-if="item.show_file">( ${item.file}:${item.line} )</template>
         </v-card-text>

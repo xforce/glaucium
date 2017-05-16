@@ -1,15 +1,25 @@
 body {
   background: #eee;
 }
-.footer {
-  width: 100%;
-  flex: none;
-  background-color: #f5f5f5;
+.application--light {
+    background: #fafafa;
 }
-nav, .jumbotron {
-  background: #790e8b;
+
+footer > div > a {
+  color: #bdbdbd;
 }
-.content {
-  background: #eee;
+
+.glaucium .toolbar__logo_text {
+    position: relative;
+    text-decoration: none;
 }
+
+.glaucium .toolbar__logo_text > img {
+    margin-top: 16px;
+}
+
+.glaucium a {
+    color: #fff;
+}
+
 /* https://material.io/color/#!/?view.left=0&view.right=0&secondary.color=7B1FA2&primary.color=ab47bc */
