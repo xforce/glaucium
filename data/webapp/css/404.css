@@ -1,4 +1,8 @@
+html {
+overflow:auto;
+}
 body {
+    background: transparent;
     background-image: url("/images/nebula.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -8,5 +12,12 @@ body {
     color: #000;
 }
 .content {
+    background: transparent;
+}
+.mt-4 {
+    margin: 0!important;
+}
+
+.application--light {
     background: transparent;
 }

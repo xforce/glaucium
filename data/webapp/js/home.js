@@ -124,8 +124,6 @@ let vm = new Vue({
     },
 });
 
-
-
 function GetDateRangePrior(numberOfDays) {
     let dateArray = new Array();
     for (i = 0; numberOfDays >= 0; ++i) {
@@ -137,6 +135,19 @@ function GetDateRangePrior(numberOfDays) {
 
 function dateIsoFormat(date) {
     return date.toISOString().substring(0, 10);
+}
+
+var stringToColor = function(str) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    let colors =[]
+    for (var i = 0; i < 3; i++) {
+        var value = (hash >> (i * 8)) & 0xFF;
+        colors.push(parseInt(value.toString(16).substr(-2), 16))
+    }
+    return colors;
 }
 
 function loadDayHistogramData(days) {
@@ -232,24 +243,25 @@ function loadDayHistogramData(days) {
                         Object.keys(dataStruct[dataS]).forEach(function (value) {
                             dataArray.push(dataStruct[dataS][value]);
                         });
-                        
+                        let color = stringToColor(dataS+dataS);
+                        colorStr = "rgba("+color[0]+","+color[1]+","+color[2]
                         datasets.push(
                             {
                                 label: dataS,
                                 data: dataArray,
-                                fill: false,
-                                lineTension: 0.1,
-                                backgroundColor: "rgba(75,192,192,0.4)",
-                                borderColor: "rgba(75,192,192,1)",
+                                fill: true,
+                                lineTension: 0.3,
+                                backgroundColor: colorStr + ",0.4)",
+                                borderColor: colorStr+",1)",
                                 borderCapStyle: 'butt',
                                 borderDash: [],
                                 borderDashOffset: 0.0,
                                 borderJoinStyle: 'miter',
-                                pointBorderColor: "rgba(75,192,192,1)",
+                                pointBorderColor: colorStr+",1)",
                                 pointBackgroundColor: "#fff",
                                 pointBorderWidth: 1,
                                 pointHoverRadius: 5,
-                                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                                pointHoverBackgroundColor: colorStr+"1)",
                                 pointHoverBorderColor: "rgba(220,220,220,1)",
                                 pointHoverBorderWidth: 2,
                                 pointRadius: 1,
