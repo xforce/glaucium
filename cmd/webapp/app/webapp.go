@@ -36,10 +36,9 @@ func Run() error {
 	}
 	crashStorage = crashstorage.GetCrashStorage(config.GetDefault("webapp.crashstorage", "fs").(string), "/etc/glaucium/config.toml", nil)
 
-	InitializeEsSearch()
+	InitializeEsSearch(*configFilePath)
 
 	webappDataPath := config.GetDefault("webapp.webapp_data", "/usr/share/glaucium/webapp/data").(string)
-
 	if err != nil {
 		fmt.Println("Error ", err.Error())
 		// Handle error

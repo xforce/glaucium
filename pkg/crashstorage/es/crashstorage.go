@@ -35,40 +35,6 @@ type MappingType struct {
 }
 
 func (p *CrashStorage) createIndex(esIndex string) {
-
-	// Get mapping from the json file....
-	if mapping == nil {
-		var n map[string]MappingType
-		file, e := ioutil.ReadFile("/etc/glaucium/elastic_search_mapping.json")
-		if e != nil {
-			fmt.Printf("File error: %v\n", e)
-			os.Exit(1)
-		}
-		json.Unmarshal(file, &n)
-		properties := make(map[string]map[string]map[string]interface{}, 0)
-		for _, value := range n {
-			if properties[value.Namespace] == nil {
-				properties[value.Namespace] = make(map[string]map[string]interface{}, 0)
-			}
-			if properties[value.Namespace]["properties"] == nil {
-				properties[value.Namespace]["properties"] = make(map[string]interface{}, 0)
-			}
-			if properties[value.Namespace]["properties"][value.InDatabaseName] == nil {
-				properties[value.Namespace]["properties"][value.InDatabaseName] = make(map[string]interface{}, 0)
-			}
-			properties[value.Namespace]["properties"][value.InDatabaseName] = value.StorageMapping
-		}
-
-		esMappingRoot := make(map[string]interface{}, 0)
-		esMapping := make(map[string]interface{}, 0)
-		esMapping["_all"] = map[string]interface{}{"enabled": false}
-		esMapping["properties"] = properties
-
-		esMappingRoot["crash_report"] = esMapping
-
-		mapping = esMappingRoot
-	}
-
 	rankingsJson, _ := json.Marshal(mapping)
 	ioutil.WriteFile("output.json", rankingsJson, 0644)
 
@@ -142,6 +108,40 @@ func NewCrashStorage(configFile string) (*CrashStorage, error) {
 		fmt.Println("Error ", err.Error())
 		// Handle error
 		return nil, errors.New(fmt.Sprint("Failed to create elastic search client", err))
+	}
+
+	mappingFilePath := config.GetDefault("storage.es.mapping_file", "/etc/glaucium/elastic_search_mapping.json").(string)
+	// Get mapping from the json file....
+	if mapping == nil {
+		var n map[string]MappingType
+		file, e := ioutil.ReadFile(mappingFilePath)
+		if e != nil {
+			fmt.Printf("File error: %v\n", e)
+			os.Exit(1)
+		}
+		json.Unmarshal(file, &n)
+		properties := make(map[string]map[string]map[string]interface{}, 0)
+		for _, value := range n {
+			if properties[value.Namespace] == nil {
+				properties[value.Namespace] = make(map[string]map[string]interface{}, 0)
+			}
+			if properties[value.Namespace]["properties"] == nil {
+				properties[value.Namespace]["properties"] = make(map[string]interface{}, 0)
+			}
+			if properties[value.Namespace]["properties"][value.InDatabaseName] == nil {
+				properties[value.Namespace]["properties"][value.InDatabaseName] = make(map[string]interface{}, 0)
+			}
+			properties[value.Namespace]["properties"][value.InDatabaseName] = value.StorageMapping
+		}
+
+		esMappingRoot := make(map[string]interface{}, 0)
+		esMapping := make(map[string]interface{}, 0)
+		esMapping["_all"] = map[string]interface{}{"enabled": false}
+		esMapping["properties"] = properties
+
+		esMappingRoot["crash_report"] = esMapping
+
+		mapping = esMappingRoot
 	}
 
 	// TODO(alexander): read config etc.

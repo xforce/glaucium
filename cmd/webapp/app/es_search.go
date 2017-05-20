@@ -9,33 +9,45 @@ import (
 	"reflect"
 	"strconv"
 
+	toml "github.com/pelletier/go-toml"
+
 	elastic "gopkg.in/olivere/elastic.v5"
 )
 
 var elastiClient *elastic.Client
 var ctx context.Context
 
-type asdasdasdasd struct {
+type MappingType struct {
 	InDatabaseName string                 `json:"in_database_name"`
 	Namespace      string                 `json:"namespace"`
 	StorageMapping map[string]interface{} `json:"storage_mapping"`
+	HasFullVersion bool                   `json:"has_full_version"`
+	HasKeyword     bool                   `json:"has_keyword"`
 }
 
-func InitializeEsSearch() {
+var mapping map[string]MappingType
+
+func InitializeEsSearch(configFilePath string) {
+
+	config, err := toml.LoadFile(configFilePath)
+	if err != nil {
+		fmt.Println("Error ", err.Error())
+	}
+	mappingFilePath := config.GetDefault("storage.es.mapping_file", "/etc/glaucium/elastic_search_mapping.json").(string)
+
 	ctx = context.Background()
 	// elastic.SetTraceLog(log.New(os.Stderr, "ELASTIC ", log.LstdFlags))
 	elastiClient, _ = elastic.NewClient()
 
 	// Get mapping from the json file....
-	var n map[string]asdasdasdasd
-	file, e := ioutil.ReadFile("/etc/glaucium/elastic_search_mapping.json")
+	file, e := ioutil.ReadFile(mappingFilePath)
 	if e != nil {
 		fmt.Printf("File error: %v\n", e)
 		os.Exit(1)
 	}
-	json.Unmarshal(file, &n)
+	json.Unmarshal(file, &mapping)
 	properties := make(map[string]map[string]map[string]interface{}, 0)
-	for _, value := range n {
+	for _, value := range mapping {
 		if properties[value.Namespace] == nil {
 			properties[value.Namespace] = make(map[string]map[string]interface{}, 0)
 		}
@@ -67,25 +79,7 @@ func InitializeEsSearch() {
 	}
 }
 
-type MappingType struct {
-	InDatabaseName string                 `json:"in_database_name"`
-	Namespace      string                 `json:"namespace"`
-	StorageMapping map[string]interface{} `json:"storage_mapping"`
-	HasFullVersion bool                   `json:"has_full_version"`
-	HasKeyword     bool                   `json:"has_keyword"`
-}
-
-var mapping map[string]MappingType
-
 func getFieldName(field string, useKeyword bool) string {
-	if mapping == nil {
-		file, e := ioutil.ReadFile("/etc/glaucium/elastic_search_mapping.json")
-		if e != nil {
-			fmt.Printf("File error: %v\n", e)
-			os.Exit(1)
-		}
-		json.Unmarshal(file, &mapping)
-	}
 	if val, ok := mapping[field]; ok {
 		finalFieldName := val.Namespace + "." + val.InDatabaseName
 		if useKeyword && val.HasKeyword {

@@ -32,6 +32,7 @@ type ProcessorConfig struct {
 	NewCrashSource           string
 	BreakpadPath             string
 	SymbolPath               string
+	SignaturePath            string
 	RemoveRawDumpFromSource  bool
 	SaveRawDumpInDestination bool
 }
@@ -327,12 +328,12 @@ func internalGenerateSignature(signatureList []string, crashedThread *int) (stri
 
 	newSignatureList := make([]string, 0)
 	for _, aSignature := range signatureList {
-		irrelevantSignatureRe, _ := regexp.Compile(strings.Join(getFileContents("/etc/glaucium/irrelevant_signature_re.txt"), "|"))
+		irrelevantSignatureRe, _ := regexp.Compile(strings.Join(getFileContents(path.Join(processorConfig.SignaturePath, "irrelevant_signature_re.txt")), "|"))
 		if irrelevantSignatureRe.MatchString(aSignature) {
 			continue
 		}
 
-		trimDllSignatureRe, _ := regexp.Compile(strings.Join(getFileContents("/etc/glaucium/trim_dll_signature_re.txt"), "|"))
+		trimDllSignatureRe, _ := regexp.Compile(strings.Join(getFileContents(path.Join(processorConfig.SignaturePath, "trim_dll_signature_re.txt")), "|"))
 		if trimDllSignatureRe.MatchString(aSignature) {
 			aSignature = strings.Split(aSignature, "@")[0]
 			if len(newSignatureList) > 0 && newSignatureList[len(newSignatureList)-1] == aSignature {
@@ -342,7 +343,7 @@ func internalGenerateSignature(signatureList []string, crashedThread *int) (stri
 
 		newSignatureList = append(newSignatureList, aSignature)
 		// TODO(alexander): This is horrible
-		prefixSignatureRe, _ := regexp.Compile(strings.Join(getFileContents("/etc/glaucium/prefix_signature_re.txt"), "|"))
+		prefixSignatureRe, _ := regexp.Compile(strings.Join(getFileContents(path.Join(processorConfig.SignaturePath, "prefix_signature_re.txt")), "|"))
 		if !prefixSignatureRe.MatchString(aSignature) {
 			break
 		}

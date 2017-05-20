@@ -3,19 +3,22 @@
 </v-layout>
 <v-divider></v-divider>
 <section>
-    <v-tabs id="mobile-tabs-7"  class="elevation-5" left>
-        <v-tab-item slot="activators" href="#details">
-            Details
-        </v-tab-item>
-        <v-tab-item slot="activators" href="#modules">
-            Modules
-        </v-tab-item>
-        <v-tab-content id="details" slot="content">
+    <v-tabs id="mobile-tabs-7"  class="elevation-5" left light>
+        <v-tabs-bar slot="activators">
+            <v-tabs-slider></v-tabs-slider>
+            <v-tabs-item href="#details">
+                Details
+            </v-tabs-item>
+            <v-tabs-item href="#modules">
+                Modules
+            </v-tabs-item>
+        </v-tabs-bar>
+        <v-tabs-content id="details">
             <v-card>
                 <v-card-text>
                     <section fluid>
                         <v-layout row wrap>
-                            <v-col xl5>
+                            <v-flex xl5>
                                 <v-table-overflow>
                                     <table class="table table--component elevation-0">
                                         <thead>
@@ -58,19 +61,19 @@
                                         </thead>
                                     </table>
                                 </v-table-overflow>
-                            </v-col>
-                            <v-col xl5>
-                                <v-btn light default id="download_raw_dump_button">Download Raw Dump</v-btn>
-                            </v-col>
+                            </v-flex>
+                            <v-flex xl5>
+                                <v-btn dark default id="download_raw_dump_button">Download Raw Dump</v-btn>
+                            </v-flex>
                         </v-layout>
                     </section>
                 </v-card-text>
             </v-card>
-        </v-tab-content>
-        <v-tab-content id="modules" slot="content">
+        </v-tabs-content>
+        <v-tabs-content id="modules">
             <section fluid>
                 <v-layout row wrap>
-                    <v-col xl8>
+                    <v-flex xl8>
                         <v-data-table v-bind:headers="modules_headers" v-bind:items="modules_items" hide-actions class="elevation-0" id="modules_table">
                             <template slot="items" scope="props">
                                 <td>${ props.item.filename }</td>
@@ -79,10 +82,10 @@
                                 <td>${ props.item.debug_filename }</td>
                             </template>
                         </v-data-table>
-                    </v-col>
+                    </v-flex>
                 </v-layout>
             </section>
-        </v-tab-content>
+        </v-tabs-content>
     </v-tabs>
 </section>
 <section fluid class="mt-4 elevation-5">

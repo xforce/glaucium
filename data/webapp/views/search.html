@@ -3,7 +3,7 @@
     <v-card-text>
       <v-container fluid>
         <v-layout row wrap>
-          <v-col xs12>
+          <v-flex xs12>
             <v-menu lazy :close-on-content-click="false" v-model="menu" transition="v-scale-transition" offset-y :nudge-left="56">
               <v-text-field slot="activator" label="Picker in menu" v-model="e3" prepend-icon="event" readonly></v-text-field>
               <v-date-picker v-model="e3" no-title scrollable actions>
@@ -15,8 +15,8 @@
                 </template>
               </v-date-picker>
             </v-menu>
-          </v-col>
-          <v-col xs12>
+          </v-flex>
+          <v-flex xs12>
             <v-menu lazy :close-on-content-click="false" v-model="end_date_menu" transition="v-scale-transition" offset-y :nudge-left="56">
               <v-text-field slot="activator" label="Picker in menu" v-model="end_date" prepend-icon="event" readonly></v-text-field>
               <v-date-picker v-model="end_date" no-title light scrollable actions>
@@ -28,39 +28,42 @@
                 </template>
               </v-date-picker>
             </v-menu>
-          </v-col>
+          </v-flex>
         </v-layout>
         <v-layout row wrap>
-          <v-col xs12 sm6>
-            <v-select label="Product" v-bind:items="products" v-model="selected_products" multiple chips light hint="What are the target regions"
+          <v-flex xs12 sm6>
+            <v-select label="Product" v-bind:items="products" v-model="selected_products" multiple chips dark
             />
-          </v-col>
+          </v-flex>
         </v-layout>
         <v-layout row wrap>
-          <v-col xs12 sm6>
-            <v-select label="Version" v-bind:items="versions" v-model="selected_versions" multiple chips light hint="What are the target regions"
+          <v-flex xs12 sm6>
+            <v-select label="Version" v-bind:items="versions" v-model="selected_versions" multiple chips dark
             />
-          </v-col>
+          </v-flex>
         </v-layout>
         <v-layout row wrap>
-          <v-col xs12 sm6>
-            <v-select label="Platform" v-bind:items="platforms" v-model="selected_platforms" multiple chips single-line hint="What are the target regions"
+          <v-flex xs12 sm6>
+            <v-select label="Platform" v-bind:items="platforms" v-model="selected_platforms" multiple chips dark
             />
-          </v-col>
+          </v-flex>
         </v-layout>
       </v-container>
     </v-card-text>
   </v-card>
 </v-layout>
 <v-layout row wrap class="mt-4">
-  <v-tabs id="mobile-tabs-7"  class="elevation-5" left>
-    <v-tab-item slot="activators" href="#signatures">
-      Signatures
-    </v-tab-item>
-    <v-tab-item slot="activators" href="#reports">
-      Reports
-    </v-tab-item>
-    <v-tab-content id="signatures" slot="content">
+  <v-tabs id="mobile-tabs-7"  class="elevation-5" left light>
+      <v-tabs-bar slot="activators">
+        <v-tabs-slider></v-tabs-slider>
+        <v-tabs-item href="#signatures">
+          Signatures
+        </v-tabs-item>
+        <v-tabs-item href="#reports">
+          Reports
+        </v-tabs-item>
+      </v-tabs-bar>
+    <v-tabs-content id="signatures">
       <v-data-table v-bind:headers="search_result_facet_headers" v-bind:items="search_result_facet_items" v-bind:pagination.sync="search_result_facet_pagination"
         hide-actions class="elevation-1" id="search_result_facet_table">
         <template slot="items" scope="props">
@@ -70,8 +73,8 @@
           <td class="text-xs-right">${ percentage(props.item.percentage) }</td>
         </template>
       </v-data-table>
-    </v-tab-content>
-    <v-tab-content id="reports" slot="content">
+    </v-tabs-content>
+    <v-tabs-content id="reports">
       <section fluid>
           <div class="text-lg-right text-xs-center pt-2">
             <v-pagination v-model="search_result_report_pagination.page" v-bind:length="Math.ceil(search_result_report_pagination.totalItems / search_result_report_pagination.rowsPerPage)"></v-pagination>
@@ -91,6 +94,6 @@
             </template>
           </v-data-table>
       </section>
-    </v-tab-content>
+    </v-tabs-content>
   </v-tabs>
 </v-layout>

@@ -1,4 +1,4 @@
 #!/bin/sh
 program=$1
 shift
-./bazel-bin/cmd/$program/$program "$@"
+./bazel-bin/cmd/$program/$program "$@" -config=data/etc/glaucium/dev_config.toml

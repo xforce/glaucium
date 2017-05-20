@@ -1,20 +1,23 @@
 <section>
-    <v-tabs id="mobile-tabs-7" class="elevation-5" left>
-        <v-tab-item slot="activators" href="#summary">
-            Summary
-        </v-tab-item>
-        <v-tab-item slot="activators" href="#reports">
-            Reports
-        </v-tab-item>
-        <v-tab-item slot="activators" href="#aggregations">
-            Aggregations
-        </v-tab-item>
-        <v-tab-content id="summary" slot="content">
+    <v-tabs id="mobile-tabs-7" class="elevation-5" left light>
+        <v-tabs-bar slot="activators">
+            <v-tabs-slider></v-tabs-slider>
+            <v-tabs-item href="#summary">
+                Summary
+            </v-tabs-item>
+            <v-tabs-item href="#reports">
+                Reports
+            </v-tabs-item>
+            <v-tabs-item href="#aggregations">
+                Aggregations
+            </v-tabs-item>
+        </v-tabs-bar>
+        <v-tabs-content id="summary">
             <v-card>
                 <v-card-text>
                     <section fluid>
                         <v-layout row wrap>
-                            <v-col xs12 lg6>
+                            <v-flex xs12 lg6>
                                 <v-data-table v-bind:headers="os_headers" v-bind:items="os_items" v-bind:pagination.sync="os_pagination"
                                     hide-actions class="elevation-0" id="os_table">
                                     <template slot="items" scope="props">
@@ -23,16 +26,16 @@
                                         <td class="text-xs-right">${ props.item.percentage }</td>
                                     </template>
                                 </v-data-table>
-                            </v-col>
-                            <v-col xs12 lg6>
+                            </v-flex>
+                            <v-flex xs12 lg6>
                                 <canvas id="signature-stat-chart-14days" class="container"></canvas>
-                            </v-col>
+                            </v-flex>
                         </v-layout>
                     </section>
                 </v-card-text>
             </v-card>
-        </v-tab-content>
-        <v-tab-content id="reports" slot="content">
+        </v-tabs-content>
+        <v-tabs-content id="reports">
             <v-card>
                 <v-card-text>
                     <section fluid>
@@ -57,20 +60,20 @@
                     </section>
                 </v-card-text>
             </v-card>
-        </v-tab-content>
-        <v-tab-content id="aggregations" slot="content">
+        </v-tabs-content>
+        <v-tabs-content id="aggregations">
             <v-card>
                 <v-card-text>
                     <v-container fluid="fluid">
                         <v-layout row wrap>
-                            <v-col xl5>
+                            <v-flex xl5>
                                 Coming Soon
-                            </v-col>
+                            </v-flex>
                         </v-layout>
                     </v-container>
                 </v-card-text>
             </v-card>
-        </v-tab-content>
+        </v-tabs-content>
     </v-tabs>
 </section>
 <script>

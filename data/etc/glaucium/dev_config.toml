@@ -1,0 +1,22 @@
+
+[collector]
+  port = 8080
+  host = "0.0.0.0"
+  [collector.storage]
+    classes = ["fs"]
+
+[webapp]
+    webapp_data = "data/webapp"
+
+[storage.fs]
+    fs_root = "test/crashes"
+
+[processor]
+    destination_storage = ["fs", "es"]
+    save_raw_dump = true
+    remove_raw_dump = false
+    breakpad_path = "bazel-bin/vendor/minidump_stackwalk/"
+    symbol_path = "test/symbols"
+
+[storage.es]
+    mapping_file = "data/etc/glaucium/elastic_search_mapping.json"

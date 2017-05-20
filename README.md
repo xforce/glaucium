@@ -25,13 +25,20 @@ Coming Soon
 * ? Don't do products and version implicitly but require them to be defined before hand (maybe optional)
 * Microsoft Symbol Server proxy
 
-
 ## Code Quality...Sucks
 
 The current quality of the code is rather bad (imo)  
 I have nerver used go until i started this project and the primary goal was/is  
 to get a working version out and then worry about cleaning up the code
 
+## Dev env requirements
+
+* Install [bazel](https://bazel.build/versions/master/docs/install.html)
+* Install go
+* Install g++
+* Install elasticsearch 5 (only required for webapp)
+
+Run ./build_and_run (webapp|collector|processor)
 
 
 ## Special Thanks
