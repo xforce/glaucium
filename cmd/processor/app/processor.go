@@ -11,7 +11,6 @@ import (
 	"os/exec"
 	"os/signal"
 	"path"
-	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
@@ -198,7 +197,6 @@ func normalizeSignature(frame map[string]interface{}) string {
 	if !ok {
 		line = 0
 		hasLine = false
-		fmt.Println(reflect.TypeOf(frame["line"]))
 	}
 	moduleOffset, ok := frame["module_offset"].(string)
 	if !ok {
@@ -219,10 +217,8 @@ func normalizeSignature(frame map[string]interface{}) string {
 
 	if len(function) > 0 {
 		function = collapse(function, "<", "<", ">", "T>")
-		fmt.Println(function)
 		// TOOD(alexander): siglist
 		function = fmt.Sprintf("%s:%d", function, int(line))
-		fmt.Println(function)
 		var tmpString string
 		functionLength := len(function)
 		for index, character := range function {

@@ -382,7 +382,6 @@ func DoSearch(m map[string]interface{}) map[string]interface{} {
 		}
 	}
 	docCount, _ := elastiClient.Count().Do(ctx)
-	fmt.Println(docCount)
 	return map[string]interface{}{"hits": resultHits, "facets": resultAggregations, "histograms": resultHistograms, "total": docCount}
 }
 

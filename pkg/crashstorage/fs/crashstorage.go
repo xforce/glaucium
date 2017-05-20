@@ -255,8 +255,6 @@ func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(stri
 		subWg.Add(1)
 		runningCount++
 		go func(crashID string, minuteSlotBase string) {
-			defer wg.Done()
-			defer subWg.Done()
 			nameDir := path.Join(minuteSlotBase, crashID)
 			statResult, _ := os.Lstat(nameDir)
 			if statResult.Mode()&os.ModeSymlink != 0 {
@@ -265,13 +263,17 @@ func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(stri
 					dateRootPath := nameDir
 					callback(crashID)
 					// DISABLED FOR DEBUGGING
+					fmt.Println("Done processing")
 					os.Remove(dateRootPath)
 					os.Remove(nameDir)
 				}
 			}
+			runningCount--
+			wg.Done()
+			subWg.Done()
 		}(crashIDs[crashID].Name(), minuteSlotBase)
 		// TODO(alexander): This not ideal, as we have to wait for all 10 to finish before we can start working on the next 10
-		if runningCount >= 10 {
+		if runningCount >= 4 {
 			subWg.Wait()
 		}
 	}
