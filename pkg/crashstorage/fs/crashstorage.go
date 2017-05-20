@@ -269,12 +269,14 @@ func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(stri
 				}
 			}
 			runningCount--
-			wg.Done()
 			subWg.Done()
+			wg.Done()
 		}(crashIDs[crashID].Name(), minuteSlotBase)
 		// TODO(alexander): This not ideal, as we have to wait for all 10 to finish before we can start working on the next 10
 		if runningCount >= 4 {
+			wg.Add(1)
 			subWg.Wait()
+			wg.Done()
 		}
 	}
 }
