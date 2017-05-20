@@ -42,7 +42,7 @@ function loadCrashReport() {
             let hit = jsonResponse.hits[0];
             vm.report.uuid = hit.processed_crash.uuid;
             vm.report.signature = hit.processed_crash.signature;
-            vm.report.date_processed =  moment(hit.processed_crash.date_processed).format("YYYY-MM-DD HH:MM:SS");
+            vm.report.date_processed =  moment(hit.processed_crash.date_processed).format("YYYY-MM-DD HH:mm:ss");
             vm.report.product = hit.processed_crash.product;
             vm.report.version = hit.processed_crash.version;
             vm.report.address = hit.processed_crash.address;

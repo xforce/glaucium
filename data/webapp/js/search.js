@@ -166,7 +166,7 @@ let vm = new Vue({
                             resultArray.push(
                                 {
                                     crash_id: hit.crash_id,
-                                    date: moment(hit.processed_crash.date_processed).format("YYYY-MM-DD HH:MM:SS"),
+                                    date: moment(hit.processed_crash.date_processed).format("YYYY-MM-DD HH:mm:ss"),
                                     signature: hit.processed_crash.signature,
                                     product: hit.processed_crash.product,
                                     version: hit.processed_crash.version,
