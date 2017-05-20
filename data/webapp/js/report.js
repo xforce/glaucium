@@ -108,6 +108,9 @@ function loadStackTrace() {
 document.getElementById("download_raw_dump_button").onclick = function () {
     document.location = "/api/report/" + crashID + "/download/raw";
 };
+document.getElementById("delete_report").onclick = function() {
+    document.location = "/api/report/" + crashID + "/delete";
+}
 
 loadCrashReport();
 loadStackTrace();

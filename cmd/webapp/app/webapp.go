@@ -20,6 +20,7 @@ type WebAppConfig struct {
 }
 
 var crashStorage cs_interface.CrashStorage
+var esCrashStorage cs_interface.CrashStorage
 
 func bold(options *raymond.Options) raymond.SafeString {
 	return raymond.SafeString("<strong>" + options.Fn() + "</strong>")
@@ -34,7 +35,8 @@ func Run() error {
 		fmt.Println("Error ", err.Error())
 		return err
 	}
-	crashStorage = crashstorage.GetCrashStorage(config.GetDefault("webapp.crashstorage", "fs").(string), "/etc/glaucium/config.toml", nil)
+	crashStorage = crashstorage.GetCrashStorage(config.GetDefault("webapp.crashstorage", "fs").(string), *configFilePath, nil)
+	esCrashStorage = crashstorage.GetCrashStorage("es", *configFilePath, nil)
 
 	InitializeEsSearch(*configFilePath)
 
@@ -67,6 +69,7 @@ func Run() error {
 	{
 		api.POST("/search", searchApiPostHandler)
 		api.GET("/report/:crashID", reportApiHandler)
+		api.GET("/report/:crashID/delete", reportDeleteApiHandler)
 		api.GET("/report/:crashID/download/raw", reportDownloadRawDumpHandler)
 		api.GET("/versions", versionsApiHandler)
 		api.GET("/products", productsApiHandler)
@@ -133,6 +136,11 @@ func reportDownloadRawDumpHandler(c *gin.Context) {
 	c.Header("Content-Disposition", `inline; filename="`+crashID+`.dmp"`)
 	c.Header("Content-Length", strconv.Itoa(len(dumps.M["upload_file_minidump"].([]byte))))
 	c.Data(200, "application/octet-stream", dumps.M["upload_file_minidump"].([]byte))
+}
+
+func reportDeleteApiHandler(c *gin.Context) {
+	crashID := c.Param("crashID")
+	esCrashStorage.Remove(crashID)
 }
 
 func reportApiHandler(c *gin.Context) {

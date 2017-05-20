@@ -35,9 +35,6 @@ type MappingType struct {
 }
 
 func (p *CrashStorage) createIndex(esIndex string) {
-	rankingsJson, _ := json.Marshal(mapping)
-	ioutil.WriteFile("output.json", rankingsJson, 0644)
-
 	// Create an index
 	_, err := p.client.CreateIndex(esIndex).BodyJson(map[string]interface{}{"mappings": mapping}).Do(p.ctx)
 	if err != nil && !strings.Contains(err.Error(), "index_already_exists_exception") {
@@ -148,7 +145,17 @@ func NewCrashStorage(configFile string) (*CrashStorage, error) {
 
 	crashStorage := &CrashStorage{ctx: ctx, client: client}
 
-	crashStorage.createIndex("meow")
-
 	return crashStorage, nil
+}
+
+func (p *CrashStorage) Remove(crashID string) {
+	res, _ := p.client.IndexNames()
+	if len(res) > 0 {
+		for _, indexName := range res {
+			_, err := p.client.Delete().Index(indexName).Type("crash_report").Id(crashID).Do(p.ctx)
+			if err != nil {
+				fmt.Println(err)
+			}
+		}
+	}
 }
