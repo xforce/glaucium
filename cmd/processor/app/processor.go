@@ -463,6 +463,7 @@ func Run() error {
 	processorConfig.BreakpadPath = config.GetDefault("processor.breakpad_path", "/usr/bin/glaucium/breakpad").(string)
 	processorConfig.RemoveRawDumpFromSource = config.GetDefault("processor.remove_raw_dump", false).(bool)
 	processorConfig.SaveRawDumpInDestination = config.GetDefault("processor.save_raw_dump", false).(bool)
+	processorConfig.SignaturePath = config.GetDefault("processor.signature_path", "/etc/glaucium/").(string)
 
 	if len(processorConfig.SourceStorage) > 1 {
 		sourceCrashStorage = crashstorage.GetCrashStorage("poly", *configFilePath, processorConfig.SourceStorage)
