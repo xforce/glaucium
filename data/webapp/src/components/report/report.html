@@ -1,0 +1,151 @@
+<v-tabs class="elevation-5" left dark>
+    <v-tabs-bar slot="activators">
+        <v-tabs-slider></v-tabs-slider>
+        <v-tabs-item href="#details">
+            Details
+        </v-tabs-item>
+        <v-tabs-item href="#modules">
+            Modules
+        </v-tabs-item>
+        <v-tabs-item href="#inspect">
+            Inspect
+        </v-tabs-item>
+        <v-tabs-item href="#logs">
+            Logs
+        </v-tabs-item>        
+        <v-spacer></v-spacer>
+        <v-menu offset-y>
+            <v-btn flat dark slot="activator">
+                <v-icon dark>file_download</v-icon>
+            </v-btn>
+            <v-list>
+                <v-list-tile>
+                    <v-list-tile-title v-on:click="onDonwloadRaw">Raw</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile disabled>
+                    <v-list-tile-title v-on:click="onDonwloadJson">Json</v-list-tile-title>
+                </v-list-tile>
+            </v-list>
+        </v-menu>
+        <v-btn v-on:click="onDeleteClicked" flat dark>
+            <v-icon dark>delete_forever</v-icon>
+        </v-btn>
+    </v-tabs-bar>
+    <v-tabs-content id="details">
+        <v-card>
+            <v-card-text>
+                <section fluid>
+                    <v-layout row wrap>
+                        <v-flex xl5>
+                            <v-table-overflow>
+                                <table class="table table--component elevation-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-xl-left col md2">Crash ID:</th>
+                                            <td>{{report.uuid}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-xl-left col md2">Signature:</th>
+                                            <td><router-link v-bind:to='"/signature/" + report.signature'>{{report.signature}}</router-link></td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-xl-left col md2">Reason:</th>
+                                            <td>{{report.reason}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-xl-left col md2">Crash Date:</th>
+                                            <td>{{report.date_crashed}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-xl-left col md2">Date Processed:</th>
+                                            <td>{{report.date_processed}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-xl-left col md2">Product:</th>
+                                            <td>{{report.product}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-xl-left col md2">Version:</th>
+                                            <td>{{report.version}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-xl-left col md2">OS:</th>
+                                            <td>{{report.os}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-xl-left col md2">OS Version:</th>
+                                            <td>{{report.os_version}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-xl-left col md2">Crash Address:</th>
+                                            <td>{{report.address}}</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </v-table-overflow>
+                        </v-flex>
+                    </v-layout>
+                </section>
+            </v-card-text>
+        </v-card>
+    </v-tabs-content>
+    <v-tabs-content id="modules">
+        <section fluid>
+            <v-layout row wrap>
+                <v-flex xs12>
+                    <v-data-table v-bind:headers="modules_headers" v-bind:items="modules_items" hide-actions class="elevation-0" id="modules_table">
+                        <template slot="items" scope="props">
+                            <tr v-bind:class="{ red: props.item.missing_symbols, 'darken-1': props.item.missing_symbols }">
+                            <td>{{ props.item.filename }}</td>
+                            <td>{{ props.item.version }}</td>
+                            <td>{{ props.item.debug_identifier }}</td>
+                            <td>{{ props.item.debug_filename }}</td>
+                            </tr>
+                        </template>
+                    </v-data-table>
+                </v-flex>
+            </v-layout>
+        </section>
+    </v-tabs-content>
+    <v-tabs-content id="inspect">
+        <v-container fluid>
+            <v-layout row>
+               <v-flex xs2>
+                   Threads
+                   <v-list class="max-height-400">
+                        <template v-for="item in threads">
+                            <v-list-tile v-on:click="onThreadItemClicked(item)" v-bind:class="{ grey: item.selected, 'lighten-1': item.selected }">
+                                {{ item.thread_id }} {{ item.display_name }}
+                            </v-list-tile>
+                        </template>
+                   </v-list>
+               </v-flex>
+                <v-flex xs8>
+                    Callstack
+                    <v-list class="max-height-400">
+                        <template v-for="item in current_call_stack">
+                            <v-list-tile>
+                                <v-list-tile-content>
+                                    <v-list-tile-title><span>{{ callStackEntryToDisplayPrimary(item) }}</span></v-list-tile-title>
+                                    <v-list-tile-sub-title><span>{{ callStackEntryToDisplaySecondary(item) }}</span></v-list-tile-sub-title>
+                                </v-list-tile-content>
+                                
+                            </v-list-tile>
+                            <v-divider></v-divider>
+                        </template>
+                   </v-list>
+                </v-flex>
+                <v-flex xs2>
+                    Registers
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-tabs-content>
+    <v-tabs-content id="logs">
+        <v-container fluid>
+            <p>Here you will find additional logs that have been submitted</p>
+            <p>This feature is currently not finished</p>
+        </v-container>
+    </v-tabs-content>
+</v-tabs>
+</v-layout>

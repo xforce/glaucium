@@ -101,6 +101,7 @@ func handleDumpSubmit(w http.ResponseWriter, r *http.Request) {
 func Run() error {
 	var conf Config
 	configFilePath := flag.String("config", "/etc/glaucium/config.toml", "the config location")
+	flag.Parse()
 	if _, err := toml.DecodeFile(*configFilePath, &conf); err != nil {
 		return err
 	}

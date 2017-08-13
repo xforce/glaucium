@@ -11,9 +11,7 @@ filegroup(
 
 filegroup(
     name = "all-srcs",
-    srcs = [
-        ":package-srcs",
-    ],
+    srcs = [":package-srcs"],
     tags = ["automanaged"],
 )
 
@@ -25,50 +23,51 @@ cc_library(
 
 cc_library(
     name = "jsoncpp",
-    linkstatic = 1,
-    includes = [".", 
-        "jsoncpp-src-0.5.0/include"
-    ],
-    defines = ["HAVE_A_OUT_H"],
-    deps = [
-        ":thingy"
+    srcs = [
+        "jsoncpp-src-0.5.0/src/lib_json/json_reader.cpp",
+        "jsoncpp-src-0.5.0/src/lib_json/json_value.cpp",
+        "jsoncpp-src-0.5.0/src/lib_json/json_writer.cpp",
     ],
     hdrs = [
-        "jsoncpp-src-0.5.0/src/lib_json/json_valueiterator.inl",
-        "jsoncpp-src-0.5.0/src/lib_json/json_internalmap.inl",
         "jsoncpp-src-0.5.0/src/lib_json/json_internalarray.inl",
+        "jsoncpp-src-0.5.0/src/lib_json/json_internalmap.inl",
+        "jsoncpp-src-0.5.0/src/lib_json/json_valueiterator.inl",
     ],
-    srcs = [
-        'jsoncpp-src-0.5.0/src/lib_json/json_reader.cpp',
-        'jsoncpp-src-0.5.0/src/lib_json/json_writer.cpp',
-        'jsoncpp-src-0.5.0/src/lib_json/json_value.cpp',
-    ]
+    defines = ["HAVE_A_OUT_H"],
+    includes = [
+        ".",
+        "jsoncpp-src-0.5.0/include",
+    ],
+    linkstatic = 1,
+    deps = [
+        ":thingy",
+    ],
 )
-
 
 cc_binary(
     name = "stackwalker",
-    linkstatic = 1,
-    includes = [".", 
-        "jsoncpp-src-0.5.0/include"
+    srcs = [
+        "http_symbol_supplier.cc",
+        "http_symbol_supplier.h",
+        "stackwalker.cc",
     ],
     defines = [
-        "HAVE_A_OUT_H", 
-        "__STDC_FORMAT_MACROS=1"
+        "HAVE_A_OUT_H",
+        "__STDC_FORMAT_MACROS=1",
     ],
-    deps = [
-        "//vendor/breakpad/src:processor",
-        "//vendor/breakpad/src:common",
-        "//vendor/breakpad/src:common_inc",
-        ":thingy",
-        ":jsoncpp"
-    ],
-    srcs = [
-      'http_symbol_supplier.cc',
-      'http_symbol_supplier.h',
-      'stackwalker.cc',
+    includes = [
+        ".",
+        "jsoncpp-src-0.5.0/include",
     ],
     linkopts = [
-        "-lcurl",                                                            
-    ],    
+        "-lcurl",
+    ],
+    linkstatic = 1,
+    deps = [
+        ":jsoncpp",
+        ":thingy",
+        "//vendor/breakpad/src:common",
+        "//vendor/breakpad/src:common_inc",
+        "//vendor/breakpad/src:processor",
+    ],
 )

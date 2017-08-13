@@ -2,32 +2,27 @@ package(default_visibility = ["//visibility:public"])
 
 licenses(["notice"])
 
-load("@io_bazel_rules_go//go:def.bzl", "go_prefix")
+load("@io_bazel_rules_go//go:def.bzl", "gazelle", "go_prefix")
 load("@bazel_tools//tools/build_defs/pkg:pkg.bzl", "pkg_tar")
 
 go_prefix("github.com/xforce/glaucium")
 
-filegroup(
-    name = "package-srcs",
-    srcs = glob(
-        ["**"],
-        exclude = [
-            "bazel-*/**",
-            "_*/**",
-            ".config/**",
-            ".git/**",
-            ".gsutil/**",
-            ".make/**",
-            "test/crashes/**",
-        ],
-    ),
-    visibility = ["//visibility:private"],
+gazelle(
+    name = "gazelle",
+    args = [
+        "-build_file_name",
+        "BUILD,BUILD.bazel",
+    ],
+    build_tags = [
+        "linux",
+        "amd64",
+    ],
+    external = "vendored",
 )
 
 filegroup(
     name = "all-srcs",
     srcs = [
-        ":package-srcs",
         "//cmd:all-srcs",
         "//pkg:all-srcs",
         "//vendor:all-srcs",

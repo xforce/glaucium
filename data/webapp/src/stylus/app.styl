@@ -1,0 +1,44 @@
+/** Stylus Styles */
+
+@require '../../node_modules/vuetify/src/stylus/settings/_colors'
+
+$theme := {
+  primary: $purple.darken-2
+  accent: $purple.accent-2
+  secondary: $grey.darken-3
+  info: $purple.base
+  warning: $amber.base
+  error: $red.base
+  success: $green.base
+}
+
+@import '../../node_modules/vuetify/src/stylus/main'
+@import '../../node_modules/billboard.js/dist/billboard.min.css'
+
+.application, .application>main>.container {
+    min-height: calc(100vh - 100px);
+}
+
+body {
+  background-color: #F1F3F3    
+}
+
+html {
+  overflow-y:scroll !important;
+}
+
+.input-group--chips>.input-group__input>.input-group__selections {
+  height: 48px !important;
+}
+
+.input-group--chips>.input-group__details {
+  min-height: 0;
+}
+.input-group--chips {
+    padding-bottom: 0;
+}
+
+.max-height-400 {
+  max-height: 400px;
+  overflow-y: auto;
+}

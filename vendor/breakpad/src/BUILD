@@ -11,9 +11,7 @@ filegroup(
 
 filegroup(
     name = "all-srcs",
-    srcs = [
-        ":package-srcs",
-    ],
+    srcs = [":package-srcs"],
     tags = ["automanaged"],
 )
 
@@ -32,12 +30,6 @@ cc_library(
 
 cc_library(
     name = "libdisasm",
-    linkstatic = 1,
-    includes = [
-        ".",
-        "third_party/libdisasm"
-    ],
-    defines = ["HAVE_A_OUT_H"],
     srcs = [
         "third_party/libdisasm/ia32_implicit.c",
         "third_party/libdisasm/ia32_implicit.h",
@@ -65,33 +57,31 @@ cc_library(
         "third_party/libdisasm/x86_misc.c",
         "third_party/libdisasm/x86_operand_list.c",
         "third_party/libdisasm/x86_operand_list.h",
-    ]
+    ],
+    defines = ["HAVE_A_OUT_H"],
+    includes = [
+        ".",
+        "third_party/libdisasm",
+    ],
+    linkstatic = 1,
 )
 
 cc_library(
     name = "processor",
-    linkstatic = 1,
-    includes = ["."],
-    defines = ["HAVE_A_OUT_H"],
-    deps = [
-        ":google_breakpad",
-        ":common",
-        ":libdisasm"
-    ],
     srcs = [
-        "processor/address_map-inl.h",
         "processor/address_map.h",
+        "processor/address_map-inl.h",
         "processor/basic_code_module.h",
         "processor/basic_code_modules.cc",
         "processor/basic_code_modules.h",
         "processor/basic_source_line_resolver.cc",
         "processor/basic_source_line_resolver_types.h",
         "processor/call_stack.cc",
-        "processor/cfi_frame_info-inl.h",
         "processor/cfi_frame_info.cc",
         "processor/cfi_frame_info.h",
-        "processor/contained_range_map-inl.h",
+        "processor/cfi_frame_info-inl.h",
         "processor/contained_range_map.h",
+        "processor/contained_range_map-inl.h",
         "processor/disassembler_x86.cc",
         "processor/disassembler_x86.h",
         "processor/dump_context.cc",
@@ -106,8 +96,8 @@ cc_library(
         "processor/linked_ptr.h",
         "processor/logging.cc",
         "processor/logging.h",
-        "processor/map_serializers-inl.h",
         "processor/map_serializers.h",
+        "processor/map_serializers-inl.h",
         "processor/microdump_processor.cc",
         "processor/minidump.cc",
         "processor/minidump_processor.cc",
@@ -118,14 +108,14 @@ cc_library(
         "processor/module_serializer.h",
         "processor/pathname_stripper.cc",
         "processor/pathname_stripper.h",
-        "processor/postfix_evaluator-inl.h",
         "processor/postfix_evaluator.h",
+        "processor/postfix_evaluator-inl.h",
         "processor/proc_maps_linux.cc",
         "processor/process_state.cc",
-        "processor/range_map-inl.h",
         "processor/range_map.h",
-        "processor/simple_serializer-inl.h",
+        "processor/range_map-inl.h",
         "processor/simple_serializer.h",
+        "processor/simple_serializer-inl.h",
         "processor/simple_symbol_supplier.cc",
         "processor/simple_symbol_supplier.h",
         "processor/source_line_resolver_base.cc",
@@ -154,42 +144,44 @@ cc_library(
         "processor/stackwalker_sparc.h",
         "processor/stackwalker_x86.cc",
         "processor/stackwalker_x86.h",
-        "processor/static_address_map-inl.h",
         "processor/static_address_map.h",
-        "processor/static_contained_range_map-inl.h",
+        "processor/static_address_map-inl.h",
         "processor/static_contained_range_map.h",
-        "processor/static_map-inl.h",
+        "processor/static_contained_range_map-inl.h",
         "processor/static_map.h",
-        "processor/static_map_iterator-inl.h",
+        "processor/static_map-inl.h",
         "processor/static_map_iterator.h",
-        "processor/static_range_map-inl.h",
+        "processor/static_map_iterator-inl.h",
         "processor/static_range_map.h",
+        "processor/static_range_map-inl.h",
         "processor/symbolic_constants_win.cc",
         "processor/symbolic_constants_win.h",
         "processor/synth_minidump.cc",
         "processor/synth_minidump.h",
         "processor/tokenize.cc",
         "processor/tokenize.h",
-        "processor/windows_frame_info.h",    
+        "processor/windows_frame_info.h",
+    ],
+    defines = ["HAVE_A_OUT_H"],
+    includes = ["."],
+    linkstatic = 1,
+    deps = [
+        ":common",
+        ":google_breakpad",
+        ":libdisasm",
     ],
 )
 
 cc_library(
     name = "common",
-    linkstatic = 1,
-    includes = [".", "common/"],
-    defines = ["HAVE_A_OUT_H"],
-    deps = [
-        ":google_breakpad"
-    ],
     srcs = [
         "common/basictypes.h",
         "common/byte_cursor.h",
         "common/convert_UTF.c",
         "common/convert_UTF.h",
-        "common/dwarf/bytereader-inl.h",
         "common/dwarf/bytereader.cc",
         "common/dwarf/bytereader.h",
+        "common/dwarf/bytereader-inl.h",
         "common/dwarf/cfi_assembler.cc",
         "common/dwarf/cfi_assembler.h",
         "common/dwarf/dwarf2diehandler.cc",
@@ -222,9 +214,9 @@ cc_library(
         "common/linux/elf_gnu_compat.h",
         "common/linux/elf_symbols_to_module.cc",
         "common/linux/elf_symbols_to_module.h",
-        "common/linux/elfutils-inl.h",
         "common/linux/elfutils.cc",
         "common/linux/elfutils.h",
+        "common/linux/elfutils-inl.h",
         "common/linux/file_id.cc",
         "common/linux/file_id.h",
         "common/linux/google_crashdump_uploader.cc",
@@ -264,5 +256,14 @@ cc_library(
         "common/test_assembler.h",
         "common/unordered.h",
         "common/using_std_string.h",
+    ],
+    defines = ["HAVE_A_OUT_H"],
+    includes = [
+        ".",
+        "common/",
+    ],
+    linkstatic = 1,
+    deps = [
+        ":google_breakpad",
     ],
 )

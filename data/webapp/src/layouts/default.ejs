@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glaucium</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div id="app">
+    <v-app>
+      <v-navigation-drawer v-model="nav_active" :mini-variant.sync="nav_mini" dark persistent enable-resize-watcher>
+        <v-list pa-0>
+          <v-list-tile router-link to="/">
+            <v-list-tile-avatar>
+              <img src="http://trueseoheroes.com/wp-content/uploads/2016/12/logo-placeholder.png"></img>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                Glaucium
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+        <v-divider></v-divider>
+        <v-list dense>
+          <v-list-tile router to="/search">
+            <v-list-tile-action>
+              <v-icon>search</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                Search
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile router to="/reports">
+            <v-list-tile-action>
+              <v-icon>report</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                Reports
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile router to="/apps" disabled>
+            <v-list-tile-action>
+              <v-icon>apps</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                Apps
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
+      <v-toolbar fixed class="hidden-sm-and-down">
+        <v-toolbar-side-icon v-on:click="$store.commit('glaucium/SIDEBAR_MINI', !$store.state.sidebar_mini)">
+        </v-toolbar-side-icon>
+      </v-toolbar>
+      <v-toolbar fixed class="hidden-md-and-up">
+        <v-toolbar-side-icon v-on:click="$store.commit('glaucium/SIDEBAR', !$store.state.sidebar)">
+        </v-toolbar-side-icon>
+      </v-toolbar>
+      <main>
+        <v-container fluid>
+          <router-view>loading...</router-view>
+        </v-container>
+      </main>
+      <v-footer white>
+        <v-spacer></v-spacer><span class="text-xs-right">Powered by <a href="https://github.com/xforce/glaucium">Glaucium</a></span>
+      </v-footer>
+    </v-app>
+  </div>
+</body>
+
+</html>

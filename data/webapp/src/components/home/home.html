@@ -1,0 +1,47 @@
+<v-layout column id="home_column">
+  <v-layout row wrap>
+    <v-flex md6 lg4 sm12 xs12>
+      <v-card class="elevation-5">
+        <v-card-title>
+          <span>Reports 24 hours</span>
+        </v-card-title>
+        <div>
+          <div id="crash-stat-chart-1days"></div>
+        </div>
+        <v-btn flat block id="1-day-reports-card-view-reports">View Reports</v-btn>
+      </v-card>
+    </v-flex>
+    <v-flex md6 lg4 sm12 xs12>
+      <v-card class="elevation-5">
+        <v-card-title>
+          <span>Reports 7 days</span>
+        </v-card-title>
+        <div id="crash-stat-chart-7days"></div>
+        <v-btn flat block id="7-day-reports-card-view-reports">View Reports</v-btn>
+      </v-card>
+    </v-flex>
+    <v-flex md6 lg4 sm12 xs12>
+      <v-card class="elevation-5">
+        <v-card-title>
+          <span>Reports 14 days</span>
+        </v-card-title>
+        <div id="crash-stat-chart-14days"></div>
+        <v-btn flat block id="14-day-reports-card-view-reports">View Reports</v-btn>
+      </v-card>
+    </v-flex>
+  </v-layout>
+  <v-layout row wrap class="mt-4 elevation-5">
+    <v-subheader>Recent Reports (Showing {{ loaded_report_count }} of {{ total_report_count }} Reports)</v-subheader>
+    <v-data-table v-bind:headers="recent_reports_headers" v-bind:items="recent_reports_items" v-bind:pagination.sync="recent_reports_pagination"
+      :total-items="loaded_report_count" hide-actions class="elevation-1" id="recent_reports_table">
+      <template slot="items" scope="props">
+        <td><router-link :to='"/report/" + props.item.crash_id' class="text-xs-left">{{ props.item.crash_id }}</router-link></td>
+        <td class="text-xs-right">{{ props.item.date }}</td>
+        <td class="text-xs-right">{{ props.item.signature }}</td>
+        <td class="text-xs-right">{{ props.item.product }}</td>
+        <td class="text-xs-right">{{ props.item.version }}</td>
+        <td class="text-xs-right">{{ props.item.platform }}</td>
+      </template>
+    </v-data-table>
+  </v-layout>
+</v-layout>

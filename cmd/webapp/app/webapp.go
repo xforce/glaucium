@@ -7,8 +7,10 @@ import (
 	"net/http"
 	"path"
 	"strconv"
+	"strings"
 
 	"github.com/aymerick/raymond"
+	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
 	"github.com/pelletier/go-toml"
 	"github.com/xforce/ginraymond"
@@ -21,21 +23,33 @@ type WebAppConfig struct {
 
 var crashStorage cs_interface.CrashStorage
 var esCrashStorage cs_interface.CrashStorage
+var collectorTargetStorage cs_interface.CrashStorage
 
 func bold(options *raymond.Options) raymond.SafeString {
 	return raymond.SafeString("<strong>" + options.Fn() + "</strong>")
 }
 
 func Run() error {
-
 	configFilePath := flag.String("config", "/etc/glaucium/config.toml", "the config location")
+	flag.Parse()
 	config, err := toml.LoadFile(*configFilePath)
 	if err != nil {
 		fmt.Println(config)
 		fmt.Println("Error ", err.Error())
 		return err
 	}
+	fmt.Println(*configFilePath)
 	crashStorage = crashstorage.GetCrashStorage(config.GetDefault("webapp.crashstorage", "fs").(string), *configFilePath, nil)
+	collectorStorageClassesI := config.GetDefault("collector.storage.classes", []string{"fs"}).([]interface{})
+	var collectorStorageClasses []string
+	for _, v := range collectorStorageClassesI {
+		collectorStorageClasses = append(collectorStorageClasses, v.(string))
+	}
+	if len(collectorStorageClasses) > 1 {
+		collectorTargetStorage = crashstorage.GetCrashStorage("poly", *configFilePath, collectorStorageClasses)
+	} else {
+		collectorTargetStorage = crashstorage.GetCrashStorage(collectorStorageClasses[0], *configFilePath, nil)
+	}
 	esCrashStorage = crashstorage.GetCrashStorage("es", *configFilePath, nil)
 
 	InitializeEsSearch(*configFilePath)
@@ -52,22 +66,28 @@ func Run() error {
 
 	// data/webapp
 	router := gin.Default()
+	router.Use(gzip.Gzip(gzip.DefaultCompression))
 	renderOptions := ginraymond.RenderOptions{}
-	renderOptions.TemplateDir = path.Join(webappDataPath, "views")
-	renderOptions.Layout = "layout.html"
+	renderOptions.TemplateDir = path.Join(webappDataPath, "dist")
 
 	router.HTMLRender = ginraymond.New(&renderOptions)
-	router.Static("/css", path.Join(webappDataPath, "css"))
-	router.Static("/js", path.Join(webappDataPath, "js"))
-	router.Static("/images", path.Join(webappDataPath, "images"))
+	router.Static("/dist", path.Join(webappDataPath, "dist"))
 
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "home.html", gin.H{"title": "Home", "extra_js": "home.js", "extra_css": "home.css"})
+	// This is the default route, as we are doing client side routing for thigns
+	// We don't really need handling for 404 here
+	router.NoRoute(func(c *gin.Context) {
+		fmt.Println(*c)
+		if strings.HasPrefix(c.Request.RequestURI, "/api") {
+			c.HTML(404, "404.html", gin.H{"title": "Page Not Found!", "extra_css": "404.css"})
+		} else {
+			c.HTML(http.StatusOK, "default.html", gin.H{})
+		}
 	})
 
 	api := router.Group("/api")
 	{
 		api.POST("/search", searchApiPostHandler)
+		api.GET("/report/:crashID/reprocess", reportReprocessApiHandler)
 		api.GET("/report/:crashID", reportApiHandler)
 		api.GET("/report/:crashID/delete", reportDeleteApiHandler)
 		api.GET("/report/:crashID/download/raw", reportDownloadRawDumpHandler)
@@ -79,9 +99,6 @@ func Run() error {
 	router.GET("/report/:crashID", reportViewHandler)
 	router.GET("/signature/:signature", signatureViewHandler)
 
-	router.NoRoute(func(c *gin.Context) {
-		c.HTML(404, "404.html", gin.H{"title": "Page Not Found!", "extra_css": "404.css"})
-	})
 	return router.Run(config.GetDefault("webapp.host", "").(string) + ":" + strconv.Itoa(config.GetDefault("webapp.port", 6300).(int)))
 }
 
@@ -96,7 +113,7 @@ func signatureViewHandler(c *gin.Context) {
 }
 
 func searchViewHandler(c *gin.Context) {
-	c.HTML(http.StatusOK, "search.html", gin.H{"title": "Report", "extra_js": "search.js", "extra_css": "search.css"})
+	c.HTML(http.StatusOK, "search.html", gin.H{"title": "Report", "extra_js": "search.js"})
 }
 
 func searchApiGetHandler(c *gin.Context) {
@@ -152,4 +169,15 @@ func reportApiHandler(c *gin.Context) {
 		return
 	}
 	c.JSON(200, processedDumpResult)
+}
+
+func reportReprocessApiHandler(c *gin.Context) {
+	crashID := c.Param("crashID")
+	rawCrash := crashStorage.GetRawCrash(crashID)
+	if rawCrash == nil {
+		c.Status(404)
+		return
+	}
+	dumpsMapping := crashStorage.GetRawDumps(crashID).(*cs_interface.MemoryDumpsMapping)
+	collectorTargetStorage.SaveRawCrash(rawCrash, dumpsMapping, crashID)
 }

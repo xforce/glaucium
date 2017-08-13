@@ -438,6 +438,7 @@ func processCrash(rawCrash map[string]interface{}, dumps *cs_interface.FileDumps
 
 func Run() error {
 	configFilePath := flag.String("config", "/etc/glaucium/config.toml", "the config location")
+	flag.Parse()
 	config, err := toml.LoadFile(*configFilePath)
 	if err != nil {
 		fmt.Println("Error ", err.Error())

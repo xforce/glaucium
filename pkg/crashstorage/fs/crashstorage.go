@@ -177,6 +177,7 @@ func (p *CrashStorage) SaveRawCrash(rawCrash map[string]interface{}, dumps cs_in
 	}
 	if err != nil {
 		// TODO(alexander): Report error
+		fmt.Println(err)
 	}
 }
 
@@ -367,6 +368,10 @@ func (p *CrashStorage) GetRawDumpsAsFiles(crashID string) cs_interface.DumpsMapp
 		return &dumps
 	}
 	return nil
+}
+
+func (p *CrashStorage) GetRawDumps(crashID string) cs_interface.DumpsMapping {
+	return p.GetRawDumpsAsFiles(crashID).AsMemoryDumpsMapping()
 }
 
 func (p *CrashStorage) GetProcessedCrash(crashID string) map[string]interface{} {

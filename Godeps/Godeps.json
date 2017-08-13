@@ -152,6 +152,10 @@
 			"Rev": "72acac2207479d21dd45898c2a4264246c818148"
 		},
 		{
+			"ImportPath": "github.com/gin-contrib/gzip",
+			"Rev": "6743ec8467f3d1f6424b1ecd770583bfa23cd82f"
+		},
+		{
 			"ImportPath": "github.com/gin-gonic/gin",
 			"Comment": "v1.1.4",
 			"Rev": "e2212d40c62a98b388a5eb48ecbdcf88534688ba"
@@ -235,6 +239,16 @@
 		{
 			"ImportPath": "gopkg.in/yaml.v2",
 			"Rev": "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/vendor/github.com/go-ini/ini",
+			"Comment": "v1.8.21-1-g2a4ef28",
+			"Rev": "2a4ef28e5761cdd06ab7fcab2615342d729ab756"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/vendor/github.com/jmespath/go-jmespath",
+			"Comment": "v1.8.21-1-g2a4ef28",
+			"Rev": "2a4ef28e5761cdd06ab7fcab2615342d729ab756"
 		}
 	]
 }
