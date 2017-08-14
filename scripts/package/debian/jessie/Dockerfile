@@ -38,6 +38,8 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt-get update && apt-get install -y yarn
 
+RUN apt-get -y install ruby ruby-dev rubygems build-essential
+
 RUN apt-get -y install dh-systemd
 RUN apt-get -y install git-buildpackage
 RUN apt-get -y install libcurl4-openssl-dev

@@ -2,33 +2,58 @@
 rm -rf /build/*  
 rm -rf /release/*
 
+mkdir -p /build/collector
+mkdir -p /build/processor
+mkdir -p /build/webapp
+
+mkdir -p /build/processor/etc/glaucium
+mkdir -p /build/webapp/etc/glaucium
+mkdir -p /build/processor/usr/bin/glaucium/breakpad/
+
+mkdir -p /build/webapp/usr/bin
+mkdir -p /build/processor/usr/bin
+mkdir -p /build/collector/usr/bin
+
+mkdir -p /build/webapp/usr/share/glaucium/webapp/data/dist
+
 git clone http://github.com/xforce/glaucium.git
 cd glaucium
 chmod +x build
-
-mkdir -p /build/usr/bin
-mkdir -p /usr/share/glaucium/webapp/data/dist
 
 cd data/webapp
 yarn install
 yarn run build
 cd ../../
-
-cp -r data/webapp/dist/* /usr/share/glaucium/webapp/data/dist
-mkdir -p /build/etc/glaucium
-cp -r data/etc/glaucium/* /build/etc/glaucium/
-
-mkdir -p debian
-
-cp -r /build_files/* debian
-
 ./build
 
-mv bazel-bin/cmd/webapp/webapp bazel-bin/cmd/webapp/glaucium-webapp
-mv bazel-bin/cmd/collector/collector bazel-bin/cmd/collector/glaucium-collector
-mv bazel-bin/cmd/processor/processor bazel-bin/cmd/processor/glaucium-processor
+# Copy processor stuff
+cp bazel-bin/cmd/processor/processor /build/processor/usr/bin/glaucium-processor
+cp -r data/etc/glaucium/elastic_search_mapping.json /build/processor/etc/glaucium/
+cp -r data/etc/glaucium/irrelevant_signature_re.txt /build/processor/etc/glaucium/
+cp -r data/etc/glaucium/prefix_signature_re.txt /build/processor/etc/glaucium/
+cp -r data/etc/glaucium/trim_dll_signature_re.txt /build/processor/etc/glaucium/
+cp bazel-bin/vendor/minidump_stackwalk/stackwalker /build/processor/usr/bin/glaucium/breakpad/
 
-gbp dch -S -a --snapshot-number='os.popen("git log --pretty=oneline | wc -l").readlines()[0]'
-debuild -us -uc
+# Copy webapp stuff
+cp -r data/webapp/dist/* /build/webapp/usr/share/glaucium/webapp/data/dist
+cp bazel-bin/cmd/webapp/webapp /build/webapp/usr/bin/glaucium-webapp
+cp -r data/etc/glaucium/elastic_search_mapping.json /build/webapp/etc/glaucium/
 
-cp ../*.deb /build/
+# Collector
+cp bazel-bin/cmd/collector/collector /build/collector/usr/bin/glaucium-collector
+
+cd /build
+cd processor
+fpm -t deb -v $(</glaucium/VERSION)~$(git --git-dir=/glaucium/.git --work-tree=/glaucium log --pretty=oneline | wc -l) -n glaucium-processor \
+--deb-systemd /glaucium/scripts/package/debian/jessie/glaucium-processor.service \
+-s dir .
+cd ..
+cd webapp
+fpm -t deb -v $(</glaucium/VERSION)~$(git --git-dir=/glaucium/.git --work-tree=/glaucium log --pretty=oneline | wc -l) -n glaucium-webapp \
+--deb-systemd /glaucium/scripts/package/debian/jessie/glaucium-webapp.service \
+-s dir .
+cd ..
+cd collector
+fpm -t deb -v $(</glaucium/VERSION)~$(git --git-dir=/glaucium/.git --work-tree=/glaucium log --pretty=oneline | wc -l) -n glaucium-collector \
+--deb-systemd /glaucium/scripts/package/debian/jessie/glaucium-collector.service \
+-s dir .
