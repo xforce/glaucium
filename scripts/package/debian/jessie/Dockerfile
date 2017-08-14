@@ -32,6 +32,12 @@ RUN apt-get update
 RUN apt-get -y -t jessie-backports install ca-certificates-java openjdk-8-jre-headless openjdk-8-jre openjdk-8-jdk
 RUN apt-get update && apt-get -y install bazel
 
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get update && apt-get install -y nodejs
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y yarn
+
 RUN apt-get -y install dh-systemd
 RUN apt-get -y install git-buildpackage
 RUN apt-get -y install libcurl4-openssl-dev

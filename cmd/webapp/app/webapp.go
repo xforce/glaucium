@@ -95,9 +95,6 @@ func Run() error {
 		api.GET("/products", productsApiHandler)
 		api.GET("/platforms", platformsApiHandler)
 	}
-	router.GET("/search", searchViewHandler)
-	router.GET("/report/:crashID", reportViewHandler)
-	router.GET("/signature/:signature", signatureViewHandler)
 
 	return router.Run(config.GetDefault("webapp.host", "").(string) + ":" + strconv.Itoa(config.GetDefault("webapp.port", 6300).(int)))
 }

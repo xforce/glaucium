@@ -1,4 +1,4 @@
-import Vue from 'Vue';
+import Vue from 'vue';
 import { Component, Watch, Prop } from 'vue-property-decorator';
 import moment from 'moment';
 

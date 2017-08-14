@@ -1,4 +1,3 @@
-glaucium (1:0.0.3) unstable; urgency=low
- * Meow:
-   - Meow
- -- Alexander Guettler <alexander@guettler.io>  Fri, 12 May 2017 21:16:04 +0000
+glaucium (1:0.0.4) unstable; urgency=low
+ * New Webinterface
+ -- Alexander Guettler <alexander@guettler.io>  Monday, 14 Aug 2017 21:16:04 +0000
