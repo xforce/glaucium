@@ -39,21 +39,12 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt-get update && apt-get install -y yarn
 
 RUN apt-get -y install ruby ruby-dev rubygems build-essential
+RUN gem install --no-ri --no-rdoc fpm
 
 RUN apt-get -y install dh-systemd
 RUN apt-get -y install git-buildpackage
 RUN apt-get -y install libcurl4-openssl-dev
-RUN mkdir /build_files
 
-COPY ./control /build_files/control
-COPY ./rules /build_files/rules
-COPY ./changelog /build_files/changelog
-COPY ./compat /build_files/compat
-COPY ./glaucium-webapp.service /build_files/glaucium-webapp.service
-COPY ./glaucium-collector.service /build_files/glaucium-collector.service
-COPY ./glaucium-processor.service /build_files/glaucium-processor.service
-COPY ./glaucium.postinst /build_files/glaucium.postinst
-COPY ./glaucium.preinst /build_files/glaucium.preinst
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

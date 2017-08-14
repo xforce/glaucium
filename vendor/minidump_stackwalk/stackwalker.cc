@@ -654,6 +654,9 @@ static void ConvertProcessStateToJSON(const ProcessState& process_state,
   system_info["cpu_count"] = process_state.system_info()->cpu_count;
   root["system_info"] = system_info;
 
+  root["crash_time"] = process_state.time_date_stamp();
+  root["process_create_time"] = process_state.process_create_time();
+
   // Crash info
   Json::Value crash_info;
   int requesting_thread = process_state.requesting_thread();

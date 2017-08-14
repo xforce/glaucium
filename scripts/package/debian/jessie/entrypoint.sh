@@ -20,11 +20,11 @@ git clone http://github.com/xforce/glaucium.git
 cd glaucium
 chmod +x build
 
+./build
 cd data/webapp
 yarn install
 yarn run build
 cd ../../
-./build
 
 # Copy processor stuff
 cp bazel-bin/cmd/processor/processor /build/processor/usr/bin/glaucium-processor
@@ -46,14 +46,23 @@ cd /build
 cd processor
 fpm -t deb -v $(</glaucium/VERSION)~$(git --git-dir=/glaucium/.git --work-tree=/glaucium log --pretty=oneline | wc -l) -n glaucium-processor \
 --deb-systemd /glaucium/scripts/package/debian/jessie/glaucium-processor.service \
+--deb-user glaucium \
+--deb-group glaucium \
 -s dir .
+cp *.deb ../
 cd ..
 cd webapp
 fpm -t deb -v $(</glaucium/VERSION)~$(git --git-dir=/glaucium/.git --work-tree=/glaucium log --pretty=oneline | wc -l) -n glaucium-webapp \
 --deb-systemd /glaucium/scripts/package/debian/jessie/glaucium-webapp.service \
+--deb-user glaucium \
+--deb-group glaucium \
 -s dir .
+cp *.deb ../
 cd ..
 cd collector
 fpm -t deb -v $(</glaucium/VERSION)~$(git --git-dir=/glaucium/.git --work-tree=/glaucium log --pretty=oneline | wc -l) -n glaucium-collector \
 --deb-systemd /glaucium/scripts/package/debian/jessie/glaucium-collector.service \
+--deb-user glaucium \
+--deb-group glaucium \
 -s dir .
+cp *.deb ../
