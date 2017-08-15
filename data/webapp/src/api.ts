@@ -77,10 +77,11 @@ class Api {
                     let jsonResponse = JSON.parse(xhr.responseText);
                     let resultArray = [];
                     jsonResponse.hits.forEach((hit) => {
+                        const date = hit.processed_crash.crash_time && hit.processed_crash.crash_time !== undefined ? hit.processed_crash.crash_time : hit.processed_crash.date_processed;
                         resultArray.push(
                             {
                                 crash_id: hit.crash_id,
-                                date: moment(hit.processed_crash.date_processed).format('YYYY-MM-DD HH:mm:ss'),
+                                date: moment(date).format('YYYY-MM-DD HH:mm:ss'),
                                 signature: hit.processed_crash.signature,
                                 product: hit.processed_crash.product,
                                 version: hit.processed_crash.version,
@@ -448,10 +449,11 @@ class Api {
                         let jsonResponse = JSON.parse(xhr.responseText);
                         let resultArray = [];
                         jsonResponse.hits.forEach((hit) => {
+                            const date = hit.processed_crash.crash_time && hit.processed_crash.crash_time !== undefined ? hit.processed_crash.crash_time : hit.processed_crash.date_processed;
                             resultArray.push(
                                 {
                                     crash_id: hit.crash_id,
-                                    date: moment(hit.processed_crash.date_processed).format('YYYY-MM-DD HH:mm:ss'),
+                                    date: moment(date).format('YYYY-MM-DD HH:mm:ss'),
                                     signature: hit.processed_crash.signature,
                                     product: hit.processed_crash.product,
                                     version: hit.processed_crash.version,

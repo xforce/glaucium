@@ -15,7 +15,7 @@ export class Home extends Vue {
     loaded_report_count: number = 0;
     total_report_count: number = 0;
     recent_reports_items: Array<Object> = [];
-    one_day_chart = null;
+    charts = [];
     recent_reports_headers = [
         { text: 'Crash ID', value: 'crash_id', align: 'left', sortable: false },
         { text: 'Date', value: 'date', desc: true, sortable: false },
@@ -77,13 +77,18 @@ export class Home extends Vue {
             };
             for (let version of data.datasets) {
                 let columns = [version.label];
+                let total_amount: number = 0;
                 for (let amount_per_day of version.data) {
                     columns.push(amount_per_day);
+                    total_amount += amount_per_day;
                 }
-                chart_data.data.columns.push(columns);
+                if (total_amount > 0) {
+                    chart_data.data.columns.push(columns);
+                }
             }
-            this.one_day_chart = billboard.bb.generate(chart_data);
-            this.one_day_chart.resize();
+            let day_chart = billboard.bb.generate(chart_data);
+            day_chart.resize();
+            this.charts.push(day_chart);
         } catch (e) {
             console.log(e);
         }
@@ -117,6 +122,8 @@ export class Home extends Vue {
 
     resize() {
         window.dispatchEvent(new Event('resize'));
-        this.one_day_chart.flush();
+        for (let chart of this.charts) {
+            chart.flush();
+        }
     }
 }

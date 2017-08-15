@@ -445,7 +445,7 @@
         "form_field_choices": null,
         "has_full_version": false,
         "has_keyword": false,
-        "in_database_name": "date_processed",
+        "in_database_name": "crash_time",
         "is_exposed": true,
         "is_mandatory": false,
         "is_returned": true,

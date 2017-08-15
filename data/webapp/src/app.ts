@@ -10,6 +10,7 @@ import { Reports } from './components/reports';
 import { Signature } from './components/signature';
 import { Search } from './components/search';
 import { Report } from './components/report';
+import { Apps } from './components/apps';
 
 
 Vue.use(Vuetify);
@@ -19,6 +20,7 @@ Vue.use(Vuex);
 let router = new VueRouter({
   routes: [
     {path: '/login', component: Login},
+    {path: '/apps', component: Apps},
     {path: '/search', component: Search},
     {path: '/reports', component: Reports},
     {path: '/report/:id', component: Report, props: true},

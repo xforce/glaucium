@@ -17,14 +17,16 @@ export class Reports extends Vue {
     ];
     facet_items = [];
     facet_pagination = {
-        descending: true,
+        descending: false,
         rowsPerPage: 500,
         page: 1,
-        sortBy: 'date',
+        sortBy: 'rank',
         totalItems: 0,
     };
     versions = [];
+    products = [];
     selected_version = 'All';
+    selected_product = 'All';
 
     report_loading = false;
     report_headers = [
@@ -57,6 +59,7 @@ export class Reports extends Vue {
     async loadInitialData() {
         try {
             this.versions = await api.getVersions();
+            this.products = await api.getProducts();
         } catch (e) {
             console.log(e);
         }
@@ -71,13 +74,14 @@ export class Reports extends Vue {
     async loadSignatures() {
         try {
             let filter_version = this.selected_version !== 'All' ? [this.selected_version] : null;
+            let filter_product = this.selected_product !== 'All' ? [this.selected_product] : null;
             let data = await api.getSignatureList(
                 this.facet_pagination.sortBy, 
                 this.facet_pagination.descending, 
                 { 
                     versions: filter_version, 
                     platforms: null, 
-                    products: null 
+                    products: filter_product 
                 }, 
                 { 
                     page: this.facet_pagination.page, 
@@ -95,13 +99,14 @@ export class Reports extends Vue {
     async loadReports() {
          try {
             let filter_version = this.selected_version !== 'All' ? [this.selected_version] : null;
+            let filter_product = this.selected_product !== 'All' ? [this.selected_product] : null;
             let data = await api.getReportList(
                 this.report_pagination.sortBy, 
                 this.report_pagination.descending, 
                 { 
                     versions: filter_version, 
                     platforms: null, 
-                    products: null 
+                    products: filter_product 
                 }, 
                 { 
                     page: this.report_pagination.page, 
@@ -122,6 +127,11 @@ export class Reports extends Vue {
             this.loadReports();
         }
     }
-
+    onProductSelected(e) {
+        if (this.selected_product !== e) {
+            this.selected_product = e;
+            this.loadReports();
+        }
+    }
 
 }

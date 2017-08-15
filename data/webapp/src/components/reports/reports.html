@@ -11,6 +11,20 @@
             <v-spacer></v-spacer>
             <v-menu offset-y>
                 <v-btn flat dark slot="activator">
+                    Product: {{ selected_product }}
+                    <v-icon dark>arrow_drop_down</v-icon>
+                </v-btn>
+                <v-list>
+                    <v-list-tile>
+                        <v-list-tile-title v-on:click="onProductSelected('All')"> All </v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile v-for="(product, i) in products" v-bind:key="product">
+                        <v-list-tile-title v-on:click="onProductSelected(product)"> {{ product }} </v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
+            <v-menu offset-y>
+                <v-btn flat dark slot="activator">
                     Version: {{ selected_version }}
                     <v-icon dark>arrow_drop_down</v-icon>
                 </v-btn>

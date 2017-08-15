@@ -20,4 +20,5 @@
     signature_path = "data/etc/glaucium/"
 
 [storage.es]
-    mapping_file = "data/etc/glaucium/elastic_search_mapping.json"
+    mapping_file_processor = "data/etc/glaucium/elastic_search_mapping.json"
+    mapping_file_webapp = "data/etc/glaucium/elastic_search_mapping.json"

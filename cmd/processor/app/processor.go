@@ -126,6 +126,14 @@ func extractOSPrettyVersion(rawCrash map[string]interface{}, processedCrash map[
 	return processedCrash
 }
 
+func extractCrashTime(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
+	if val, ok := processedCrash["json_dump"].(map[string]interface{}); ok {
+		processedCrash["crash_time"] = time.Unix(int64(val["crash_time"].(float64)), 0);
+		processedCrash["process_create_time"] = time.Unix(int64(val["process_create_time"].(float64)), 0);
+	}
+	return processedCrash
+}
+
 func extractMissingSymbols(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
 	return processedCrash
 }
@@ -428,6 +436,7 @@ func processCrash(rawCrash map[string]interface{}, dumps *cs_interface.FileDumps
 	processedCrash = extractOSInfo(rawCrash, processedCrash)
 	processedCrash = extractOSPrettyVersion(rawCrash, processedCrash)
 	processedCrash = extractMissingSymbols(rawCrash, processedCrash)
+	processedCrash = extractCrashTime(rawCrash, processedCrash)
 	processedCrash = generateSignature(rawCrash, processedCrash)
 
 	// Anything beyond this point will be done by the user using some for of hook into this thing here....

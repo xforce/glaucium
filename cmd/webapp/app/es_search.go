@@ -33,7 +33,7 @@ func InitializeEsSearch(configFilePath string) {
 	if err != nil {
 		fmt.Println("Error ", err.Error())
 	}
-	mappingFilePath := config.GetDefault("storage.es.mapping_file", "/etc/glaucium/elastic_search_mapping.json").(string)
+	mappingFilePath := config.GetDefault("storage.es.mapping_file_webapp", "/etc/glaucium/elastic_search_mapping_webapp.json").(string)
 
 	ctx = context.Background()
 	// elastic.SetTraceLog(log.New(os.Stderr, "ELASTIC ", log.LstdFlags))
@@ -67,16 +67,17 @@ func InitializeEsSearch(configFilePath string) {
 
 	esMappingRoot["crash_report"] = esMapping
 
-	res, _ := elastiClient.IndexNames()
+	// res, _ := elastiClient.IndexNames()
 
-	if len(res) > 0 {
-		for _, indexName := range res {
-			_, err := elastiClient.PutMapping().Index(indexName).Type("crash_report").BodyJson(esMappingRoot).Do(context.TODO())
-			if err != nil {
-				fmt.Println(err)
-			}
-		}
-	}
+	// Disabled because of breaking change in the mapping
+	// if len(res) > 0 {
+	// 	for _, indexName := range res {
+	// 		_, err := elastiClient.PutMapping().Index(indexName).Type("crash_report").BodyJson(esMappingRoot).Do(context.TODO())
+	// 		if err != nil {
+	// 			fmt.Println(err)
+	// 		}
+	// 	}
+	// }
 }
 
 func getFieldName(field string, useKeyword bool) string {

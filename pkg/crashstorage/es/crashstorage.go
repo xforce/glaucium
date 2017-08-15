@@ -9,10 +9,9 @@ import (
 	"os"
 	"strings"
 	"time"
-
-	"github.com/pelletier/go-toml"
-	"github.com/xforce/glaucium/pkg/crashstorage/interface"
-	"gopkg.in/olivere/elastic.v5"
+    "github.com/pelletier/go-toml"
+    "github.com/xforce/glaucium/pkg/crashstorage/interface"
+    "gopkg.in/olivere/elastic.v5"
 )
 
 type CrashStorage struct {
@@ -46,7 +45,7 @@ func (p *CrashStorage) createIndex(esIndex string) {
 }
 
 func (p *CrashStorage) SaveRawAndProcessed(rawCrash map[string]interface{}, dumps cs_interface.DumpsMapping, processedCrash map[string]interface{}, crashID string) {
-	dateProcessed, ok := processedCrash["date_processed"].(time.Time)
+	dateProcessed, ok := processedCrash["crash_time"].(time.Time)
 	if !ok {
 		fmt.Println("Failed to get processed date, abort")
 		return
@@ -107,7 +106,7 @@ func NewCrashStorage(configFile string) (*CrashStorage, error) {
 		return nil, errors.New(fmt.Sprint("Failed to create elastic search client", err))
 	}
 
-	mappingFilePath := config.GetDefault("storage.es.mapping_file", "/etc/glaucium/elastic_search_mapping.json").(string)
+	mappingFilePath := config.GetDefault("storage.es.mapping_file_processor", "/etc/glaucium/elastic_search_mapping_processor.json").(string)
 	// Get mapping from the json file....
 	if mapping == nil {
 		var n map[string]MappingType

@@ -28,7 +28,7 @@ cd ../../
 
 # Copy processor stuff
 cp bazel-bin/cmd/processor/processor /build/processor/usr/bin/glaucium-processor
-cp -r data/etc/glaucium/elastic_search_mapping.json /build/processor/etc/glaucium/
+cp -r data/etc/glaucium/elastic_search_mapping.json /build/processor/etc/glaucium/elastic_search_mapping_processor.json
 cp -r data/etc/glaucium/irrelevant_signature_re.txt /build/processor/etc/glaucium/
 cp -r data/etc/glaucium/prefix_signature_re.txt /build/processor/etc/glaucium/
 cp -r data/etc/glaucium/trim_dll_signature_re.txt /build/processor/etc/glaucium/
@@ -37,7 +37,7 @@ cp bazel-bin/vendor/minidump_stackwalk/stackwalker /build/processor/usr/bin/glau
 # Copy webapp stuff
 cp -r data/webapp/dist/* /build/webapp/usr/share/glaucium/webapp/data/dist
 cp bazel-bin/cmd/webapp/webapp /build/webapp/usr/bin/glaucium-webapp
-cp -r data/etc/glaucium/elastic_search_mapping.json /build/webapp/etc/glaucium/
+cp -r data/etc/glaucium/elastic_search_mapping.json /build/webapp/etc/glaucium/elastic_search_mapping_webapp.json
 
 # Collector
 cp bazel-bin/cmd/collector/collector /build/collector/usr/bin/glaucium-collector
