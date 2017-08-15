@@ -247,16 +247,12 @@ func (p *CrashStorage) Remove(crashID string) {
 	}
 }
 
-func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(string), wg *sync.WaitGroup, gSubWg *sync.WaitGroup, globalRunningCount *int) {
+func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(string), c *sync.Cond, globalRunningCount *int, maxSimultaneousProcessing int) {
 	crashIDs, _ := ioutil.ReadDir(minuteSlotBase)
-	var subWg sync.WaitGroup
-	var runningCount int
 	for crashID := range crashIDs {
-		wg.Add(1)
-		subWg.Add(1)
-		gSubWg.Add(1);
-		runningCount++
+		c.L.Lock()
 		(*globalRunningCount)++
+		c.L.Unlock()
 		go func(crashID string, minuteSlotBase string) {
 			nameDir := path.Join(minuteSlotBase, crashID)
 			statResult, _ := os.Lstat(nameDir)
@@ -270,17 +266,16 @@ func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(stri
 					os.Remove(nameDir)
 				}
 			}
-			runningCount--
-			gSubWg.Done();
-			subWg.Done()
-			wg.Done()
+			c.L.Lock()
+			(*globalRunningCount)--
+			c.Broadcast()
+			c.L.Unlock()
 		}(crashIDs[crashID].Name(), minuteSlotBase)
-		// TODO(alexander): This not ideal, as we have to wait for all 10 to finish before we can start working on the next 10
-		if runningCount >= 4 {
-			wg.Add(1)
-			subWg.Wait()
-			wg.Done()
+		c.L.Lock()
+        for (*globalRunningCount) >= maxSimultaneousProcessing {
+            c.Wait()
 		}
+		c.L.Unlock()
 	}
 }
 
@@ -288,14 +283,12 @@ func greaterThanEqualsSlot(lhs [2]string, rhs [2]string) bool {
 	return lhs[0] >= rhs[0] && lhs[1] >= rhs[1]
 }
 
-func (p *CrashStorage) NewCrashes(callback func(string), wg *sync.WaitGroup) {
+func (p *CrashStorage) NewCrashes(callback func(string), c *sync.Cond, currentlyProcessing *int, maxSimultaneousProcessing int) {
 	currentSlot := p.currentSlot()
 	currentDate := getCurrentDate()
 
 	dates, err := ioutil.ReadDir(p.config.FsRoot)
 	if err == nil {
-		var subWg sync.WaitGroup
-		var globalRunningCount int
 		for date := range dates {
 			datedBase := path.Join(p.config.FsRoot, dates[date].Name(), p.config.DateBranchBase)
 			hourSlots, err := ioutil.ReadDir(datedBase)
@@ -316,12 +309,14 @@ func (p *CrashStorage) NewCrashes(callback func(string), wg *sync.WaitGroup) {
 						continue
 					}
 					// If there are currently more than 4 running, let's wait for them to finish
-					if(globalRunningCount >= 4) {
-						subWg.Wait();
+					c.L.Lock()
+					if (*currentlyProcessing) >= maxSimultaneousProcessing {
+						c.Wait();
 					}
+					c.L.Unlock();
 					p.visitMinuteSlot(minuteSlotBase, func(crashID string) {
 						callback(crashID)
-					}, wg, &subWg, &globalRunningCount)
+					}, c, currentlyProcessing, maxSimultaneousProcessing)
 					os.Remove(minuteSlotBase)
 				}
 				h, _ := strconv.Atoi(currentSlot[0])

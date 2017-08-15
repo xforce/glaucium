@@ -35,6 +35,7 @@ type ProcessorConfig struct {
 	SignaturePath            string
 	RemoveRawDumpFromSource  bool
 	SaveRawDumpInDestination bool
+	MaxSimultaneousProcessing int
 }
 
 var processorConfig ProcessorConfig
@@ -474,6 +475,7 @@ func Run() error {
 	processorConfig.RemoveRawDumpFromSource = config.GetDefault("processor.remove_raw_dump", false).(bool)
 	processorConfig.SaveRawDumpInDestination = config.GetDefault("processor.save_raw_dump", false).(bool)
 	processorConfig.SignaturePath = config.GetDefault("processor.signature_path", "/etc/glaucium/").(string)
+	processorConfig.MaxSimultaneousProcessing = config.GetDefault("processor.max_simultaneous_processing", 5).(int)
 
 	if len(processorConfig.SourceStorage) > 1 {
 		sourceCrashStorage = crashstorage.GetCrashStorage("poly", *configFilePath, processorConfig.SourceStorage)
@@ -500,7 +502,9 @@ func Run() error {
 	}()
 
 	for {
-		var wg sync.WaitGroup
+		m := sync.Mutex{}
+		c := sync.NewCond(&m)
+		currentlyProcessing := 0;
 		newCrashCrashStorage.NewCrashes(func(crashID string) {
 			fmt.Println("Processing new crash: " + crashID)
 
@@ -521,9 +525,13 @@ func Run() error {
 				sourceCrashStorage.Remove(crashID)
 			}
 			newCrashCrashStorage.AckCrash(crashID)
-		}, &wg)
-		wg.Wait()
-		time.Sleep(1 * time.Second)
+		}, c, &currentlyProcessing, processorConfig.MaxSimultaneousProcessing)
+		c.L.Lock()
+        for currentlyProcessing > processorConfig.MaxSimultaneousProcessing {
+            c.Wait()
+		}
+		c.L.Unlock()
+		time.Sleep(100 * time.Millisecond)
 		if stop {
 			return nil
 		}

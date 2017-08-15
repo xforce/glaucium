@@ -26,7 +26,7 @@ type CrashStorage interface {
 	GetRawDumpsAsFiles(crashId string) DumpsMapping
 	GetProcessedCrash(crashID string) map[string]interface{}
 	Remove(crashId string)
-	NewCrashes(callback func(string), wg *sync.WaitGroup)
+	NewCrashes(callback func(string), c *sync.Cond, currentlyProcessing *int, maxSimultaneousProcessing int)
 	AckCrash(crashID string)
 	GetProcessedCrashes(time time.Time) map[string]interface{}
 }
@@ -45,7 +45,7 @@ func (p *CrashStorageBase) GetRawDumps(crashID string) DumpsMapping             
 func (p *CrashStorageBase) GetRawDumpsAsFiles(crashId string) DumpsMapping            { return nil }
 func (p *CrashStorageBase) GetProcessedCrash(crashID string) map[string]interface{}   { return nil }
 func (p *CrashStorageBase) Remove(crashId string)                                     {}
-func (p *CrashStorageBase) NewCrashes(callback func(string), wg *sync.WaitGroup)      {}
+func (p *CrashStorageBase) NewCrashes(callback func(string), c *sync.Cond, currentlyProcessing *int, maxSimultaneousProcessing int) {}
 func (p *CrashStorageBase) AckCrash(crashID string)                                   {}
 func (p *CrashStorageBase) GetProcessedCrashes(time time.Time) map[string]interface{} { return nil }
 
