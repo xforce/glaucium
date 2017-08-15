@@ -18,7 +18,7 @@ export class Search extends Vue {
         descending: true,
         rowsPerPage: 500,
         page: 1,
-        sortBy: 'date',
+        sortBy: 'rank',
         totalItems: 0,
     };
     selected_version = 'All';

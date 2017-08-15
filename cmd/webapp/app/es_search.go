@@ -125,8 +125,8 @@ func buildPaginate(jsonData map[string]interface{}) (int, int) {
 			size = int(sizeF)
 		}
 	}
-	if size > 1000 {
-		size = 1000
+	if size > 10000 {
+		size = 10000
 	}
 	return from, size
 }
