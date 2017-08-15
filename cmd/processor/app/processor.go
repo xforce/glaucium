@@ -499,9 +499,6 @@ func Run() error {
 		}
 	}()
 
-	// TOOD(alexander): Not really nice
-	// this currently is hard coded to check every 5 minutes to process the next crashes
-	// all the crashes processing actually runs in go routines so that is nice-ish
 	for {
 		var wg sync.WaitGroup
 		newCrashCrashStorage.NewCrashes(func(crashID string) {
@@ -526,7 +523,7 @@ func Run() error {
 			newCrashCrashStorage.AckCrash(crashID)
 		}, &wg)
 		wg.Wait()
-		time.Sleep(5 * time.Second)
+		time.Sleep(1 * time.Second)
 		if stop {
 			return nil
 		}

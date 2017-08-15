@@ -247,14 +247,16 @@ func (p *CrashStorage) Remove(crashID string) {
 	}
 }
 
-func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(string), wg *sync.WaitGroup) {
+func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(string), wg *sync.WaitGroup, gSubWg *sync.WaitGroup, globalRunningCount *int) {
 	crashIDs, _ := ioutil.ReadDir(minuteSlotBase)
 	var subWg sync.WaitGroup
 	var runningCount int
 	for crashID := range crashIDs {
 		wg.Add(1)
 		subWg.Add(1)
+		gSubWg.Add(1);
 		runningCount++
+		(*globalRunningCount)++
 		go func(crashID string, minuteSlotBase string) {
 			nameDir := path.Join(minuteSlotBase, crashID)
 			statResult, _ := os.Lstat(nameDir)
@@ -263,13 +265,13 @@ func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(stri
 				if !s.IsDir() {
 					dateRootPath := nameDir
 					callback(crashID)
-					// DISABLED FOR DEBUGGING
 					fmt.Println("Done processing")
 					os.Remove(dateRootPath)
 					os.Remove(nameDir)
 				}
 			}
 			runningCount--
+			gSubWg.Done();
 			subWg.Done()
 			wg.Done()
 		}(crashIDs[crashID].Name(), minuteSlotBase)
@@ -292,6 +294,8 @@ func (p *CrashStorage) NewCrashes(callback func(string), wg *sync.WaitGroup) {
 
 	dates, err := ioutil.ReadDir(p.config.FsRoot)
 	if err == nil {
+		var subWg sync.WaitGroup
+		var globalRunningCount int
 		for date := range dates {
 			datedBase := path.Join(p.config.FsRoot, dates[date].Name(), p.config.DateBranchBase)
 			hourSlots, err := ioutil.ReadDir(datedBase)
@@ -311,9 +315,13 @@ func (p *CrashStorage) NewCrashes(callback func(string), wg *sync.WaitGroup) {
 						skipDir = true
 						continue
 					}
+					// If there are currently more than 4 running, let's wait for them to finish
+					if(globalRunningCount >= 4) {
+						subWg.Wait();
+					}
 					p.visitMinuteSlot(minuteSlotBase, func(crashID string) {
 						callback(crashID)
-					}, wg)
+					}, wg, &subWg, &globalRunningCount)
 					os.Remove(minuteSlotBase)
 				}
 				h, _ := strconv.Atoi(currentSlot[0])
