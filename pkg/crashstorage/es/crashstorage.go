@@ -46,7 +46,7 @@ func (p *CrashStorage) createIndex(esIndex string) {
 
 func (p *CrashStorage) SaveRawAndProcessed(rawCrash map[string]interface{}, dumps cs_interface.DumpsMapping, processedCrash map[string]interface{}, crashID string) {
 	fmt.Println("Saving processed dump")
-	dateProcessed, ok := processedCrash["crash_time"].(time.Time)
+	dateProcessed, ok := processedCrash["crash_date"].(time.Time)
 	if !ok {
 		fmt.Println("Failed to get processed date, abort")
 		return
@@ -72,7 +72,7 @@ func (p *CrashStorage) SaveProcessed(processedCrash map[string]interface{}) {
 	// Add a document to the index
 	fmt.Println("Saving processed dump")
 	crashID, _ := processedCrash["uuid"].(string)
-	dateProcessed, ok := processedCrash["crash_time"].(time.Time)
+	dateProcessed, ok := processedCrash["crash_date"].(time.Time)
 	if !ok {
 		fmt.Println("Failed to get processed date, abort")
 	}

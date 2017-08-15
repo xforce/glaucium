@@ -91,7 +91,7 @@ export class Report extends Vue {
 
                 this.report.uuid = jsonResponse.uuid;
                 this.report.signature = jsonResponse.signature;
-                const date = jsonResponse.crash_time && jsonResponse.crash_time !== undefined ? jsonResponse.crash_time : jsonResponse.date_processed;
+                const date = jsonResponse.crash_date && jsonResponse.crash_date !== undefined ? jsonResponse.crash_date : jsonResponse.date_processed;
                 this.report.date_processed =  moment(date).format('YYYY-MM-DD HH:mm:ss');
                 this.report.product = jsonResponse.product;
                 this.report.version = jsonResponse.version;

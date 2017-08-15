@@ -164,7 +164,7 @@ export class Signature extends Vue {
                 let jsonResponse = JSON.parse(xhr.responseText);
                 let resultArray = [];
                 jsonResponse.hits.forEach((hit) => {
-                    const date = hit.processed_crash.crash_time && hit.processed_crash.crash_time !== undefined ? hit.processed_crash.crash_time : hit.processed_crash.date_processed;
+                    const date = hit.processed_crash.crash_date && hit.processed_crash.crash_date !== undefined ? hit.processed_crash.crash_date : hit.processed_crash.date_processed;
                     resultArray.push(
                         {
                             crash_id: hit.crash_id,
