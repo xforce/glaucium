@@ -128,8 +128,8 @@ func extractOSPrettyVersion(rawCrash map[string]interface{}, processedCrash map[
 
 func extractCrashTime(rawCrash map[string]interface{}, processedCrash map[string]interface{}) map[string]interface{} {
 	if val, ok := processedCrash["json_dump"].(map[string]interface{}); ok {
-		processedCrash["crash_time"] = time.Unix(int64(val["crash_time"].(float64)), 0);
-		processedCrash["process_create_time"] = time.Unix(int64(val["process_create_time"].(float64)), 0);
+		processedCrash["crash_date"] = time.Unix(int64(val["crash_time"].(float64)), 0);
+		processedCrash["process_create_date"] = time.Unix(int64(val["process_create_time"].(float64)), 0);
 	}
 	return processedCrash
 }

@@ -323,42 +323,6 @@
             "type": "long"
         }
     },
-    "client_crash_date": {
-        "data_validation_type": "enum",
-        "default_value": null,
-        "form_field_choices": null,
-        "has_full_version": false,
-        "has_keyword": false,
-        "in_database_name": "client_crash_date",
-        "is_exposed": false,
-        "is_mandatory": false,
-        "is_returned": false,
-        "name": "client_crash_date",
-        "namespace": "processed_crash",
-        "permissions_needed": [],
-        "query_type": "enum",
-        "storage_mapping": {
-            "type": "date"
-        }
-    },
-    "completeddatetime": {
-        "data_validation_type": "enum",
-        "default_value": null,
-        "form_field_choices": null,
-        "has_full_version": false,
-        "has_keyword": false,
-        "in_database_name": "completeddatetime",
-        "is_exposed": false,
-        "is_mandatory": false,
-        "is_returned": false,
-        "name": "completeddatetime",
-        "namespace": "processed_crash",
-        "permissions_needed": [],
-        "query_type": "enum",
-        "storage_mapping": {
-            "type": "date"
-        }
-    },
     "cpu_info": {
         "data_validation_type": "str",
         "default_value": null,
@@ -403,22 +367,40 @@
             "type": "keyword"
         }
     },
-    "crash_time": {
-        "data_validation_type": "enum",
+    "date_processed": {
+        "data_validation_type": "datetime",
         "default_value": null,
         "form_field_choices": null,
         "has_full_version": false,
         "has_keyword": false,
-        "in_database_name": "crash_time",
+        "in_database_name": "date_processed",
         "is_exposed": false,
         "is_mandatory": false,
         "is_returned": false,
-        "name": "crash_time",
+        "name": "date_processed",
         "namespace": "processed_crash",
         "permissions_needed": [],
-        "query_type": "enum",
+        "query_type": "date",
         "storage_mapping": {
-            "type": "long"
+            "type": "date"
+        }
+    },
+    "process_create_date": {
+        "data_validation_type": "datetime",
+        "default_value": null,
+        "form_field_choices": null,
+        "has_full_version": false,
+        "has_keyword": false,
+        "in_database_name": "process_create_date",
+        "is_exposed": false,
+        "is_mandatory": false,
+        "is_returned": false,
+        "name": "date_processed",
+        "namespace": "processed_crash",
+        "permissions_needed": [],
+        "query_type": "date",
+        "storage_mapping": {
+            "type": "date"
         }
     },
     "crashedThread": {
@@ -445,7 +427,7 @@
         "form_field_choices": null,
         "has_full_version": false,
         "has_keyword": false,
-        "in_database_name": "crash_time",
+        "in_database_name": "crash_date",
         "is_exposed": true,
         "is_mandatory": false,
         "is_returned": true,

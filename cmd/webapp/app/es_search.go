@@ -67,17 +67,16 @@ func InitializeEsSearch(configFilePath string) {
 
 	esMappingRoot["crash_report"] = esMapping
 
-	// res, _ := elastiClient.IndexNames()
-
+	//res, _ := elastiClient.IndexNames()
 	// Disabled because of breaking change in the mapping
-	// if len(res) > 0 {
+	//if len(res) > 0 {
 	// 	for _, indexName := range res {
 	// 		_, err := elastiClient.PutMapping().Index(indexName).Type("crash_report").BodyJson(esMappingRoot).Do(context.TODO())
 	// 		if err != nil {
 	// 			fmt.Println(err)
 	// 		}
 	// 	}
-	// }
+	//}
 }
 
 func getFieldName(field string, useKeyword bool) string {
