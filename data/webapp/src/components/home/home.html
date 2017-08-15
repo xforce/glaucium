@@ -8,7 +8,7 @@
         <div>
           <div id="crash-stat-chart-1days"></div>
         </div>
-        <v-btn flat block id="1-day-reports-card-view-reports">View Reports</v-btn>
+        <v-btn flat block id="1-day-reports-card-view-reports" v-on:click="onViewReportsClick(1)">View Reports</v-btn>
       </v-card>
     </v-flex>
     <v-flex md6 lg4 sm12 xs12>
@@ -17,7 +17,7 @@
           <span>Reports 7 days</span>
         </v-card-title>
         <div id="crash-stat-chart-7days"></div>
-        <v-btn flat block id="7-day-reports-card-view-reports">View Reports</v-btn>
+        <v-btn flat block id="7-day-reports-card-view-reports" v-on:click="onViewReportsClick(7)">View Reports</v-btn>
       </v-card>
     </v-flex>
     <v-flex md6 lg4 sm12 xs12>
@@ -26,7 +26,7 @@
           <span>Reports 14 days</span>
         </v-card-title>
         <div id="crash-stat-chart-14days"></div>
-        <v-btn flat block id="14-day-reports-card-view-reports">View Reports</v-btn>
+        <v-btn flat block id="14-day-reports-card-view-reports" v-on:click="onViewReportsClick(14)">View Reports</v-btn>
       </v-card>
     </v-flex>
   </v-layout>

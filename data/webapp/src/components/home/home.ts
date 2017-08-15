@@ -42,6 +42,12 @@ export class Home extends Vue {
     onSidebarStateChanged(val: boolean, oldVal: boolean) {
     }
 
+    onViewReportsClick(days) {
+        let end_date = moment().format('YYYY-MM-DD');
+        let start_date = moment().subtract(days, 'd').format('YYYY-MM-DD');
+        window.location.href = '/#/search?start_date=' + start_date + '&end_date=' + end_date;
+    }
+
     get sidebarState () {
         return this.$store.state.sidebar;
     }

@@ -51,6 +51,8 @@ export class RequestFilters {
     versions: Array<string> = null;
     platforms: Array<string> = null;
     products: Array<string> = null;
+    start_date = null;
+    end_date = null;
 }
 
 class Api {
@@ -376,6 +378,24 @@ class Api {
                 });
             }
 
+            if (filters.start_date) {
+                meow.filters.push({ 
+                    name: 'date', 
+                    operator: 'gte', 
+                    value: filters.start_date.format()
+                });
+            }
+
+            if (filters.end_date) {
+                meow.filters.push({ 
+                    name: 'date', 
+                    operator: 'lt', 
+                    value: filters.end_date.format()
+                });
+            }
+            // { 'name': 'date', 'operator': 'gte', 'value': startDate.format() },
+            // { 'name': 'date', 'operator': 'lt', 'value': endDate.format() }
+
             let xhr = new XMLHttpRequest();
             let url = '/api/search';
             xhr.open('POST', url, true);
@@ -438,6 +458,21 @@ class Api {
                 if (filters.products) {
                     filters.products.forEach((value) => {
                         meow.filters.push({ name: 'product', value: value });
+                    });
+                }
+                if (filters.start_date) {
+                    meow.filters.push({ 
+                        name: 'date', 
+                        operator: 'gte', 
+                        value: filters.start_date.format()
+                    });
+                }
+
+                if (filters.end_date) {
+                    meow.filters.push({ 
+                        name: 'date', 
+                        operator: 'lt', 
+                        value: filters.end_date.format()
                     });
                 }
                 let xhr = new XMLHttpRequest();

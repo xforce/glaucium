@@ -81,7 +81,9 @@ export class Reports extends Vue {
                 { 
                     versions: filter_version, 
                     platforms: null, 
-                    products: filter_product 
+                    products: filter_product,
+                    start_date: null,
+                    end_date: null
                 }, 
                 { 
                     page: this.facet_pagination.page, 
@@ -106,7 +108,9 @@ export class Reports extends Vue {
                 { 
                     versions: filter_version, 
                     platforms: null, 
-                    products: filter_product 
+                    products: filter_product,
+                    start_date: null,
+                    end_date: null
                 }, 
                 { 
                     page: this.report_pagination.page, 

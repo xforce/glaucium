@@ -4,11 +4,45 @@
             <v-flex xs12>
                 <v-card class="lighten-4 elevation-5">
                     <v-container fluid grid-list-lg>
+                        <v-layout row wrap>
+                            <v-menu
+                                lazy :close-on-content-click="false" v-model="start_date_menu"
+                                transition="scale-transition" offset-y full-width :nudge-left="40" max-width="290px"
+                                >
+                                    <v-text-field slot="activator" label="Start date" v-model="start_date" prepend-icon="event" append-icon="cancel" :append-icon-cb="(event) => { start_date = null; event.stopPropagation(); event.preventDefault();}" readonly>
+                                    </v-text-field>
+                                    <v-date-picker v-model="start_date" no-title scrollable actions>
+                                        <template scope="{ save, cancel }">
+                                        <v-card-actions>
+                                            <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                                            <v-btn flat primary @click.native="save()">Save</v-btn>
+                                        </v-card-actions>
+                                        </template>
+                                    </v-date-picker>
+                                </v-menu>
+                                <v-menu
+                                lazy :close-on-content-click="false" v-model="end_date_menu"
+                                transition="scale-transition" offset-y full-width :nudge-left="40" max-width="290px"
+                                >
+                                    <v-text-field slot="activator" label="End date" v-model="end_date" prepend-icon="event" append-icon="cancel" :append-icon-cb="(event) => { end_date = null; event.stopPropagation(); event.preventDefault();}" readonly>
+                                    </v-text-field>
+                                    <v-date-picker v-model="end_date" no-title scrollable actions>
+                                        <template scope="{ save, cancel }">
+                                        <v-card-actions>
+                                            <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
+                                            <v-btn flat primary @click.native="save()">Save</v-btn>
+                                        </v-card-actions>
+                                        </template>
+                                    </v-date-picker>
+                                </v-menu>
+                        </v-layout>
+                        <v-layout>
                         <v-flex sm5 xs12>
                             <v-select label="Product" v-bind:items="products" v-model="selected_products" multiple chips />
                             <v-select label="Version" v-bind:items="versions" v-model="selected_versions" multiple chips />
                             <v-select label="Platform" v-bind:items="platforms" v-model="selected_platforms" multiple chips />
                         </v-flex>
+                        </v-layout>
                     </v-container>
                 </v-card>
             </v-flex>
