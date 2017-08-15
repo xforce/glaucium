@@ -1,4 +1,5 @@
 <section>
+    <div class="headline">{{ sig }}</div>
     <v-tabs class="elevation-5" left dark>
         <v-tabs-bar slot="activators">
             <v-tabs-slider></v-tabs-slider>
@@ -17,7 +18,7 @@
                                 <v-data-table v-bind:headers="os_headers" v-bind:items="os_items" hide-actions class="elevation-0"
                                     id="os_table">
                                     <template slot="items" scope="props">
-                                        <td><a v-bind:href="'/report/' + props.item.crash_id">{{ props.item.os_name }}</a></td>
+                                        <td>{{ props.item.os_name }}</td>
                                         <td class="text-xs-right">{{ props.item.count }}</td>
                                         <td class="text-xs-right">{{ percentage(props.item.percentage) }}</td>
                                     </template>

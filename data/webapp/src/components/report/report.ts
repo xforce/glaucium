@@ -47,7 +47,7 @@ export class Report extends Vue {
             }
             return entry.offset;
         } else {
-            return entry.function;
+            return entry.function + ' +' + entry.function_offset;
         }
     }
     callStackEntryToDisplaySecondary(entry) {
@@ -55,6 +55,10 @@ export class Report extends Vue {
             if (entry.module === undefined) {
                 return '';
             }
+        }
+
+        if (entry.file) {
+            return entry.module + ' ' + entry.file;
         }
 
         return entry.module;
