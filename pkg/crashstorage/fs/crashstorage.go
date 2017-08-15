@@ -260,10 +260,10 @@ func (p *CrashStorage) visitMinuteSlot(minuteSlotBase string, callback func(stri
 				s, _ := os.Stat(path.Join(nameDir, crashID+p.config.JsonFileSuffix))
 				if !s.IsDir() {
 					dateRootPath := nameDir
-					callback(crashID)
-					fmt.Println("Done processing")
 					os.Remove(dateRootPath)
 					os.Remove(nameDir)
+					callback(crashID)
+					fmt.Println("Done processing")
 				}
 			}
 			c.L.Lock()
