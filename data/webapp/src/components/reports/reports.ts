@@ -129,12 +129,14 @@ export class Reports extends Vue {
         if (this.selected_version !== e) {
             this.selected_version = e;
             this.loadReports();
+            this.loadSignatures();
         }
     }
     onProductSelected(e) {
         if (this.selected_product !== e) {
             this.selected_product = e;
             this.loadReports();
+            this.loadSignatures();
         }
     }
 
