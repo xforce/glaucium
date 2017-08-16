@@ -58,7 +58,7 @@ export class Report extends Vue {
         }
 
         if (entry.file) {
-            return entry.module + ' ' + entry.file;
+            return entry.module + ' ' + entry.file + ':' + entry.line;
         }
 
         return entry.module;
@@ -192,7 +192,9 @@ export class Report extends Vue {
                             function_offset: frame.function_offset,
                             registers: frame.registers,
                             offset: frame.offset,
-                            missing_symbols: frame.missing_symbols
+                            missing_symbols: frame.missing_symbols,
+                            line: frame.line,
+                            file: frame.file,
                         });
                     });
                     this.call_stacks.push(call_stack);

@@ -16,7 +16,7 @@ export class Search extends Vue {
     ];
     facet_items = [];
     facet_pagination = {
-        descending: true,
+        descending: false,
         rowsPerPage: 500,
         page: 1,
         sortBy: 'rank',
