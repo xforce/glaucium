@@ -1,11 +1,4 @@
-package(default_visibility = ["//visibility:public"])
-
-licenses(["notice"])
-
-load(
-    "@io_bazel_rules_go//go:def.bzl",
-    "go_library",
-)
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "go_default_library",
@@ -32,19 +25,20 @@ go_library(
         "zsyscall_linux_amd64.go",
         "zsysnum_linux_amd64.go",
         "ztypes_linux_amd64.go",
-    ],
-    tags = ["automanaged"],
-)
-
-filegroup(
-    name = "package-srcs",
-    srcs = glob(["**"]),
-    tags = ["automanaged"],
-    visibility = ["//visibility:private"],
-)
-
-filegroup(
-    name = "all-srcs",
-    srcs = [":package-srcs"],
-    tags = ["automanaged"],
+    ] + select({
+        "@io_bazel_rules_go//go/platform:darwin_amd64": [
+            "asm_darwin_amd64.s",
+            "syscall_bsd.go",
+            "syscall_darwin.go",
+            "syscall_darwin_amd64.go",
+            "zerrors_darwin_amd64.go",
+            "zsyscall_darwin_amd64.go",
+            "zsysnum_darwin_amd64.go",
+            "ztypes_darwin_amd64.go",
+        ],
+        "//conditions:default": [],
+    }),
+    cgo = True,
+    importpath = "golang.org/x/sys/unix",
+    visibility = ["//visibility:public"],
 )

@@ -1,11 +1,4 @@
-package(default_visibility = ["//visibility:public"])
-
-licenses(["notice"])
-
-load(
-    "@io_bazel_rules_go//go:def.bzl",
-    "go_library",
-)
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "go_default_library",
@@ -18,6 +11,7 @@ go_library(
         "doc_custom.go",
         "errors.go",
         "host_style_bucket.go",
+        "platform_handlers.go",
         "platform_handlers_go1.6.go",
         "service.go",
         "sse.go",
@@ -25,7 +19,8 @@ go_library(
         "unmarshal_error.go",
         "waiters.go",
     ],
-    tags = ["automanaged"],
+    importpath = "github.com/aws/aws-sdk-go/service/s3",
+    visibility = ["//visibility:public"],
     deps = [
         "//vendor/github.com/aws/aws-sdk-go/aws:go_default_library",
         "//vendor/github.com/aws/aws-sdk-go/aws/awserr:go_default_library",
@@ -37,17 +32,4 @@ go_library(
         "//vendor/github.com/aws/aws-sdk-go/private/protocol:go_default_library",
         "//vendor/github.com/aws/aws-sdk-go/private/protocol/restxml:go_default_library",
     ],
-)
-
-filegroup(
-    name = "package-srcs",
-    srcs = glob(["**"]),
-    tags = ["automanaged"],
-    visibility = ["//visibility:private"],
-)
-
-filegroup(
-    name = "all-srcs",
-    srcs = [":package-srcs"],
-    tags = ["automanaged"],
 )

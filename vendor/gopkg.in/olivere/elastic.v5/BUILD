@@ -1,11 +1,4 @@
-package(default_visibility = ["//visibility:public"])
-
-licenses(["notice"])
-
-load(
-    "@io_bazel_rules_go//go:def.bzl",
-    "go_library",
-)
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "go_default_library",
@@ -192,22 +185,7 @@ go_library(
         "update.go",
         "update_by_query.go",
     ],
-    tags = ["automanaged"],
+    importpath = "gopkg.in/olivere/elastic.v5",
+    visibility = ["//visibility:public"],
     deps = ["//vendor/gopkg.in/olivere/elastic.v5/uritemplates:go_default_library"],
-)
-
-filegroup(
-    name = "package-srcs",
-    srcs = glob(["**"]),
-    tags = ["automanaged"],
-    visibility = ["//visibility:private"],
-)
-
-filegroup(
-    name = "all-srcs",
-    srcs = [
-        ":package-srcs",
-        "//vendor/gopkg.in/olivere/elastic.v5/uritemplates:all-srcs",
-    ],
-    tags = ["automanaged"],
 )

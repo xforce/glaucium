@@ -10,6 +10,7 @@ load(
 
 go_binary(
     name = "webapp",
+    importpath = "github.com/xforce/glaucium/cmd/webapp",
     library = ":go_default_library",
     tags = ["automanaged"],
 )
@@ -17,6 +18,7 @@ go_binary(
 go_library(
     name = "go_default_library",
     srcs = ["webapp.go"],
+    importpath = "github.com/xforce/glaucium/cmd/webapp",
     tags = ["automanaged"],
     deps = ["//cmd/webapp/app:go_default_library"],
 )

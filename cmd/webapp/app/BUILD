@@ -13,6 +13,7 @@ go_library(
         "es_search.go",
         "webapp.go",
     ],
+    importpath = "github.com/xforce/glaucium/cmd/webapp/app",
     tags = ["automanaged"],
     deps = [
         "//pkg/crashstorage:go_default_library",

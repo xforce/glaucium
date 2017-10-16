@@ -1,0 +1,84 @@
+
+# Gopkg.toml example
+#
+# Refer to https://github.com/golang/dep/blob/master/docs/Gopkg.toml.md
+# for detailed Gopkg.toml documentation.
+#
+# required = ["github.com/user/thing/cmd/thing"]
+# ignored = ["github.com/user/project/pkgX", "bitbucket.org/user/project/pkgA/pkgY"]
+#
+# [[constraint]]
+#   name = "github.com/user/project"
+#   version = "1.0.0"
+#
+# [[constraint]]
+#   name = "github.com/user/project2"
+#   branch = "dev"
+#   source = "github.com/myfork/project2"
+#
+# [[override]]
+#  name = "github.com/x/y"
+#  version = "2.4.0"
+# required = ["gopkg.in/go-playground/assert.v1",
+#                  "golang.org/x/sync/errgroup", 
+#                  "golang.org/x/text", 
+#                  "golang.org/x/tools/go/buildutil",
+#                  "golang.org/x/text/internal",
+#                  "golang.org/x/text/internal/testtext",
+#                  "golang.org/x/text/unicode/rangetable",
+#                  "golang.org/x/crypto/ssh/terminal",
+#                  "golang.org/x/crypto/ed25519",
+#                  "golang.org/x/crypto/curve25519",
+#                  "golang.org/x/crypto/ssh/testdata",
+#                  "golang.org/x/crypto/ssh/agent",
+#                  "golang.org/x/tools/godoc/vfs/mapfs",
+#                  "golang.org/x/tools/godoc/vfs/httpfs",
+#                  "golang.org/x/tools/godoc/analysis",
+#                  "golang.org/x/tools/godoc/util",
+#                  "github.com/shurcooL/go/importgraphutil",
+#                  "github.com/shurcooL/httpfs/vfsutil",
+#                  "github.com/spf13/pflag",
+#                  "github.com/spf13/cobra",
+#                  "github.com/golang/protobuf/proto",
+#                  "github.com/golang/protobuf/ptypes/any",
+#                  "github.com/golang/protobuf/protoc-gen-go/grpc",
+#                  "github.com/gopherjs/gopherjs/internal/sysutil",
+#                  "github.com/gopherjs/gopherjs/compiler",
+#                  "github.com/gopherjs/gopherjs/build",
+#                  "github.com/stretchr/testify/assert",
+#                  "github.com/stretchr/testify/require",
+#                  "github.com/neelance/sourcemap",
+#                  "github.com/kisielk/gotool",
+#                  "github.com/smartystreets/goconvey/convey",
+#                  "github.com/aws/aws-sdk-go/awstesting/unit",
+#                  "github.com/aws/aws-sdk-go/private/util",
+#                  "github.com/aws/aws-sdk-go/service/dynamodb",
+#                  "gopkg.in/check.v1",
+#                  "github.com/fortytw2/leaktest"]
+
+[[constraint]]
+  name = "github.com/BurntSushi/toml"
+  version = "0.3.0"
+
+[[constraint]]
+  name = "github.com/aws/aws-sdk-go"
+
+[[constraint]]
+  name = "github.com/aymerick/raymond"
+
+[[constraint]]
+  name = "github.com/gin-contrib/gzip"
+
+[[constraint]]
+  name = "github.com/gin-gonic/gin"
+  version = "1.1.4"
+
+[[constraint]]
+  name = "github.com/pelletier/go-toml"
+
+[[constraint]]
+  name = "github.com/xforce/ginraymond"
+
+[[constraint]]
+  name = "gopkg.in/olivere/elastic.v5"
+  version = "5.0.36"

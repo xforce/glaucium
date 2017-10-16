@@ -10,6 +10,7 @@ load(
 go_library(
     name = "go_default_library",
     srcs = ["crashstorage.go"],
+    importpath = "github.com/xforce/glaucium/pkg/crashstorage/rabbitmq",
     tags = ["automanaged"],
 )
 

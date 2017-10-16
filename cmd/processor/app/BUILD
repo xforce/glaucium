@@ -10,6 +10,7 @@ load(
 go_library(
     name = "go_default_library",
     srcs = ["processor.go"],
+    importpath = "github.com/xforce/glaucium/cmd/processor/app",
     tags = ["automanaged"],
     deps = [
         "//pkg/crashstorage:go_default_library",

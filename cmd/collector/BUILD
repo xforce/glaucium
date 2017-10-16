@@ -10,6 +10,7 @@ load(
 
 go_binary(
     name = "collector",
+    importpath = "github.com/xforce/glaucium/cmd/collector",
     library = ":go_default_library",
     tags = ["automanaged"],
 )
@@ -17,6 +18,7 @@ go_binary(
 go_library(
     name = "go_default_library",
     srcs = ["collector.go"],
+    importpath = "github.com/xforce/glaucium/cmd/collector",
     tags = ["automanaged"],
     deps = ["//cmd/collector/app:go_default_library"],
 )

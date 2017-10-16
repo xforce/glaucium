@@ -10,6 +10,7 @@ load(
 
 go_binary(
     name = "processor",
+    importpath = "github.com/xforce/glaucium/cmd/processor",
     library = ":go_default_library",
     tags = ["automanaged"],
 )
@@ -17,6 +18,7 @@ go_binary(
 go_library(
     name = "go_default_library",
     srcs = ["processor.go"],
+    importpath = "github.com/xforce/glaucium/cmd/processor",
     tags = ["automanaged"],
     deps = ["//cmd/processor/app:go_default_library"],
 )
