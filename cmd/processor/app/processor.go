@@ -486,7 +486,7 @@ func Run() error {
 	processorConfig.RemoveRawDumpFromSource = config.GetDefault("processor.remove_raw_dump", false).(bool)
 	processorConfig.SaveRawDumpInDestination = config.GetDefault("processor.save_raw_dump", false).(bool)
 	processorConfig.SignaturePath = config.GetDefault("processor.signature_path", "/etc/glaucium/").(string)
-	processorConfig.MaxSimultaneousProcessing = config.GetDefault("processor.max_simultaneous_processing", 5).(int)
+	processorConfig.MaxSimultaneousProcessing = int(config.GetDefault("processor.max_simultaneous_processing", 5).(int64))
 
 	if len(processorConfig.SourceStorage) > 1 {
 		sourceCrashStorage = crashstorage.GetCrashStorage("poly", *configFilePath, processorConfig.SourceStorage)

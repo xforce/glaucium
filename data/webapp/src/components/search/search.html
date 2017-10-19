@@ -1,56 +1,53 @@
-<v-layout column>
+<v-container fluid grid-list-lg>
     <v-flex xs12>
         <v-layout row wrap class="mt-4 mb-4">
             <v-flex xs12>
                 <v-card class="lighten-4 elevation-5">
                     <v-container fluid grid-list-lg>
                         <v-layout row wrap>
-                            <v-menu
-                                lazy :close-on-content-click="false" v-model="start_date_menu"
-                                transition="scale-transition" offset-y full-width :nudge-left="40" max-width="290px"
-                                >
-                                    <v-text-field slot="activator" label="Start date" v-model="start_date" prepend-icon="event" append-icon="cancel" :append-icon-cb="(event) => { start_date = null; event.stopPropagation(); event.preventDefault();}" readonly>
-                                    </v-text-field>
-                                    <v-date-picker v-model="start_date" no-title scrollable actions>
-                                        <template scope="{ save, cancel }">
+                            <v-menu lazy :close-on-content-click="false" v-model="start_date_menu" transition="scale-transition" offset-y full-width
+                                :nudge-left="40" max-width="290px">
+                                <v-text-field slot="activator" label="Start date" v-model="start_date" prepend-icon="event" append-icon="cancel" :append-icon-cb="(event) => { start_date = null; event.stopPropagation(); event.preventDefault();}"
+                                    readonly>
+                                </v-text-field>
+                                <v-date-picker v-model="start_date" no-title scrollable actions>
+                                    <template scope="{ save, cancel }">
                                         <v-card-actions>
                                             <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
                                             <v-btn flat primary @click.native="save()">Save</v-btn>
                                         </v-card-actions>
-                                        </template>
-                                    </v-date-picker>
-                                </v-menu>
-                                <v-menu
-                                lazy :close-on-content-click="false" v-model="end_date_menu"
-                                transition="scale-transition" offset-y full-width :nudge-left="40" max-width="290px"
-                                >
-                                    <v-text-field slot="activator" label="End date" v-model="end_date" prepend-icon="event" append-icon="cancel" :append-icon-cb="(event) => { end_date = null; event.stopPropagation(); event.preventDefault();}" readonly>
-                                    </v-text-field>
-                                    <v-date-picker v-model="end_date" no-title scrollable actions>
-                                        <template scope="{ save, cancel }">
+                                    </template>
+                                </v-date-picker>
+                            </v-menu>
+                            <v-menu lazy :close-on-content-click="false" v-model="end_date_menu" transition="scale-transition" offset-y full-width :nudge-left="40"
+                                max-width="290px">
+                                <v-text-field slot="activator" label="End date" v-model="end_date" prepend-icon="event" append-icon="cancel" :append-icon-cb="(event) => { end_date = null; event.stopPropagation(); event.preventDefault();}"
+                                    readonly>
+                                </v-text-field>
+                                <v-date-picker v-model="end_date" no-title scrollable actions>
+                                    <template scope="{ save, cancel }">
                                         <v-card-actions>
                                             <v-btn flat primary @click.native="cancel()">Cancel</v-btn>
                                             <v-btn flat primary @click.native="save()">Save</v-btn>
                                         </v-card-actions>
-                                        </template>
-                                    </v-date-picker>
-                                </v-menu>
+                                    </template>
+                                </v-date-picker>
+                            </v-menu>
                         </v-layout>
                         <v-layout>
-                        <v-flex sm5 xs12>
-                            <v-select label="Product" v-bind:items="products" v-model="selected_products" multiple chips />
-                            <v-select label="Version" v-bind:items="versions" v-model="selected_versions" multiple chips />
-                            <v-select label="Platform" v-bind:items="platforms" v-model="selected_platforms" multiple chips />
-                        </v-flex>
+                            <v-flex sm5 xs12>
+                                <v-select label="Product" v-bind:items="products" v-model="selected_products" multiple chips />
+                                <v-select label="Version" v-bind:items="versions" v-model="selected_versions" multiple chips />
+                                <v-select label="Platform" v-bind:items="platforms" v-model="selected_platforms" multiple chips />
+                            </v-flex>
                         </v-layout>
                     </v-container>
                 </v-card>
             </v-flex>
         </v-layout>
     </v-flex>
-    <v-layout row wrap>
-        <v-tabs class="elevation-5" left dark>
-            <v-tabs-bar slot="activators">
+        <v-tabs class="elevation-5" dark :scrollable="false">
+            <v-tabs-bar>
                 <v-tabs-slider></v-tabs-slider>
                 <v-tabs-item href="#signatures">
                     Signatures
@@ -59,10 +56,10 @@
                     Reports
                 </v-tabs-item>
             </v-tabs-bar>
-            <v-tabs-content id="signatures">
-                <section fluid>
+            <v-tabs-items>
+                <v-tabs-content id="signatures">
                     <div class="text-lg-right text-xs-center pt-2">
-                        <v-pagination v-model="facet_pagination.page" v-bind:length.number="Math.ceil(facet_pagination.totalItems / facet_pagination.rowsPerPage)"></v-pagination>
+                        <v-pagination v-model="facet_pagination.page" :length="Math.ceil(facet_pagination.totalItems / facet_pagination.rowsPerPage)"></v-pagination>
                     </div>
                     <v-data-table v-bind:headers="facet_headers" v-bind:items="facet_items" v-bind:pagination.sync="facet_pagination" hide-actions
                         class="elevation-1" id="facet_table">
@@ -75,12 +72,10 @@
                             <td class="text-xs-right">{{ percentage(props.item.percentage) }}</td>
                         </template>
                     </v-data-table>
-                </section>
-            </v-tabs-content>
-            <v-tabs-content id="reports">
-                <section fluid>
+                </v-tabs-content>
+                <v-tabs-content id="reports">
                     <div class="text-lg-right text-xs-center pt-2">
-                        <v-pagination v-model="report_pagination.page" v-bind:length.number="Math.ceil(report_pagination.totalItems / report_pagination.rowsPerPage)"></v-pagination>
+                        <v-pagination v-model="report_pagination.page" :length="Math.ceil(report_pagination.totalItems / report_pagination.rowsPerPage)"></v-pagination>
                     </div>
                     <v-data-table v-bind:headers="report_headers" v-bind:items="report_items" v-bind:pagination.sync="report_pagination" :total-items="report_count"
                         :loading="report_loading" hide-actions class="elevation-1" id="report_table">
@@ -95,8 +90,7 @@
                             <td class="text-xs-right">{{ props.item.platform }}</td>
                         </template>
                     </v-data-table>
-                </section>
-            </v-tabs-content>
+                </v-tabs-content>
+            </v-tabs-items>
         </v-tabs>
-    </v-layout>
-</v-layout>
+</v-container>

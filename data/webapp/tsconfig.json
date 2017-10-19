@@ -3,12 +3,12 @@
     "lib": [
       "dom",
       "es5",
-      "es2015",
+      "esnext",
       "es2015.promise"
     ],
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es2017",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

@@ -1,6 +1,6 @@
-<v-layout row wrap>
-    <v-tabs class="elevation-5" left dark>
-        <v-tabs-bar slot="activators">
+<v-container fluid grid-list-lg>
+<v-tabs class="elevation-5" left dark>
+        <v-tabs-bar>
             <v-tabs-slider></v-tabs-slider>
             <v-tabs-item href="#signatures">
                 Signatures
@@ -38,44 +38,45 @@
                 </v-list>
             </v-menu>
         </v-tabs-bar>
-        <v-tabs-content id="signatures">
-            <section fluid>
-                <div class="text-lg-right text-xs-center pt-2">
-                    <v-pagination v-model="facet_pagination.page" v-bind:length.number="Math.ceil(facet_pagination.totalItems / facet_pagination.rowsPerPage)"></v-pagination>
-                </div>
-                <v-data-table v-bind:headers="facet_headers" v-bind:items="facet_items" v-bind:pagination.sync="facet_pagination"
-                    hide-actions class="elevation-1" id="facet_table">
-                    <template slot="items" scope="props">
-                        <td>{{ props.item.rank }}</td>
-                        <td class="text-xs-right">
-                            <router-link v-bind:to="'/signature/' + props.item.signature_uri">{{ props.item.signature }}</router-link>
-                        </td>
-                        <td class="text-xs-right">{{ props.item.count }}</td>
-                        <td class="text-xs-right">{{ percentage(props.item.percentage) }}</td>
-                    </template>
-                </v-data-table>
-            </section>
-        </v-tabs-content>
-        <v-tabs-content id="reports">
-            <section fluid>
-                <div class="text-lg-right text-xs-center pt-2">
-                    <v-pagination v-model="report_pagination.page" v-bind:length.number="Math.ceil(report_pagination.totalItems / report_pagination.rowsPerPage)"></v-pagination>
-                </div>
-                <v-data-table v-bind:headers="report_headers" v-bind:items="report_items" v-bind:pagination.sync="report_pagination"
-                    :total-items="report_count" :loading="report_loading" hide-actions class="elevation-1"
-                    id="report_table">
-                    <template slot="items" scope="props">
-                        <td>
-                            <router-link v-bind:to="'/report/' + props.item.crash_id">{{ props.item.crash_id }}</router-link>
-                        </td>
-                        <td class="text-xs-right">{{ props.item.date }}</td>
-                        <td class="text-xs-right">{{ props.item.signature }}</td>
-                        <td class="text-xs-right">{{ props.item.product }}</td>
-                        <td class="text-xs-right">{{ props.item.version }}</td>
-                        <td class="text-xs-right">{{ props.item.platform }}</td>
-                    </template>
-                </v-data-table>
-            </section>
-        </v-tabs-content>
+        <v-tabs-items>
+            <v-tabs-content id="signatures">
+                <section fluid>
+                    <div class="text-lg-right text-xs-center pt-2">
+                        <v-pagination v-model="facet_pagination.page" v-bind:length.number="Math.ceil(facet_pagination.totalItems / facet_pagination.rowsPerPage)"></v-pagination>
+                    </div>
+                    <v-data-table v-bind:headers="facet_headers" v-bind:items="facet_items" v-bind:pagination.sync="facet_pagination" hide-actions
+                        class="elevation-1" id="facet_table">
+                        <template slot="items" scope="props">
+                            <td>{{ props.item.rank }}</td>
+                            <td class="text-xs-right">
+                                <router-link v-bind:to="'/signature/' + props.item.signature_uri">{{ props.item.signature }}</router-link>
+                            </td>
+                            <td class="text-xs-right">{{ props.item.count }}</td>
+                            <td class="text-xs-right">{{ percentage(props.item.percentage) }}</td>
+                        </template>
+                    </v-data-table>
+                </section>
+            </v-tabs-content>
+            <v-tabs-content id="reports">
+                <section fluid>
+                    <div class="text-lg-right text-xs-center pt-2">
+                        <v-pagination v-model="report_pagination.page" v-bind:length.number="Math.ceil(report_pagination.totalItems / report_pagination.rowsPerPage)"></v-pagination>
+                    </div>
+                    <v-data-table v-bind:headers="report_headers" v-bind:items="report_items" v-bind:pagination.sync="report_pagination" :total-items="report_count"
+                        :loading="report_loading" hide-actions class="elevation-1" id="report_table">
+                        <template slot="items" scope="props">
+                            <td>
+                                <router-link v-bind:to="'/report/' + props.item.crash_id">{{ props.item.crash_id }}</router-link>
+                            </td>
+                            <td class="text-xs-right">{{ props.item.date }}</td>
+                            <td class="text-xs-right">{{ props.item.signature }}</td>
+                            <td class="text-xs-right">{{ props.item.product }}</td>
+                            <td class="text-xs-right">{{ props.item.version }}</td>
+                            <td class="text-xs-right">{{ props.item.platform }}</td>
+                        </template>
+                    </v-data-table>
+                </section>
+            </v-tabs-content>
+        </v-tabs-items>
     </v-tabs>
-</v-layout>
+</v-container>

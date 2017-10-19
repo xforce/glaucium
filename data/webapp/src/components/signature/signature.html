@@ -1,7 +1,7 @@
-<section>
+<v-container fluid grid-list-lg>
     <div class="headline">{{ sig }}</div>
     <v-tabs class="elevation-5" left dark>
-        <v-tabs-bar slot="activators">
+        <v-tabs-bar>
             <v-tabs-slider></v-tabs-slider>
             <v-tabs-item href="#summary">
                 Summary
@@ -10,57 +10,59 @@
                 Reports
             </v-tabs-item>
         </v-tabs-bar>
-        <v-tabs-content id="summary">
-            <v-container fluid>
-                <v-layout row wrap>  
-                    <v-flex xs12 lg6 class="mt-3">
-                        <v-card>
-                                <v-data-table v-bind:headers="os_headers" v-bind:items="os_items" hide-actions class="elevation-0"
-                                    id="os_table">
+        <v-tabs-items>
+            <v-tabs-content id="summary">
+                <v-container fluid>
+                    <v-layout row wrap>
+                        <v-flex xs12 lg6 class="mt-3">
+                            <v-card>
+                                <v-data-table v-bind:headers="os_headers" v-bind:items="os_items" hide-actions class="elevation-0" id="os_table">
                                     <template slot="items" scope="props">
                                         <td>{{ props.item.os_name }}</td>
                                         <td class="text-xs-right">{{ props.item.count }}</td>
                                         <td class="text-xs-right">{{ percentage(props.item.percentage) }}</td>
                                     </template>
                                 </v-data-table>
-                        </v-card>
-                    </v-flex>
-                    <v-flex xs12 lg6 class="mt-3">
-                        <v-card>
-                            <v-data-table v-bind:headers="version_headers" v-bind:items="version_items" hide-actions class="elevation-0"
-                                id="os_table">
-                                <template slot="items" scope="props">
-                                    <td>{{ props.item.version }}</td>
-                                    <td class="text-xs-right">{{ props.item.count }}</td>
-                                    <td class="text-xs-right">{{ percentage(props.item.percentage) }}</td>
-                                </template>
-                            </v-data-table>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-            </v-container>
-        </v-tabs-content>
-        <v-tabs-content id="reports">
-            <section fluid>
-                        <v-layout row wrap>
-                            <div class="text-lg-right text-xs-center pt-2">
-                                <v-pagination v-model="reports_pagination.page" v-bind:length="Math.ceil(reports_pagination.totalItems / reports_pagination.rowsPerPage)"></v-pagination>
-                            </div>
-                        </v-layout>
-                        <v-layout row wrap>
-                            <v-data-table v-bind:headers="reports_headers" v-bind:items="reports_items" v-bind:pagination.sync="reports_pagination" :total-items="reports_pagination.totalItems"
-                                hide-actions class="elevation-0" id="reports_table">
-                                <template slot="items" scope="props">
-                                    <td> <router-link v-bind:to="'/report/' + props.item.crash_id">{{ props.item.crash_id }}</router-link></td>
-                                    <td class="text-xs-right">{{ props.item.date }}</td>
-                                    <td class="text-xs-right">{{ props.item.signature }}</td>
-                                    <td class="text-xs-right">{{ props.item.product }}</td>
-                                    <td class="text-xs-right">{{ props.item.version }}</td>
-                                    <td class="text-xs-right">{{ props.item.platform }}</td>
-                                </template>
-                            </v-data-table>
-                        </v-layout>
-                    </section>
-        </v-tabs-content>
+                            </v-card>
+                        </v-flex>
+                        <v-flex xs12 lg6 class="mt-3">
+                            <v-card>
+                                <v-data-table v-bind:headers="version_headers" v-bind:items="version_items" hide-actions class="elevation-0" id="os_table">
+                                    <template slot="items" scope="props">
+                                        <td>{{ props.item.version }}</td>
+                                        <td class="text-xs-right">{{ props.item.count }}</td>
+                                        <td class="text-xs-right">{{ percentage(props.item.percentage) }}</td>
+                                    </template>
+                                </v-data-table>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+            </v-tabs-content>
+            <v-tabs-content id="reports">
+                <section fluid>
+                    <v-layout row wrap>
+                        <div class="text-lg-right text-xs-center pt-2">
+                            <v-pagination v-model="reports_pagination.page" v-bind:length="Math.ceil(reports_pagination.totalItems / reports_pagination.rowsPerPage)"></v-pagination>
+                        </div>
+                    </v-layout>
+                    <v-layout row wrap>
+                        <v-data-table v-bind:headers="reports_headers" v-bind:items="reports_items" v-bind:pagination.sync="reports_pagination" :total-items="reports_pagination.totalItems"
+                            hide-actions class="elevation-0" id="reports_table">
+                            <template slot="items" scope="props">
+                                <td>
+                                    <router-link v-bind:to="'/report/' + props.item.crash_id">{{ props.item.crash_id }}</router-link>
+                                </td>
+                                <td class="text-xs-right">{{ props.item.date }}</td>
+                                <td class="text-xs-right">{{ props.item.signature }}</td>
+                                <td class="text-xs-right">{{ props.item.product }}</td>
+                                <td class="text-xs-right">{{ props.item.version }}</td>
+                                <td class="text-xs-right">{{ props.item.platform }}</td>
+                            </template>
+                        </v-data-table>
+                    </v-layout>
+                </section>
+            </v-tabs-content>
+        </v-tabs-items>
     </v-tabs>
-</section>
+</v-container>

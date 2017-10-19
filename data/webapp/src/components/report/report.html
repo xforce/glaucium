@@ -1,5 +1,6 @@
+<v-container fluid grid-list-lg>
 <v-tabs class="elevation-5" left dark>
-    <v-tabs-bar slot="activators">
+    <v-tabs-bar>
         <v-tabs-slider></v-tabs-slider>
         <v-tabs-item href="#details">
             Details
@@ -31,6 +32,7 @@
             <v-icon dark>delete_forever</v-icon>
         </v-btn>
     </v-tabs-bar>
+    <v-tabs-items>
     <v-tabs-content id="details">
         <v-card>
             <v-card-text>
@@ -147,5 +149,6 @@
             <p>This feature is currently not finished</p>
         </v-container>
     </v-tabs-content>
+    </v-tabs-items>
 </v-tabs>
-</v-layout>
+</v-container>

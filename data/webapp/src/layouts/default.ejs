@@ -12,7 +12,7 @@
 <body>
   <div id="app">
     <v-app>
-      <v-navigation-drawer v-model="nav_active" :mini-variant.sync="nav_mini" dark persistent enable-resize-watcher>
+      <v-navigation-drawer v-model="nav_active" :mini-variant="nav_mini" app dark enable-resize-watcher>
         <v-list pa-0>
           <v-list-tile router-link to="/">
             <v-list-tile-avatar>
@@ -59,18 +59,18 @@
           </v-list-tile>
         </v-list>
       </v-navigation-drawer>
-      <v-toolbar fixed class="hidden-sm-and-down">
+      <v-toolbar fixed app class="hidden-sm-and-down">
         <v-toolbar-side-icon v-on:click="$store.commit('glaucium/SIDEBAR_MINI', !$store.state.sidebar_mini)">
         </v-toolbar-side-icon>
       </v-toolbar>
-      <v-toolbar fixed class="hidden-md-and-up">
+      <v-toolbar fixed app class="hidden-md-and-up">
         <v-toolbar-side-icon v-on:click="$store.commit('glaucium/SIDEBAR', !$store.state.sidebar)">
         </v-toolbar-side-icon>
       </v-toolbar>
       <main>
-        <v-container fluid>
+        <v-content>
           <router-view>loading...</router-view>
-        </v-container>
+        </v-content>
       </main>
     </v-app>
   </div>
